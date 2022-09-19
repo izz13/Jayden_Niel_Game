@@ -8,10 +8,11 @@ def level2loop():
     black = (0, 0, 0)
     clock = pygame.time.Clock()
     fps = 60
+    DungeonImg1 = pygame.image.load("DungeonScene1.png")
+
 
     def dungeonScene1():
-        pygame.image.load("DungeonScene1.png")
-
+        pass
     scene = "dungeonScene"
     isRunning = True
     while isRunning:
