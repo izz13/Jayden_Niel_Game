@@ -8,9 +8,11 @@ def leve1loop():
     black = (0, 0, 0)
     clock = pygame.time.Clock()
     fps = 60
+    PlainsImg = pygame.image.load("plainsbackground.png")
+    MtImg = pygame.image.load("Mountainbackground.png")
 
     def plainScene():
-        screen.fill(white)
+        screen.blit(PlainsImg,(0,0))
     def mountainScene():
         screen.fill(white)
     scene = "plainScene"
