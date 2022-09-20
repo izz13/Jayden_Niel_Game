@@ -9,12 +9,13 @@ def leve1loop():
     screen = pygame.display.set_mode([screen_width, screen_height])
     white = (255, 255, 255)
     black = (0, 0, 0)
+    green = (0, 255, 0)
     clock = pygame.time.Clock()
     fps = 60
     PlainsImg = pygame.image.load("plainsbackground.png")
     MtImg = pygame.image.load("Mountainbackground.png")
     player.pos = [0,300]
-    plainsplatforms=[Platform([0,500],800,100,white)]
+    plainsplatforms=[Platform([0, 480], 800, 120, green)]
 
     def plainScene():
         screen.blit(PlainsImg,(0,0))
