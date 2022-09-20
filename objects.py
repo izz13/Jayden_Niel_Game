@@ -18,6 +18,16 @@ class Player:
         screen.blit(self.image, self.pos)
         self.rect.center = [self.pos[0] + 32, self.pos[1] + 32]
 
+class Platform:
+    def __init__(self, pos, width, height, color):
+        self.pos = pos
+        self.width = width
+        self.height = height
+        self.color = color
+        self.rect = pygame.Rect(self.pos, [self.width, self.height])
+
+    def render(self, screen):
+        pygame.draw.rect(screen, self.color, self.rect)
 
 
 #objects go here
