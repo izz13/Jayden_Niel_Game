@@ -1,6 +1,7 @@
 import pygame
 import objects
 from objects import player
+from objects import Platform
 
 def leve1loop():
     screen_width = 800
@@ -13,10 +14,13 @@ def leve1loop():
     PlainsImg = pygame.image.load("plainsbackground.png")
     MtImg = pygame.image.load("Mountainbackground.png")
     player.pos = [0,300]
+    plainsplatforms=[Platform([0,500],800,100,white)]
 
     def plainScene():
         screen.blit(PlainsImg,(0,0))
         player.render(screen)
+        for platform in plainsplatforms:
+            platform.render(screen)
     def mountainScene():
         screen.fill(white)
     scene = "plainScene"
