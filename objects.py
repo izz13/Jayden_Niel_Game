@@ -29,7 +29,6 @@ class Player:
         pygame.draw.rect(screen,(0,0,255),self.rect)
 
     def move(self,events,time):
-        speed = 0
         if self.grounded == False:
             self.velocity += gravity*time
             self.pos += self.velocity + (0.5)*gravity*time**2
@@ -38,12 +37,12 @@ class Player:
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
-                    speed = -self.speed
+                    self.velocity[0] = -self.speed
                 if event.key == pygame.K_RIGHT:
-                    speed = self.speed
+                    self.velocity[0] = self.speed
             if event.type == pygame.KEYUP:
-                speed = 0
-        self.pos[0] += speed
+                self.velocity[0] = 0
+        self.pos += self.velocity
 
 class Platform:
     def __init__(self, pos, width, height, color):
