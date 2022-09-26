@@ -14,12 +14,14 @@ def leve1loop():
     fps = 60
     PlainsImg = pygame.image.load("plainsbackground.png")
     MtImg = pygame.image.load("Mountainbackground.png")
-    player.pos = [0,300]
+    player.pos = [0,0]
     plainsplatforms=[Platform([0, 480], 800, 120, green)]
 
-    def plainScene():
+    def plainScene(events,time):
         screen.blit(PlainsImg,(0,0))
         player.render(screen)
+        player.move(events,time)
+        player.collision_plat(plainsplatforms)
         for platform in plainsplatforms:
             platform.render(screen)
     def mountainScene():
@@ -27,12 +29,15 @@ def leve1loop():
     scene = "plainScene"
     isRunning = True
     while isRunning:
-        for event in pygame.event.get():
+        events = pygame.event.get()
+        for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 isRunning = False
+
+        time = clock.get_time()/fps
         if scene == "plainScene":
-            plainScene()
+            plainScene(events,time)
 
         pygame.display.flip()
         clock.tick(fps)
