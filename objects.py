@@ -17,12 +17,15 @@ class Player:
         self.health = health
         self.weapon = weapon
         self.grounded = False
+        self.jump = False
 
     def collision_plat(self,platforms):
         for platform in platforms:
-            if platform.rect.colliderect(self.rect):
+            if platform.rect.colliderect(self.rect) and self.jump == False:
                 self.grounded = True
                 self.pos[1]  = platform.pos[1] - self.rect.height
+            else:
+                self.grounded = False
     def render(self, screen):
         screen.blit(self.image, self.pos)
         self.rect.center = [self.pos[0] + 32, self.pos[1] + 32]
@@ -34,15 +37,23 @@ class Player:
             self.pos += self.velocity + (0.5)*gravity*time**2
         elif self.grounded == True:
             self.velocity[1] = 0
+        if self.jump == True:
+            self.velocity[1] = -3
+            #self.jump = False
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     self.velocity[0] = -self.speed
                 if event.key == pygame.K_RIGHT:
                     self.velocity[0] = self.speed
+                if event.key == pygame.K_UP:
+                    print("jump")
+                    self.jump = True
             if event.type == pygame.KEYUP:
                 self.velocity[0] = 0
+                self.jump = False
         self.pos += self.velocity
+
 
 class Platform:
     def __init__(self, pos, width, height, color):
