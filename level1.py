@@ -24,9 +24,9 @@ def leve1loop():
         player.collision_plat(plainsplatforms)
         for platform in plainsplatforms:
             platform.render(screen)
-    def mountainScene():
+    def mountainScene(events,time):
         screen.fill(white)
-    scene = "plainScene"
+    scene = "mountainScene"
     isRunning = True
     while isRunning:
         events = pygame.event.get()
@@ -38,6 +38,8 @@ def leve1loop():
         time = clock.get_time()/fps
         if scene == "plainScene":
             plainScene(events,time)
+        if scene == "mountainScene":
+            mountainScene(events,time)
 
         pygame.display.flip()
         clock.tick(fps)

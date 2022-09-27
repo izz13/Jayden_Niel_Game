@@ -15,7 +15,7 @@ def level2loop():
     DungeonImg4 = pygame.image.load("DungeonScene4.png")
 
 
-    def dungeonScene1():
+    def dungeonScene1(events,time):
         screen.fill(white)
         screen.blit(DungeonImg1, (0, 0))
         player.render(screen)
@@ -35,40 +35,18 @@ def level2loop():
         screen.blit(DungeonImg4, (0, 0))
         player.render(screen)
 
+
     scene = "dungeonScene1"
     isRunning = True
     while isRunning:
-        for event in pygame.event.get():
+        events = pygame.event.get()
+        for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 isRunning = False
-
-    scene = "dungeonScene2"
-    isRunning = True
-    while isRunning:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                isRunning = False
-
-    scene = "dungeonScene3"
-    isRunning = True
-    while isRunning:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                isRunning = False
-
-    scene = "dungeonScene4"
-    isRunning = True
-    while isRunning:
-        for event in pygame.event.get():
-            if event.type == pygame.QUIT:
-                pygame.quit()
-                isRunning = False
-
+        time = clock.get_time() / fps
         if scene == "dungeonScene1":
-            dungeonScene1()
+            dungeonScene1(events,time)
         elif scene == "dungeonScene2":
             dungeonScene2()
         elif scene == "dungeonScene3":
