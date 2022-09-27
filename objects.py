@@ -50,8 +50,10 @@ class Player:
                     print("jump")
                     self.jump = True
             if event.type == pygame.KEYUP:
-                self.velocity[0] = 0
-                self.jump = False
+                if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
+                    self.velocity[0] = 0
+                if event.key == pygame.K_UP:
+                    self.jump = False
         self.pos += self.velocity
 
 
