@@ -21,9 +21,14 @@ class Player:
 
     def collision_plat(self,platforms):
         for platform in platforms:
-            if platform.rect.colliderect(self.rect) and self.jump == False:
-                self.grounded = True
-                self.pos[1]  = platform.pos[1] - self.rect.height
+            if platform.rect.colliderect(self.rect):
+                if self.jump == False:
+                    self.grounded = True
+                    self.pos[1]  = platform.pos[1] - self.rect.height
+                if self.jump == True:
+                    if self.pos[1] > platform.pos[1] - self.rect.height:
+                        self.pos[1] = platform.pos[1] - self.rect.height
+
             else:
                 self.grounded = False
     def render(self, screen):
