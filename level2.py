@@ -1,7 +1,11 @@
 import pygame
 from objects import player
+from objects import Platform
+
+pygame.init()
 
 def level2loop():
+
     screen_width = 800
     screen_height = 600
     screen = pygame.display.set_mode([screen_width, screen_height])
@@ -14,12 +18,17 @@ def level2loop():
     DungeonImg3 = pygame.image.load("DungeonScene3.png")
     DungeonImg4 = pygame.image.load("DungeonScene4.png")
 
+    dungeon1_platforms = [Platform([0, 480], 800, 120, black)]
+
 
     def dungeonScene1(events,time):
         screen.fill(white)
         screen.blit(DungeonImg1, (0, 0))
         player.render(screen)
-
+        player.move(events, time)
+        player.collision_plat(dungeon1_platforms)
+        for platform in dungeon1_platforms:
+            platform.render(screen)
     def dungeonScene2():
         screen.fill(white)
         screen.blit(DungeonImg2, (0, 0))
@@ -54,8 +63,8 @@ def level2loop():
         elif scene == "dungeonScene4":
             dungeonScene4()
 
-    pygame.display.flip()
-    clock.tick(fps)
+        pygame.display.flip()
+        clock.tick(fps)
     pygame.quit()
 
 

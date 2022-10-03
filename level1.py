@@ -3,6 +3,8 @@ import objects
 from objects import player
 from objects import Platform
 
+pygame.init()
+
 def leve1loop():
     screen_width = 800
     screen_height = 600

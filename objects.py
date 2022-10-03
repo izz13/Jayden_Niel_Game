@@ -29,7 +29,7 @@ class Player:
     def render(self, screen):
         screen.blit(self.image, self.pos)
         self.rect.center = [self.pos[0] + 32, self.pos[1] + 32]
-        pygame.draw.rect(screen,(0,0,255),self.rect)
+        #pygame.draw.rect(screen,(0,0,255),self.rect)
 
     def move(self,events,time):
         if self.grounded == False:
