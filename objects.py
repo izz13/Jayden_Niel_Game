@@ -68,18 +68,19 @@ class Platform:
         self.width = width
         self.height = height
         self.color = color
+        self.thickness = 2
         self.rect = pygame.Rect(self.pos, [self.width, self.height])
-        self.top_pos = [self.pos,[self.pos[0] + self.width,self.pos[1]],"top"]
-        self.bottom_pos = [[self.pos[0],self.pos[1] + self.height],[self.pos[0] + self.width,self.pos[1] + self.height],"bottom"]
-        self.left_pos = [self.pos,[self.pos[0],self.pos[1] + self.height],"left"]
-        self.right_pos = [[self.pos[0] + self.width,self.pos[1]],[self.pos[0] + self.width,self.pos[1] + self.height],"right"]
-        self.lines = [self.top_pos,self.bottom_pos,self.left_pos,self.right_pos]
+        self.top_rect = pygame.Rect(self.pos,[self.width,self.thickness])
+        self.bottom_rect = pygame.Rect([self.pos[0],self.pos[1]+self.height],[self.width,self.thickness])
+        self.left_rect = pygame.Rect(self.pos,[self.thickness,self.height])
+        self.right_rect = pygame.Rect([self.pos[0]+self.width,self.pos[1]],[self.thickness,self.height])
+        self.lines = [self.top_rect,self.bottom_rect,self.left_rect,self.right_rect]
 
 
     def render(self, screen):
         pygame.draw.rect(screen, self.color, self.rect)
         for line in self.lines:
-            pygame.draw.line(screen,(255,0,0),line[0],line[1])
+            pygame.draw.rect(screen,(255,0,0),line)
 
 
 
