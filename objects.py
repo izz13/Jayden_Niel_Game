@@ -93,7 +93,7 @@ class Platform:
         self.width = width
         self.height = height
         self.color = color
-        self.thickness = 20
+        self.thickness = 5
         self.rect = pygame.Rect(self.pos, [self.width, self.height])
         self.top_rect = pygame.Rect(self.pos, [self.width, self.thickness])
         self.bottom_rect = pygame.Rect([self.pos[0], self.pos[1] + self.height], [self.width, self.thickness])
