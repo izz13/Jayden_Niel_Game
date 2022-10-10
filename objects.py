@@ -39,6 +39,8 @@ class Player:
                         self.pos[1] = platform.pos[1] - self.rect.height
             if platform.left_rect.colliderect(self.right_rect):
                 self.pos[0] = platform.pos[0]-self.width
+            if platform.right_rect.colliderect(self.left_rect):
+                self.pos[0] = platform.pos[0]
 
             else:
                 self.grounded = False
