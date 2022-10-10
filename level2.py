@@ -11,6 +11,7 @@ def level2loop():
     screen = pygame.display.set_mode([screen_width, screen_height])
     white = (255, 255, 255)
     black = (0, 0, 0)
+    gray = (178, 190, 181)
     clock = pygame.time.Clock()
     fps = 60
     DungeonImg1 = pygame.image.load("DungeonScene1.png")
@@ -18,29 +19,35 @@ def level2loop():
     DungeonImg3 = pygame.image.load("DungeonScene3.png")
     DungeonImg4 = pygame.image.load("DungeonScene4.png")
 
-    dungeon1_platforms = [Platform([0, 480], 800, 120, black)]
 
 
-    def dungeonScene1(events,time):
-        screen.fill(white)
+
+    def dungeonScene1(events, time):
+        dungeon1_platforms = [Platform([0, 245], 91, 355, black), Platform([91, 481], 173, 119, black), Platform([164, 0],136, 140, black),
+                              Platform([377, 531], 536, 69, black), Platform([300, 0], 138, 3, black), Platform([438, 0], 138, 140, black),
+                              Platform([719, 216], 81, 84, black), Platform([685, 476], 115, 54, black), Platform([754, 375], 46, 100, black),
+                              Platform([382, 477], 192, 53, black), Platform([715, 0], 85, 135, black), Platform([577, 0], 135, 3, black),
+                            Platform([576, 512], 104, 18, black), Platform([720, 370], 80, 3, black)]
+        print(pygame.mouse.get_pos())
+        screen.fill(gray)
         screen.blit(DungeonImg1, (0, 0))
         player.render(screen)
         player.move(events, time)
         player.collision_plat(dungeon1_platforms)
         for platform in dungeon1_platforms:
             platform.render(screen)
-    def dungeonScene2():
-        screen.fill(white)
+    def dungeonScene2(events, time):
+        screen.fill(gray)
         screen.blit(DungeonImg2, (0, 0))
         player.render(screen)
 
-    def dungeonScene3():
-        screen.fill(white)
+    def dungeonScene3(events, time):
+        screen.fill(gray)
         screen.blit(DungeonImg3, (0, 0))
         player.render(screen)
 
-    def dungeonScene4():
-        screen.fill(white)
+    def dungeonScene4(events, time):
+        screen.fill(gray)
         screen.blit(DungeonImg4, (0, 0))
         player.render(screen)
 
@@ -55,7 +62,7 @@ def level2loop():
                 isRunning = False
         time = clock.get_time() / fps
         if scene == "dungeonScene1":
-            dungeonScene1(events,time)
+            dungeonScene1(events, time)
         elif scene == "dungeonScene2":
             dungeonScene2()
         elif scene == "dungeonScene3":
