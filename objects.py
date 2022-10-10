@@ -47,6 +47,8 @@ class Player:
                 #self.pos[0] = platform.pos[0] + platform.width + buffer
                 if self.velocity[0] < 0:
                     self.velocity[0] = 0
+            if platform.bottom_rect.colliderect(self.top_rect):
+                self.velocity[1] = 0
             if platform.rect.collidepoint(self.rect.center):
                 self.grounded = True
                 self.pos[1] = platform.pos[1] - self.rect.height
