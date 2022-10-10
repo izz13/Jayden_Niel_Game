@@ -40,9 +40,13 @@ class Player:
                     if self.pos[1] > platform.pos[1] - self.rect.height:
                         self.pos[1] = platform.pos[1] - self.rect.height
             if platform.left_rect.colliderect(self.right_rect):
-                self.pos[0] = platform.pos[0]-self.width-buffer
+                #self.pos[0] = platform.pos[0]-self.width-buffer
+                if self.velocity[0] > 0:
+                    self.velocity[0] = 0
             if platform.right_rect.colliderect(self.left_rect):
-                self.pos[0] = platform.pos[0] + platform.width + buffer
+                #self.pos[0] = platform.pos[0] + platform.width + buffer
+                if self.velocity[0] < 0:
+                    self.velocity[0] = 0
             if platform.rect.collidepoint(self.rect.center):
                 self.grounded = True
                 self.pos[1] = platform.pos[1] - self.rect.height
@@ -92,11 +96,12 @@ class Platform:
         self.height = height
         self.color = color
         self.thickness = 5
-        self.rect = pygame.Rect(self.pos, [self.width, self.height])
-        self.top_rect = pygame.Rect(self.pos, [self.width, self.thickness])
-        self.bottom_rect = pygame.Rect([self.pos[0], self.pos[1] + self.height], [self.width, self.thickness])
-        self.left_rect = pygame.Rect(self.pos, [self.thickness, self.height])
-        self.right_rect = pygame.Rect([self.pos[0] + self.width, self.pos[1]], [self.thickness, self.height])
+        self.spacing = 2
+        self.rect = pygame.Rect(self.pos, [self.width, self.height-self.spacing])
+        self.top_rect = pygame.Rect([self.pos[0], self.pos[1]], [self.width - self.spacing, self.thickness])
+        self.bottom_rect = pygame.Rect([self.pos[0], self.pos[1] + self.height], [self.width-self.spacing, self.thickness])
+        self.left_rect = pygame.Rect(self.pos, [self.thickness, self.height-self.spacing])
+        self.right_rect = pygame.Rect([self.pos[0] + self.width, self.pos[1]], [self.thickness, self.height-self.spacing])
         self.lines = [self.top_rect, self.bottom_rect, self.left_rect, self.right_rect]
 
     def render(self, screen):
