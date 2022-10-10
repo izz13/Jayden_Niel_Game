@@ -26,9 +26,10 @@ class Player:
         self.weapon = weapon
         self.grounded = False
         self.jump = True
+        self.jump_height = -6
 
     def collision_plat(self, platforms):
-        buffer = 15
+        buffer = 2
         for platform in platforms:
             if platform.top_rect.colliderect(self.bottom_rect):
                 if self.jump == False:
@@ -75,7 +76,7 @@ class Player:
                     self.velocity[0] = self.speed
                 if event.key == pygame.K_UP and self.jump == True:
                     print("jump")
-                    self.velocity[1] = -5
+                    self.velocity[1] = self.jump_height
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
                     self.velocity[0] = 0
