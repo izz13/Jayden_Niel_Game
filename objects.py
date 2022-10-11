@@ -26,7 +26,7 @@ class Player:
         self.weapon = weapon
         self.grounded = False
         self.jump = True
-        self.jump_height = -6
+        self.jump_height = -6.5
 
     def collision_plat(self, platforms):
         buffer = 2
