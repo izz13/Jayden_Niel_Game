@@ -27,6 +27,7 @@ class Player:
         self.grounded = False
         self.jump = True
         self.jump_height = -6.5
+        self.cooldown = 30
 
     def collision_plat(self, platforms):
         buffer = 2
@@ -119,11 +120,12 @@ class Platform:
                 pygame.draw.rect(screen, (255, 0, 0), line)
 
 class Wand:
-    def __init__(self,type,image,damage_mult,speed):
+    def __init__(self,type,image,damage_mult,speed,pos):
         self.type=type
         self.image=image
         self.damage_mult=damage_mult
         self.speed=speed
+        self.pos=pos
 # objects go here
 player = Player([0, 0], 3, 100, "wand",[])
 
