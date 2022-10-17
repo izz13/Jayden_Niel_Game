@@ -127,6 +127,12 @@ class Wand:
 # objects go here
 player = Player([0, 0], 3, 100, "wand",[])
 
+class Spell:
+    def __init__(self, type, image, damage):
+        self.type = type
+        self.image = image
+        self.damage = damage
+
 
 """
 Damage works:
