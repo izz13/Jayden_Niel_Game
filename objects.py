@@ -36,9 +36,11 @@ class Player:
                     self.grounded = True
                     self.jump = True
                     self.pos[1] = platform.pos[1] - self.rect.height
+                    self.velocity[1] = 0
                 if self.jump == True:
                     if self.pos[1] > platform.pos[1] - self.rect.height:
                         self.pos[1] = platform.pos[1] - self.rect.height
+                        self.velocity[1] = 0
             if platform.left_rect.colliderect(self.right_rect):
                 #self.pos[0] = platform.pos[0]-self.width-buffer
                 if self.velocity[0] > 0:
@@ -49,6 +51,7 @@ class Player:
                     self.velocity[0] = 0
             if platform.bottom_rect.colliderect(self.top_rect):
                 self.velocity[1] = 0
+
             if platform.rect.collidepoint(self.rect.center):
                 self.grounded = True
                 self.pos[1] = platform.pos[1] - self.rect.height
