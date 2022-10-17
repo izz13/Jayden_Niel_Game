@@ -28,7 +28,7 @@ def level2loop():
                               Platform([719, 216], 81, 84, black), Platform([685, 476], 115, 54, black), Platform([754, 375], 46, 100, black),
                               Platform([382, 477], 192, 53, black), Platform([715, 0], 85, 135, black), Platform([577, 0], 135, 3, black),
                               Platform([576, 512], 104, 18, black), Platform([720, 370], 80, 3, black), Platform([197, 245], 100, 3, black),
-                              Platform([197, 402], 100, 3, black), Platform([391, 322], 140, 3, black), Platform([598, 365], 100, 3, black),
+                              Platform([197, 402], 100, 3, black), Platform([391, 322], 140, 3, black), Platform([576, 365], 100, 3, black),
                               Platform([598, 250], 100, 3, black)]
         print(pygame.mouse.get_pos())
         screen.fill(gray)
