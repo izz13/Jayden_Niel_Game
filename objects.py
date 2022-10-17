@@ -6,7 +6,7 @@ gravity = Vector2(0, 1)
 
 # classes go here
 class Player:
-    def __init__(self, pos, speed, health, weapon):
+    def __init__(self, pos, speed, health, weapon,spells):
         self.image_raw = pygame.image.load("Apprentice_Wizard.png")
         self.width, self.height = 64, 64
         self.image = pygame.transform.scale(self.image_raw, [64, 64])
@@ -23,6 +23,7 @@ class Player:
         self.speed = speed
         self.health = health
         self.weapon = weapon
+        self.spells = spells
         self.grounded = False
         self.jump = True
         self.jump_height = -6.5
@@ -67,8 +68,10 @@ class Player:
         self.right_rect = pygame.Rect([self.pos[0] + self.width, self.pos[1]], [self.thickness, self.height])
         self.lines = [self.top_rect, self.bottom_rect, self.left_rect, self.right_rect]
         # pygame.draw.rect(screen,(0,0,255),self.rect)
-        for line in self.lines:
-            pygame.draw.rect(screen, (255, 0, 0), line)
+        draw = True
+        if draw == True:
+            for line in self.lines:
+                pygame.draw.rect(screen, (255, 0, 0), line)
 
     def move(self, events, time):
         if self.grounded == False:
@@ -115,6 +118,16 @@ class Platform:
             for line in self.lines:
                 pygame.draw.rect(screen, (255, 0, 0), line)
 
-
+class Wand:
+    def __init__(self,type,image,damage_mult,speed):
+        pass
 # objects go here
-player = Player([0, 0], 3, 100, "wand")
+player = Player([0, 0], 3, 100, "wand",[])
+
+
+"""
+Damage works:
+Fire spell with a damage of 50, then we multiply the speel with the wand's damage_mult
+e.g. starter wand has a damag_mult of 1.25
+total damage would be 50*1.25 = 62.5
+"""
