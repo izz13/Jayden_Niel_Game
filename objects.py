@@ -4,7 +4,6 @@ from pygame.math import Vector2
 # Variables here
 gravity = Vector2(0, 1)
 
-
 # classes go here
 class Player:
     def __init__(self, pos, speed, health, weapon):
