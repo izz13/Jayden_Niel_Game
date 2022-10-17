@@ -120,7 +120,10 @@ class Platform:
 
 class Wand:
     def __init__(self,type,image,damage_mult,speed):
-        pass
+        self.type=type
+        self.image=image
+        self.damage_mult=damage_mult
+        self.speed=speed
 # objects go here
 player = Player([0, 0], 3, 100, "wand",[])
 
