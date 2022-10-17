@@ -121,6 +121,12 @@ class Platform:
 class Wand:
     def __init__(self,type,image,damage_mult,speed):
         pass
+
+class Spells:
+    def __init__(self, type, image, damage):
+        self.type = type
+        self.image = image
+        self.damage = damage
 # objects go here
 player = Player([0, 0], 3, 100, "wand",[])
 
