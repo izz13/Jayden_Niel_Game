@@ -6,7 +6,7 @@ gravity = Vector2(0, 1)
 
 # classes go here
 class Player:
-    def __init__(self, pos, speed, health, weapon,spells):
+    def __init__(self, pos, speed, health, wand,spells):
         self.image_raw = pygame.image.load("Apprentice_Wizard.png")
         self.width, self.height = 64, 64
         self.image = pygame.transform.scale(self.image_raw, [64, 64])
@@ -22,7 +22,7 @@ class Player:
         self.rect.center = [self.pos[0] + 32, self.pos[1] + 32]
         self.speed = speed
         self.health = health
-        self.weapon = weapon
+        self.wand = wand
         self.spells = spells
         self.grounded = False
         self.jump = True
@@ -61,6 +61,7 @@ class Player:
                 self.grounded = False
 
     def render(self, screen):
+        #Rendering collsion and player image
         screen.blit(self.image, self.pos)
         self.rect.center = [self.pos[0] + 32, self.pos[1] + 32]
         self.top_rect = pygame.Rect(self.pos, [self.width, self.thickness])
@@ -73,6 +74,11 @@ class Player:
         if draw == True:
             for line in self.lines:
                 pygame.draw.rect(screen, (255, 0, 0), line)
+        #rendering wand and spells
+        self.wand.pos[0] = self.pos[0] + self.width - 25
+        self.wand.pos[1] = self.pos[1] + self.height/2 - 30
+        self.wand.render(screen)
+
 
     def move(self, events, time):
         if self.grounded == False:
@@ -120,25 +126,45 @@ class Platform:
                 pygame.draw.rect(screen, (255, 0, 0), line)
 
 class Wand:
-    def __init__(self,type,image,damage_mult,speed,pos):
+    def __init__(self,type,image,damage_mult,speed):
         self.type=type
-        self.image=image
+        self.image_raw=pygame.image.load(image)
+        self.image_scaled = pygame.transform.scale(self.image_raw,[30,50])
+        self.image = pygame.transform.rotozoom(self.image_scaled,-45,1)
         self.damage_mult=damage_mult
         self.speed=speed
-        self.pos=pos
-# objects go here
-player = Player([0, 0], 3, 100, "wand",[])
+        self.pos=[0,0]
+    def render(self,screen):
+        screen.blit(self.image,self.pos)
 
 class Spell:
-    def __init__(self, type, image, damage):
+    def __init__(self, type, image, size, damage):
         self.type = type
-        self.image = image
+        self.image_raw = pygame.image.load(image)
+        self.size = size
+        self.image = pygame.transform.scale(self.image_raw,self.size)
+        self.rect = self.image.get_bounding_rect()
         self.damage = damage
+        self.pos = Vector2(0)
+        self.velocity = Vector2(0)
+
+    def render(self,screen):
+        self.rect.topleft = self.pos
+        screen.blit(self.image,self.pos)
+
+# objects go here
+starter_wand = Wand("starter_wand","Starter_Wand.png",1.25,10)
+
+
+
+player = Player([0, 0], 3, 100, starter_wand,[])
+
+
 
 
 """
 Damage works:
-Fire spell with a damage of 50, then we multiply the speel with the wand's damage_mult
+Fire spell with a damage of 50, then we multiply the speed with the wand's damage_mult
 e.g. starter wand has a damag_mult of 1.25
 total damage would be 50*1.25 = 62.5
 """
