@@ -27,6 +27,7 @@ def leve1loop():
         player.render(screen)
         player.move(events,time)
         player.collision_plat(plainsplatforms)
+        player.shoot(events,screen)
         for platform in plainsplatforms:
             platform.render(screen)
     def mountainScene(events,time):
@@ -34,6 +35,7 @@ def leve1loop():
         player.render(screen)
         player.move(events, time)
         player.collision_plat(mountainplatforms)
+        player.shoot(events, screen)
         for platform in mountainplatforms:
             platform.render(screen)
         slvrImg_raw = pygame.image.load("themountainofsilver.png")
