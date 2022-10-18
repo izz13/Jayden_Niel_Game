@@ -98,9 +98,10 @@ class Player:
 
     def shoot(self,events,screen):
         for event in events:
-            if event.key == pygame.K_x and self.cooldown >= 30:
-                print("shooting magic")
-                self.cooldown = 0
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_x and self.cooldown >= 30:
+                    print("shooting magic")
+                    self.cooldown = 0
         if self.cooldown < 30:
             self.cooldown += 1
 
