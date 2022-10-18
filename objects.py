@@ -96,6 +96,14 @@ class Player:
                     self.jump = False
         self.pos += self.velocity
 
+    def shoot(self,events,screen):
+        for event in events:
+            if event.key == pygame.K_x and self.cooldown >= 30:
+                print("shooting magic")
+                self.cooldown = 0
+        if self.cooldown < 30:
+            self.cooldown += 1
+
 
 class Platform:
     def __init__(self, pos, width, height, color):
