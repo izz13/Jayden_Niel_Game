@@ -35,6 +35,7 @@ def level2loop():
         screen.blit(DungeonImg1, (0, 0))
         player.render(screen)
         player.move(events, time)
+        player.shoot(events, screen)
         player.collision_plat(dungeon1_platforms)
         player.shoot(events, screen)
         for platform in dungeon1_platforms:

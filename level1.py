@@ -26,6 +26,7 @@ def leve1loop():
         screen.blit(PlainsImg,(0,0))
         player.render(screen)
         player.move(events,time)
+        player.shoot(events,screen)
         player.collision_plat(plainsplatforms)
         player.shoot(events,screen)
         for platform in plainsplatforms:
@@ -34,6 +35,7 @@ def leve1loop():
         screen.blit(MtImg,(0,0))
         player.render(screen)
         player.move(events, time)
+        player.shoot(events, screen)
         player.collision_plat(mountainplatforms)
         player.shoot(events, screen)
         for platform in mountainplatforms:
