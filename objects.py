@@ -24,10 +24,12 @@ class Player:
         self.health = health
         self.wand = wand
         self.spells = spells
+        self.spell = spells[0]
         self.grounded = False
         self.jump = True
         self.jump_height = -6.5
         self.cooldown = 30
+        self.shot = False
 
     def collision_plat(self, platforms):
         buffer = 2
@@ -104,13 +106,17 @@ class Player:
         self.pos += self.velocity
 
     def shoot(self,events,screen):
+        starting_pos = self.pos
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_x and self.cooldown >= 30:
-                    print("shooting magic")
+                    self.shot = True
+                    self.spell.pos = starting_pos
                     self.cooldown = 0
         if self.cooldown < 30:
             self.cooldown += 1
+        if self.shot == True:
+            self.spell.shoot(self.wand.speed,screen)
 
 
 
@@ -163,12 +169,17 @@ class Spell:
         self.rect.topleft = self.pos
         screen.blit(self.image,self.pos)
 
+    def shoot(self,speed,screen):
+        self.velocity[0] = speed
+        self.pos += self.velocity
+        self.render(screen)
+
 # objects go here
 starter_wand = Wand("starter_wand","Starter_Wand.png",1.25,10)
+fire_spell = Spell("fire","fire.png",[64,64],50)
 
 
-
-player = Player([0, 0], 3, 100, starter_wand,[])
+player = Player([0, 0], 3, 100, starter_wand,[fire_spell])
 
 
 
