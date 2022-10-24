@@ -24,12 +24,12 @@ class Player:
         self.health = health
         self.wand = wand
         self.spells = spells
-        self.spell = spells[0]
+        self.spell = self.spells[0]
         self.grounded = False
         self.jump = True
         self.jump_height = -6.5
         self.cooldown = 30
-        self.shot = False
+        self.projectiles = []
 
     def collision_plat(self, platforms):
         buffer = 2
@@ -104,19 +104,22 @@ class Player:
                 if event.key == pygame.K_UP:
                     self.jump = False
         self.pos += self.velocity
+        print(self.pos)
 
     def shoot(self,events,screen):
         starting_pos = self.pos
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_x and self.cooldown >= 30:
-                    self.shot = True
-                    self.spell.pos = starting_pos
+                    if self.spell == "fire":
+                        self.projectiles.append(Spell("fire","fire.png",[64,64],50,pos = starting_pos))
                     self.cooldown = 0
         if self.cooldown < 30:
             self.cooldown += 1
-        if self.shot == True:
-            self.spell.shoot(self.wand.speed,screen)
+        if len(self.projectiles) > 0:
+            for projectile in self.projectiles:
+                projectile.render(screen,self.wand.speed)
+
 
 
 
@@ -155,31 +158,32 @@ class Wand:
         screen.blit(self.image,self.pos)
 
 class Spell:
-    def __init__(self, type, image, size, damage):
+    def __init__(self, type, image, size, damage,pos = [0,0]):
         self.type = type
         self.image_raw = pygame.image.load(image)
         self.size = size
         self.image = pygame.transform.scale(self.image_raw,self.size)
         self.rect = self.image.get_bounding_rect()
         self.damage = damage
-        self.pos = Vector2(0)
+        self.pos = Vector2(pos)
         self.velocity = Vector2(0)
 
-    def render(self,screen):
+    def render(self,screen,speed):
         self.rect.topleft = self.pos
         screen.blit(self.image,self.pos)
+        self.shoot(speed)
 
-    def shoot(self,speed,screen):
+    def shoot(self,speed):
         self.velocity[0] = speed
         self.pos += self.velocity
-        self.render(screen)
+
 
 # objects go here
 starter_wand = Wand("starter_wand","Starter_Wand.png",1.25,10)
-fire_spell = Spell("fire","fire.png",[64,64],50)
+#fire_spell = Spell("fire","fire.png",[64,64],50)
 
 
-player = Player([0, 0], 3, 100, starter_wand,[fire_spell])
+player = Player([0, 0], 3, 100, starter_wand,["fire"])
 
 
 
