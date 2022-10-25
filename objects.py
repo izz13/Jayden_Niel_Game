@@ -24,7 +24,7 @@ class Player:
         self.health = health
         self.wand = wand
         self.spells = spells
-        self.spell = self.spells[0]
+        self.spell = self.spells[1]
         self.grounded = False
         self.jump = True
         self.jump_height = -6.5
@@ -113,6 +113,8 @@ class Player:
                 if event.key == pygame.K_x and self.cooldown >= 30:
                     if self.spell == "fire":
                         self.projectiles.append(Spell("fire","fire.png",[64,64],50,pos = starting_pos))
+                    if self.spell == "ice":
+                        self.projectiles.append(Spell("ice", "ice.png", [64, 64], 10, pos=starting_pos))
                     self.cooldown = 0
         if self.cooldown < 30:
             self.cooldown += 1
@@ -183,7 +185,7 @@ starter_wand = Wand("starter_wand","Starter_Wand.png",1.25,10)
 #fire_spell = Spell("fire","fire.png",[64,64],50)
 
 
-player = Player([0, 0], 3, 100, starter_wand,["fire"])
+player = Player([0, 0], 3, 100, starter_wand,["fire","ice"])
 
 
 
