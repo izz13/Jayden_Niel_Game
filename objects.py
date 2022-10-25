@@ -24,7 +24,7 @@ class Player:
         self.health = health
         self.wand = wand
         self.spells = spells
-        self.spell = self.spells[1]
+        self.spell = self.spells[0]
         self.grounded = False
         self.jump = True
         self.jump_height = -6.5
@@ -104,7 +104,6 @@ class Player:
                 if event.key == pygame.K_UP:
                     self.jump = False
         self.pos += self.velocity
-        print(self.pos)
 
     def shoot(self,events,screen):
         starting_pos = [self.pos[0] + 60, self.pos[1] - 5]
@@ -121,6 +120,8 @@ class Player:
         if len(self.projectiles) > 0:
             for projectile in self.projectiles:
                 projectile.render(screen,self.wand.speed)
+                #Make code here that looks at the projectile.pos and remove the projectile from self.projectiles if it is off the screen
+
 
 
 
@@ -179,9 +180,10 @@ class Spell:
         self.velocity[0] = speed
         self.pos += self.velocity
 
+#make an enemy class here
 
 # objects go here
-starter_wand = Wand("starter_wand","Starter_Wand.png",1.25,10)
+starter_wand = Wand("starter_wand","Starter_Wand.png",1.25,5)
 #fire_spell = Spell("fire","fire.png",[64,64],50)
 
 
