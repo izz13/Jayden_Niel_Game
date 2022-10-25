@@ -107,7 +107,7 @@ class Player:
         print(self.pos)
 
     def shoot(self,events,screen):
-        starting_pos = self.pos
+        starting_pos = [self.pos[0] + 60, self.pos[1] - 5]
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_x and self.cooldown >= 30:
