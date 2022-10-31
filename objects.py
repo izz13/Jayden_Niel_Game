@@ -81,6 +81,14 @@ class Player:
         self.wand.pos[1] = self.pos[1] + self.height/2 - 30
         self.wand.render(screen)
 
+    def playerfunctions(self, screen,events,time,platforms):
+        self.render(screen)
+        self.move(events, time)
+        self.shoot(events, screen)
+        self.collision_plat(platforms)
+        self.shoot(events, screen)
+
+
 
 
     def move(self, events, time):
