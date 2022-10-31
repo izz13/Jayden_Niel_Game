@@ -86,7 +86,6 @@ class Player:
         self.move(events, time)
         self.shoot(events, screen)
         self.collision_plat(platforms)
-        self.shoot(events, screen)
 
 
 
