@@ -121,7 +121,7 @@ class Player:
             for projectile in self.projectiles:
                 projectile.render(screen, self.wand.speed)
                 if projectile.pos[0] > 800:
-                    del(projectile)
+                    self.projectiles.remove(projectile)
 
 
 
