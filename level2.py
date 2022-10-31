@@ -14,10 +14,10 @@ def level2loop():
     gray = (178, 190, 181)
     clock = pygame.time.Clock()
     fps = 60
-    DungeonImg1 = pygame.image.load("DungeonScene1.png")
-    DungeonImg2 = pygame.image.load("DungeonScene2.png")
-    DungeonImg3 = pygame.image.load("DungeonScene3.png")
-    DungeonImg4 = pygame.image.load("DungeonScene4.png")
+    DungeonImg1 = pygame.image.load("DungeonImages/DungeonScene1.png")
+    DungeonImg2 = pygame.image.load("DungeonImages/DungeonScene2.png")
+    DungeonImg3 = pygame.image.load("DungeonImages/DungeonScene3.png")
+    DungeonImg4 = pygame.image.load("DungeonImages/DungeonScene4.png")
 
 
 

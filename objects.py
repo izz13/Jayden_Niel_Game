@@ -7,7 +7,7 @@ gravity = Vector2(0, 1)
 # classes go here
 class Player:
     def __init__(self, pos, speed, health, wand,spells):
-        self.image_raw = pygame.image.load("Apprentice_Wizard.png")
+        self.image_raw = pygame.image.load("Mobs/Apprentice_Wizard.png")
         self.width, self.height = 64, 64
         self.image = pygame.transform.scale(self.image_raw, [64, 64])
         self.pos = Vector2(pos)
@@ -120,9 +120,9 @@ class Player:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_x and self.cooldown >= 30:
                     if self.spell == "fire":
-                        self.projectiles.append(Spell("fire", "fire.png", [64, 64], 50, pos=starting_pos))
+                        self.projectiles.append(Spell("fire", "Spells/fire.png", [64, 64], 50, pos=starting_pos))
                     if self.spell == "ice":
-                        self.projectiles.append(Spell("ice", "ice.png", [64, 64], 10, pos=starting_pos))
+                        self.projectiles.append(Spell("ice", "Spells/ice.png", [64, 64], 10, pos=starting_pos))
                     self.cooldown = 0
         if self.cooldown < 30:
             self.cooldown += 1
@@ -207,7 +207,7 @@ class Enemy:
 # objects go here
 
 
-starter_wand = Wand("starter_wand","Starter_Wand.png", 1.25, 5)
+starter_wand = Wand("starter_wand","Items/Starter_Wand.png", 1.25, 5)
 #fire_spell = Spell("fire","fire.png",[64,64],50)
 
 
