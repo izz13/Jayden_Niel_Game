@@ -105,6 +105,7 @@ class Player:
                     self.jump = False
         self.pos += self.velocity
 
+
     def shoot(self,events,screen):
         starting_pos = [self.pos[0] + 60, self.pos[1] - 5]
         for event in events:

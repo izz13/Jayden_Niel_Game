@@ -36,7 +36,6 @@ def level2loop():
         player.move(events, time)
         player.shoot(events, screen)
         player.collision_plat(dungeon1_platforms)
-        player.shoot(events, screen)
         print(len(player.projectiles))
         for platform in dungeon1_platforms:
             platform.render(screen)
