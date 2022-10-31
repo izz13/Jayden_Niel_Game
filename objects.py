@@ -111,7 +111,7 @@ class Player:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_x and self.cooldown >= 30:
                     if self.spell == "fire":
-                        self.projectiles.append(Spell("fire","fire.png",[64,64],50,pos = starting_pos))
+                        self.projectiles.append(Spell("fire", "fire.png", [64, 64], 50, pos=starting_pos))
                     if self.spell == "ice":
                         self.projectiles.append(Spell("ice", "ice.png", [64, 64], 10, pos=starting_pos))
                     self.cooldown = 0
@@ -119,8 +119,9 @@ class Player:
             self.cooldown += 1
         if len(self.projectiles) > 0:
             for projectile in self.projectiles:
-                projectile.render(screen,self.wand.speed)
-                #Make code here that looks at the projectile.pos and remove the projectile from self.projectiles if it is off the screen
+                projectile.render(screen, self.wand.speed)
+                if projectile.pos[0] > 800:
+                    del(projectile)
 
 
 
@@ -149,52 +150,54 @@ class Platform:
                 pygame.draw.rect(screen, (255, 0, 0), line)
 
 class Wand:
-    def __init__(self,type,image,damage_mult,speed):
-        self.type=type
-        self.image_raw=pygame.image.load(image)
+    def __init__(self, type, image, damage_mult, speed):
+        self.type = type
+        self.image_raw = pygame.image.load(image)
         self.image_scaled = pygame.transform.scale(self.image_raw,[30,50])
         self.image = pygame.transform.rotozoom(self.image_scaled,-45,1)
-        self.damage_mult=damage_mult
-        self.speed=speed
-        self.pos=[0,0]
-    def render(self,screen):
-        screen.blit(self.image,self.pos)
+        self.damage_mult = damage_mult
+        self.speed = speed
+        self.pos = [0,0]
+
+    def render(self, screen):
+        screen.blit(self.image, self.pos)
+
 
 class Spell:
-    def __init__(self, type, image, size, damage,pos = [0,0]):
+    def __init__(self, type, image, size, damage, pos=[0, 0]):
         self.type = type
         self.image_raw = pygame.image.load(image)
         self.size = size
-        self.image = pygame.transform.scale(self.image_raw,self.size)
+        self.image = pygame.transform.scale(self.image_raw, self.size)
         self.rect = self.image.get_bounding_rect()
         self.damage = damage
         self.pos = Vector2(pos)
         self.velocity = Vector2(0)
 
-    def render(self,screen,speed):
+    def render(self, screen, speed):
         self.rect.topleft = self.pos
-        screen.blit(self.image,self.pos)
+        screen.blit(self.image, self.pos)
         self.shoot(speed)
 
-    def shoot(self,speed):
+    def shoot(self, speed):
         self.velocity[0] = speed
         self.pos += self.velocity
 
 #make an enemy class here
 
 # objects go here
-starter_wand = Wand("starter_wand","Starter_Wand.png",1.25,5)
+
+
+starter_wand = Wand("starter_wand","Starter_Wand.png", 1.25, 5)
 #fire_spell = Spell("fire","fire.png",[64,64],50)
 
 
-player = Player([0, 0], 3, 100, starter_wand,["fire","ice"])
-
-
+player = Player([0, 0], 3, 100, starter_wand, ["fire", "ice"])
 
 
 """
 Damage works:
 Fire spell with a damage of 50, then we multiply the speed with the wand's damage_mult
-e.g. starter wand has a damag_mult of 1.25
+e.g. starter wand has a damage_mult of 1.25
 total damage would be 50*1.25 = 62.5
 """
