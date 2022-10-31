@@ -30,6 +30,7 @@ class Player:
         self.jump_height = -6.5
         self.cooldown = 30
         self.projectiles = []
+        self.facing = "Right"
 
     def collision_plat(self, platforms):
         buffer = 2
@@ -90,6 +91,7 @@ class Player:
 
 
 
+
     def move(self, events, time):
         if self.grounded == False:
             self.velocity += gravity * time
@@ -100,8 +102,10 @@ class Player:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT:
                     self.velocity[0] = -self.speed
+                    self.facing = "Left"
                 if event.key == pygame.K_RIGHT:
                     self.velocity[0] = self.speed
+                    self.facing = "Right"
                 if event.key == pygame.K_UP and self.jump == True:
                     print("jump")
                     self.velocity[1] = self.jump_height
@@ -119,9 +123,9 @@ class Player:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_x and self.cooldown >= 30:
                     if self.spell == "fire":
-                        self.projectiles.append(Spell("fire", "Spells/fire.png", [64, 64], 50, pos=starting_pos))
+                        self.projectiles.append(Spell("fire", "Spells/fire.png", [64, 64], 50, self.facing,pos=starting_pos))
                     if self.spell == "ice":
-                        self.projectiles.append(Spell("ice", "Spells/ice.png", [64, 64], 10, pos=starting_pos))
+                        self.projectiles.append(Spell("ice", "Spells/ice.png", [64, 64], 10,self.facing, pos=starting_pos))
                     self.cooldown = 0
         if self.cooldown < 30:
             self.cooldown += 1
@@ -130,9 +134,6 @@ class Player:
                 projectile.render(screen, self.wand.speed)
                 if projectile.pos[0] > 800:
                     self.projectiles.remove(projectile)
-
-
-
 
 
 class Platform:
@@ -172,7 +173,7 @@ class Wand:
 
 
 class Spell:
-    def __init__(self, type, image, size, damage, pos=[0, 0]):
+    def __init__(self, type, image, size, damage,facing, pos=[0, 0]):
         self.type = type
         self.image_raw = pygame.image.load(image)
         self.size = size
@@ -181,6 +182,7 @@ class Spell:
         self.damage = damage
         self.pos = Vector2(pos)
         self.velocity = Vector2(0)
+        self.facing = facing
 
     def render(self, screen, speed):
         self.rect.topleft = self.pos
@@ -189,7 +191,10 @@ class Spell:
 
     def shoot(self, speed):
         self.velocity[0] = speed
-        self.pos += self.velocity
+        if self.facing == "Right":
+            self.pos += self.velocity
+        if self.facing == "Left":
+            self.pos -= self.velocity
 
 #make an enemy class here
 enemylist = ["vampire", "spider", "zombie"]
