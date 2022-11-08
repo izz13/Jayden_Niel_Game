@@ -78,9 +78,14 @@ class Player:
             for line in self.lines:
                 pygame.draw.rect(screen, (255, 0, 0), line)
         #rendering wand and spells
-        self.wand.pos[0] = self.pos[0] + self.width - 25
-        self.wand.pos[1] = self.pos[1] + self.height/2 - 30
-        self.wand.render(screen)
+        if self.facing == "Right":
+            self.wand.pos[0] = self.pos[0] + self.width - 25
+            self.wand.pos[1] = self.pos[1] + self.height/2 - 30
+            self.wand.render(screen,self.facing)
+        if self.facing == "Left":
+            self.wand.pos[0] = self.pos[0] + self.width - 93
+            self.wand.pos[1] = self.pos[1] + self.height / 2 - 20
+            self.wand.render(screen, self.facing)
 
     def playerfunctions(self, screen,events,time,platforms):
         self.render(screen)
@@ -118,14 +123,17 @@ class Player:
 
 
     def shoot(self,events,screen):
-        starting_pos = [self.pos[0] + 60, self.pos[1] - 5]
+        if self.facing == "Right":
+            starting_pos = [self.pos[0] + 60, self.pos[1] - 5]
+        if self.facing == "Left":
+            starting_pos = [self.pos[0] - 60, self.pos[1] - 5]
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_x and self.cooldown >= 30:
                     if self.spell == "fire":
                         self.projectiles.append(Spell("fire", "Spells/fire.png", [64, 64], 50, self.facing,pos=starting_pos))
                     if self.spell == "ice":
-                        self.projectiles.append(Spell("ice", "Spells/ice.png", [64, 64], 10,self.facing, pos=starting_pos))
+                        self.projectiles.append(Spell("ice", "Spells/ice.png", [64, 64], 10, self.facing, pos=starting_pos))
                     self.cooldown = 0
         if self.cooldown < 30:
             self.cooldown += 1
@@ -163,13 +171,17 @@ class Wand:
         self.type = type
         self.image_raw = pygame.image.load(image)
         self.image_scaled = pygame.transform.scale(self.image_raw,[30,50])
-        self.image = pygame.transform.rotozoom(self.image_scaled,-45,1)
+        self.image_right = pygame.transform.rotozoom(self.image_scaled,-45,1)
+        self.image_left = pygame.transform.rotozoom(self.image_scaled,90,1)
         self.damage_mult = damage_mult
         self.speed = speed
         self.pos = [0,0]
 
-    def render(self, screen):
-        screen.blit(self.image, self.pos)
+    def render(self, screen, facing):
+        if facing == "Right":
+            screen.blit(self.image_right, self.pos)
+        if facing == "Left":
+            screen.blit(self.image_left, self.pos)
 
 
 class Spell:
