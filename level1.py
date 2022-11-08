@@ -20,6 +20,7 @@ def leve1loop():
     player.pos = [0,0]
     plainsplatforms=[Platform([0, 480], 800, 120, green)]
     mountainplatforms=[Platform([0,540], 800, 60, gray),Platform([100,500], 600, 40, gray),Platform([140,460], 520, 40, gray),Platform([180,420], 440, 40, gray),Platform([220,380], 360, 40, gray),Platform([260,340], 280, 40, gray),Platform([300,300], 200, 40, gray),Platform([340,260], 120, 40, gray),Platform([380,220], 40, 40, gray)]
+    scene = "plainScene"
 
 
     def plainScene(events,time):
@@ -45,6 +46,11 @@ def leve1loop():
                 isRunning = False
 
         time = clock.get_time()/fps
+        if player.pos[0] < 0:
+            player.pos[0] = 0
+        if player.pos[0] > 745:
+            scene = "mountainScene"
+            player.pos = [0,478]
         if scene == "plainScene":
             plainScene(events,time)
         if scene == "mountainScene":

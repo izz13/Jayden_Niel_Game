@@ -24,7 +24,7 @@ class Player:
         self.health = health
         self.wand = wand
         self.spells = spells
-        self.spell = self.spells[0]
+        self.spell = self.spells[1]
         self.grounded = False
         self.jump = True
         self.jump_height = -6.5
@@ -112,7 +112,6 @@ class Player:
                     self.velocity[0] = self.speed
                     self.facing = "Right"
                 if event.key == pygame.K_UP and self.jump == True:
-                    print("jump")
                     self.velocity[1] = self.jump_height
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
