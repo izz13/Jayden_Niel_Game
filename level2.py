@@ -1,6 +1,7 @@
 import pygame
 from objects import player
 from objects import Platform
+import tools
 
 pygame.init()
 
@@ -36,9 +37,6 @@ def level2loop():
         print(len(player.projectiles))
         for platform in dungeon1_platforms:
             platform.render(screen)
-        if player.pos[1] == 521:
-            scene = "dungeonscene2"
-            return scene
     def dungeonScene2(events, time):
         screen.fill(gray)
         screen.blit(DungeonImg2, (0, 0))
@@ -58,7 +56,7 @@ def level2loop():
 
     isRunning = True
     while isRunning:
-        print(pygame.mouse.get_pos())
+        #print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
@@ -67,7 +65,9 @@ def level2loop():
         time = clock.get_time() / fps
 
         if scene == "dungeonScene1":
-            scene = dungeonScene1(events, time)
+            dungeonScene1(events, time)
+            if player.pos[1] >= 521:
+                scene = "dungeonScene2"
         elif scene == "dungeonScene2":
             dungeonScene2(events, time)
         elif scene == "dungeonScene3":

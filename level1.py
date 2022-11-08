@@ -20,6 +20,7 @@ def leve1loop():
     player.pos = [0,0]
     plainsplatforms=[Platform([0, 480], 800, 120, green)]
     mountainplatforms=[Platform([0,540], 800, 60, gray),Platform([100,500], 600, 40, gray),Platform([140,460], 520, 40, gray),Platform([180,420], 440, 40, gray),Platform([220,380], 360, 40, gray),Platform([260,340], 280, 40, gray),Platform([300,300], 200, 40, gray),Platform([340,260], 120, 40, gray),Platform([380,220], 40, 40, gray)]
+    scene = "plainScene"
 
 
     def plainScene(events,time):
@@ -35,7 +36,7 @@ def leve1loop():
         slvrImg_raw = pygame.image.load("LVL1Images/themountainofsilver.png")
         slvrImg = pygame.transform.scale(slvrImg_raw,[640,450])
         screen.blit(slvrImg,(80,90))
-    scene = "plainScene"
+
     isRunning = True
     while isRunning:
         events = pygame.event.get()
