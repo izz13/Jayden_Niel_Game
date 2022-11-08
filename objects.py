@@ -235,3 +235,4 @@ Fire spell with a damage of 50, then we multiply the speed with the wand's damag
 e.g. starter wand has a damage_mult of 1.25
 total damage would be 50*1.25 = 62.5
 """
+

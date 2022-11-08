@@ -36,7 +36,7 @@ def leve1loop():
         slvrImg_raw = pygame.image.load("LVL1Images/themountainofsilver.png")
         slvrImg = pygame.transform.scale(slvrImg_raw,[640,450])
         screen.blit(slvrImg,(80,90))
-    scene = "plainScene"
+
     isRunning = True
     while isRunning:
         events = pygame.event.get()
