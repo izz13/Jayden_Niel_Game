@@ -50,11 +50,11 @@ def leve1loop():
             player.pos[0] = 0
         if player.pos[0] > 745:
             scene = "mountainScene"
-            player.pos = [0,478]
+            player.pos = [0, 478]
         if scene == "plainScene":
-            plainScene(events,time)
+            plainScene(events, time)
         if scene == "mountainScene":
-            mountainScene(events,time)
+            mountainScene(events, time)
 
         pygame.display.flip()
         clock.tick(fps)
