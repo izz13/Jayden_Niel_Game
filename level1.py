@@ -31,11 +31,15 @@ def leve1loop():
     def mountainScene(events,time):
         screen.blit(MtImg,(0,0))
         player.playerfunctions(screen,events,time,mountainplatforms)
+        buttonrect = pygame.Rect([0,0],[10,10])
+        doorrect = pygame.Rect([30,30],[40,40])
         for platform in mountainplatforms:
             platform.render(screen)
         slvrImg_raw = pygame.image.load("LVL1Images/themountainofsilver.png")
         slvrImg = pygame.transform.scale(slvrImg_raw,[640,450])
         screen.blit(slvrImg,(80,90))
+        pygame.draw.rect(screen,green,buttonrect)
+        pygame.draw.rect(screen, black, doorrect)
 
     isRunning = True
     while isRunning:
