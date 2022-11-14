@@ -46,10 +46,15 @@ def leve1loop():
                 isRunning = False
 
         time = clock.get_time()/fps
+        if player.pos[0] < 0:
+            player.pos[0] = 0
+        if player.pos[0] > 745:
+            scene = "mountainScene"
+            player.pos = [0, 478]
         if scene == "plainScene":
-            plainScene(events,time)
+            plainScene(events, time)
         if scene == "mountainScene":
-            mountainScene(events,time)
+            mountainScene(events, time)
 
         pygame.display.flip()
         clock.tick(fps)

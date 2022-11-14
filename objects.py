@@ -112,7 +112,6 @@ class Player:
                     self.velocity[0] = self.speed
                     self.facing = "Right"
                 if event.key == pygame.K_UP and self.jump == True:
-                    print("jump")
                     self.velocity[1] = self.jump_height
             if event.type == pygame.KEYUP:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_RIGHT:
