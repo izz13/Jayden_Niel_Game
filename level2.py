@@ -40,25 +40,37 @@ def level2loop():
 
 
     def dungeonScene2(events, time):
+        dungeon2_platforms = [Platform([0, 245], 91, 355, black)]
         screen.fill(gray)
         screen.blit(DungeonImg2, (0, 0))
         player.render(screen)
+        player.playerfunctions(screen, events, time, dungeon2_platforms)
+        for platform in dungeon2_platforms:
+            platform.render(screen)
 
     def dungeonScene3(events, time):
+        dungeon3_platforms = [Platform([0, 245], 91, 355, black)]
         screen.fill(gray)
         screen.blit(DungeonImg3, (0, 0))
-        player.render(screen)
+        player.playerfunctions(screen,events,time,dungeon3_platforms)
+        for platform in dungeon3_platforms:
+            platform.render(screen)
+
 
     def dungeonScene4(events, time):
+        dungeon4_platforms = [Platform([0, 245], 91, 355, black)]
         screen.fill(gray)
         screen.blit(DungeonImg4, (0, 0))
         player.render(screen)
+        player.playerfunctions(screen, events, time, dungeon4_platforms)
+        for platform in dungeon4_platforms:
+            platform.render(screen)
 
 
 
     isRunning = True
     while isRunning:
-        #print(pygame.mouse.get_pos())
+        print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
@@ -71,9 +83,13 @@ def level2loop():
         if scene == "dungeonScene1":
             dungeonScene1(events, time)
             if player.pos[1] >= 521:
+                scene = "dungeonScene3"
+                player.pos = [150, 10]
+            if player.pos[0] >= 780:
                 scene = "dungeonScene2"
         elif scene == "dungeonScene2":
             dungeonScene2(events, time)
+            #if player.pos[]
         elif scene == "dungeonScene3":
             dungeonScene3(events, time)
         elif scene == "dungeonScene4":
