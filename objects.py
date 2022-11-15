@@ -24,7 +24,7 @@ class Player:
         self.health = health
         self.wand = wand
         self.spells = spells
-        self.spell = self.spells[1]
+        self.spell = self.spells[0]
         self.grounded = False
         self.jump = True
         self.jump_height = -6.5
