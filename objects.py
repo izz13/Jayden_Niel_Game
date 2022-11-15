@@ -131,7 +131,7 @@ class Player:
                 if event.key == pygame.K_1:
                     self.spell = self.spells[0]
                 if event.key == pygame.K_2:
-                    self.spell = self.spells[1]
+                    elf.spell = self.spells[1]
                 if event.key == pygame.K_x and self.cooldown >= 30:
                     if self.spell == "fire":
                         self.projectiles.append(Spell("fire", "Spells/fire.png", [64, 64], 50, self.facing,pos=starting_pos))
