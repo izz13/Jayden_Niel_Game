@@ -21,6 +21,7 @@ def level2loop():
     DungeonImg3 = pygame.image.load("DungeonImages/DungeonScene3.png")
     DungeonImg4 = pygame.image.load("DungeonImages/DungeonScene4.png")
     scene = "dungeonScene1"
+    dungeon1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], [381, 420], 15, "spider", 5, [576, 420])]
 
 
 
@@ -32,7 +33,6 @@ def level2loop():
                               Platform([576, 512], 104, 18, black), Platform([720, 370], 80, 3, black), Platform([197, 245], 100, 3, black),
                               Platform([197, 402], 100, 3, black), Platform([391, 322], 140, 3, black), Platform([576, 365], 100, 3, black),
                               Platform([598, 250], 100, 3, black)]
-        dungeon1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png",[75,75],[381,420], 15, "spider", 10,[576,420])]
         screen.fill(gray)
         screen.blit(DungeonImg1, (0, 0))
         player.playerfunctions(screen,events,time,dungeon1_platforms)
