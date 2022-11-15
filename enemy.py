@@ -40,7 +40,7 @@ class Spider(Enemy):
     def move(self):
         if self.pos[0] <= self.start_pos[0]:
             self.velocity[0] = self.speed
-        elif self.pos[0] >= self.end_pos[0]:
+        elif self.pos[0] >= self.end_pos[0] - self.size[1]:
             self.velocity[0] = -self.speed
         self.pos += self.velocity
 
