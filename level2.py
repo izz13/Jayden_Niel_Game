@@ -19,7 +19,7 @@ def level2loop():
     DungeonImg2 = pygame.image.load("DungeonImages/DungeonScene2.png")
     DungeonImg3 = pygame.image.load("DungeonImages/DungeonScene3.png")
     DungeonImg4 = pygame.image.load("DungeonImages/DungeonScene4.png")
-    scene = "dungeonScene1"
+    scene = "dungeonScene2"
 
 
 
