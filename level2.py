@@ -1,6 +1,7 @@
 import pygame
 from objects import player
 from objects import Platform
+import enemy
 import tools
 
 pygame.init()
@@ -19,7 +20,7 @@ def level2loop():
     DungeonImg2 = pygame.image.load("DungeonImages/DungeonScene2.png")
     DungeonImg3 = pygame.image.load("DungeonImages/DungeonScene3.png")
     DungeonImg4 = pygame.image.load("DungeonImages/DungeonScene4.png")
-    scene = "dungeonScene3"
+    scene = "dungeonScene1"
 
 
 
@@ -31,12 +32,14 @@ def level2loop():
                               Platform([576, 512], 104, 18, black), Platform([720, 370], 80, 3, black), Platform([197, 245], 100, 3, black),
                               Platform([197, 402], 100, 3, black), Platform([391, 322], 140, 3, black), Platform([576, 365], 100, 3, black),
                               Platform([598, 250], 100, 3, black)]
+        dungeon1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png",[75,75],[381,420], 15, "spider", 10,[576,420])]
         screen.fill(gray)
         screen.blit(DungeonImg1, (0, 0))
         player.playerfunctions(screen,events,time,dungeon1_platforms)
-        print(len(player.projectiles))
         for platform in dungeon1_platforms:
             platform.render(screen)
+        for e in dungeon1_enemies:
+            e.update(screen)
 
 
     def dungeonScene2(events, time):
@@ -70,7 +73,6 @@ def level2loop():
 
     isRunning = True
     while isRunning:
-        print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:

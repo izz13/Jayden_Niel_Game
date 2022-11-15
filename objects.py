@@ -212,18 +212,6 @@ class Spell:
         if self.facing == "Left":
             self.pos -= self.velocity
 
-#make an enemy class here
-enemylist = ["vampire", "spider", "zombie"]
-
-class Enemy:
-    def __init__(self, image, pos, damage, type, speed):
-        self.image = image
-        self.pos = pos
-        self. damage = damage
-        self.type = type
-        self.speed = speed
-
-
 # objects go here
 
 
