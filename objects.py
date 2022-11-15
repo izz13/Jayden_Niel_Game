@@ -24,7 +24,7 @@ class Player:
         self.health = health
         self.wand = wand
         self.spells = spells
-        self.spell = self.spells[0]
+        self.spell = self.spells[1]
         self.grounded = False
         self.jump = True
         self.jump_height = -6.5
@@ -189,16 +189,17 @@ class Spell:
         self.image_raw = pygame.image.load(image)
         self.size = size
         self.image = pygame.transform.scale(self.image_raw, self.size)
-        self.rect = self.image.get_bounding_rect()
         self.damage = damage
         self.pos = Vector2(pos)
         self.velocity = Vector2(0)
         self.facing = facing
+        self.rect = self.image.get_bounding_rect()
 
     def render(self, screen, speed):
-        self.rect.topleft = self.pos
+        self.rect.center = [self.pos[0] + self.size[0]/2, self.pos[1] + self.size[1]/2]
         screen.blit(self.image, self.pos)
         self.shoot(speed)
+        #pygame.draw.rect(screen,(255,255,0),self.rect)
 
     def shoot(self, speed):
         self.velocity[0] = speed
