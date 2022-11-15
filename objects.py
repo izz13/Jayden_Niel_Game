@@ -24,7 +24,7 @@ class Player:
         self.health = health
         self.wand = wand
         self.spells = spells
-        self.spell = self.spells[1]
+        self.spell = self.spells[0]
         self.grounded = False
         self.jump = True
         self.jump_height = -6.5
@@ -128,6 +128,10 @@ class Player:
             starting_pos = [self.pos[0] - 60, self.pos[1] - 5]
         for event in events:
             if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_1:
+                    self.spell = self.spells[0]
+                if event.key == pygame.K_2:
+                    self.spell = self.spells[1]
                 if event.key == pygame.K_x and self.cooldown >= 30:
                     if self.spell == "fire":
                         self.projectiles.append(Spell("fire", "Spells/fire.png", [64, 64], 50, self.facing,pos=starting_pos))
