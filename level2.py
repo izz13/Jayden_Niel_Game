@@ -14,13 +14,14 @@ def level2loop():
     white = (255, 255, 255)
     black = (0, 0, 0)
     gray = (178, 190, 181)
+    green = (0, 255, 0)
     clock = pygame.time.Clock()
     fps = 60
     DungeonImg1 = pygame.image.load("DungeonImages/DungeonScene1.png")
     DungeonImg2 = pygame.image.load("DungeonImages/DungeonScene2.png")
     DungeonImg3 = pygame.image.load("DungeonImages/DungeonScene3.png")
     DungeonImg4 = pygame.image.load("DungeonImages/DungeonScene4.png")
-    scene = "dungeonScene1"
+    scene = "dungeonScene2"
     dungeon1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], [381, 420], 15, "spider", 2, [576, 420])]
 
 
@@ -43,7 +44,10 @@ def level2loop():
 
 
     def dungeonScene2(events, time):
-        dungeon2_platforms = [Platform([0, 245], 91, 355, black)]
+        dungeon2_platforms = [Platform([195, 465], 235, 465, black), Platform([0, 286], 52, 355, black), Platform([57, 400], 52, 400, black),
+                              Platform([528, 393], 267, 207, black), Platform([0, 0], 612, 42, black), Platform([680, 0], 120, 85, black),
+                              Platform([0, 40], 56, 156, black), Platform([484, 40], 60, 220, black), Platform([548, 40], 64, 42, black),
+                              Platform([788, 85], 12, 309, black), Platform([114, 560], 82, 40, black)]
         screen.fill(gray)
         screen.blit(DungeonImg2, (0, 0))
         player.render(screen)
@@ -73,6 +77,7 @@ def level2loop():
 
     isRunning = True
     while isRunning:
+        print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
@@ -91,7 +96,9 @@ def level2loop():
                 scene = "dungeonScene2"
         elif scene == "dungeonScene2":
             dungeonScene2(events, time)
-            #if player.pos[]
+            #player.pos = [306, 368]
+            if player.pos[1] >= 572:
+                scene = "dungeonScene4"
         elif scene == "dungeonScene3":
             dungeonScene3(events, time)
         elif scene == "dungeonScene4":
