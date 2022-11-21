@@ -23,7 +23,18 @@ def level2loop():
     DungeonImg4 = pygame.image.load("DungeonImages/DungeonScene4.png")
     scene = "dungeonScene2"
     dungeon1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], [381, 420], 15, "spider", 2, [576, 420])]
-
+    dungeon1_pos = [0,0]
+    dungeon2_pos = [306,368]
+    dungeon3_pos = [150, 10]
+    dungeon4_pos = [0,0]
+    if scene == "dungeonScene1":
+        player.pos = dungeon1_pos
+    if scene == "dungeonScene2":
+        player.pos = dungeon2_pos
+    if scene == "dungeonScene3":
+        player.pos = dungeon3_pos
+    if scene == "dungeonScene4":
+        player.pos = dungeon4_pos
 
 
     def dungeonScene1(events, time):
@@ -50,7 +61,6 @@ def level2loop():
                               Platform([788, 85], 12, 309, black), Platform([114, 560], 82, 40, black)]
         screen.fill(gray)
         screen.blit(DungeonImg2, (0, 0))
-        player.render(screen)
         player.playerfunctions(screen, events, time, dungeon2_platforms)
         for platform in dungeon2_platforms:
             platform.render(screen)
@@ -91,14 +101,14 @@ def level2loop():
             dungeonScene1(events, time)
             if player.pos[1] >= 521:
                 scene = "dungeonScene3"
-                player.pos = [150, 10]
+                player.pos = dungeon3_pos
             if player.pos[0] >= 780:
                 scene = "dungeonScene2"
+                player.pos = dungeon2_pos
         elif scene == "dungeonScene2":
             dungeonScene2(events, time)
-            #player.pos = [306, 368]
-            if player.pos[1] >= 572:
-                scene = "dungeonScene4"
+            #if player.pos[1] >= 572:
+                #scene = "dungeonScene4"
         elif scene == "dungeonScene3":
             dungeonScene3(events, time)
         elif scene == "dungeonScene4":
