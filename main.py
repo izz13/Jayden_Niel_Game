@@ -1,4 +1,4 @@
-import MainMenu
+import MainMenu, level1, level2, objects, tools, enemy
 
 
 level = "mainmenu"
