@@ -35,6 +35,12 @@ def mainMenuloop():
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if playbttn_rect.collidepoint(event.pos):
                     print("play button was pressed")
+                if settingbttn_rect.collidepoint(event.pos):
+                    print("settings button was pressed")
+                if creditbttn_rect.collidepoint(event.pos):
+                    print("credits button was pressed")
+                if exitbttn_rect.collidepoint(event.pos):
+                    print("exit button was pressed")
 
         screen.blit(menubkgd, [0, 0])
         screen.blit(playbttn, [80, 200])
