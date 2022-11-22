@@ -52,6 +52,9 @@ def leve1loop():
                 player.velocity[0] = -10
                 player.velocity[1] = 10
 
+    def cutscene1(events):
+        pass
+
 
     isRunning = True
     while isRunning:
