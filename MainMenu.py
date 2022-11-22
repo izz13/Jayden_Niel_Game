@@ -40,7 +40,7 @@ def mainMenuloop():
                 if creditbttn_rect.collidepoint(event.pos):
                     print("credits button was pressed")
                 if exitbttn_rect.collidepoint(event.pos):
-                    print("exit button was pressed")
+                    isRunning = False
 
         screen.blit(menubkgd, [0, 0])
         screen.blit(playbttn, [80, 200])
