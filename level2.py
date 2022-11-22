@@ -58,7 +58,9 @@ def level2loop():
         dungeon2_platforms = [Platform([195, 465], 235, 465, black), Platform([0, 286], 52, 355, black), Platform([57, 400], 52, 400, black),
                               Platform([528, 393], 267, 207, black), Platform([0, 0], 612, 42, black), Platform([680, 0], 120, 85, black),
                               Platform([0, 40], 56, 156, black), Platform([484, 40], 60, 220, black), Platform([548, 40], 64, 42, black),
-                              Platform([788, 85], 12, 309, black), Platform([114, 560], 82, 40, black)]
+                              Platform([788, 85], 12, 309, black), Platform([114, 560], 82, 40, black), Platform([137, 240], 75, 10, black),
+                              Platform([286, 256], 114, 209, black), Platform([464, 351], 200, 10, black), Platform([660, 281], 100, 10, black),
+                              Platform([572, 215], 75, 10, black), Platform([690, 140], 75, 10, black)]
         screen.fill(gray)
         screen.blit(DungeonImg2, (0, 0))
         player.playerfunctions(screen, events, time, dungeon2_platforms)
@@ -66,7 +68,11 @@ def level2loop():
             platform.render(screen)
 
     def dungeonScene3(events, time):
-        dungeon3_platforms = [Platform([0, 245], 91, 355, black)]
+        dungeon3_platforms = [Platform([152, 158], 200, 10, black), Platform([585, 468], 210, 125, black), Platform([0, 520], 585, 75, black),
+                              Platform([275, 412], 139, 110, black), Platform([652, 201], 142, 154, black), Platform([0, 415], 116, 105, black),
+                              Platform([0, 235], 120, 80, black), Platform([0, 0], 116, 123, black), Platform([230, 0], 288, 59, black),
+                              Platform([650, 0], 150, 83, black), Platform([786, 83], 10, 117, black), Platform([387, 230], 200, 10, black),
+                              Platform([265, 300], 200, 10, black), Platform([487, 354], 100, 10, black), Platform([622, 423], 5, 5, green)]
         screen.fill(gray)
         screen.blit(DungeonImg3, (0, 0))
         player.playerfunctions(screen,events,time,dungeon3_platforms)
@@ -75,7 +81,8 @@ def level2loop():
 
 
     def dungeonScene4(events, time):
-        dungeon4_platforms = [Platform([0, 245], 91, 355, black)]
+        dungeon4_platforms = [Platform([0, 0], 117, 600, black), Platform([117, 0], 683, 81, black), Platform([710, 80], 90, 520, black),
+                              Platform([121, 468], 589, 130, black), Platform([523, 302], 170, 10, black)]
         screen.fill(gray)
         screen.blit(DungeonImg4, (0, 0))
         player.render(screen)
@@ -107,10 +114,14 @@ def level2loop():
                 player.pos = dungeon2_pos
         elif scene == "dungeonScene2":
             dungeonScene2(events, time)
-            #if player.pos[1] >= 572:
-                #scene = "dungeonScene4"
+            if player.pos[1] >= 600:
+                scene = "dungeonScene4"
+                player.pos = [396, 113]
         elif scene == "dungeonScene3":
             dungeonScene3(events, time)
+            if player.pos[0] >= 800:
+                scene = "dungeonScene4"
+                player.pos = [131, 278]
         elif scene == "dungeonScene4":
             dungeonScene4(events, time)
 
