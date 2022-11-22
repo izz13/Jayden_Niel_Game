@@ -19,6 +19,8 @@ def leve1loop():
     fps = 60
     PlainsImg = pygame.image.load("LVL1Images/plainsbackground.png")
     MtImg = pygame.image.load("LVL1Images/Mountainbackground.png")
+    firstpicImg = pygame.image.load("lvl1_cutscene/first_cutscene_pic.png")
+    secondpicImg = pygame.image.load("lvl1_cutscene/second_cutscene_pic.png")
     player.pos = [0,0]
     plainsplatforms=[Platform([0, 480], 800, 120, green)]
     mountainplatforms=[Platform([0,540], 800, 60, gray),Platform([100,500], 600, 40, gray),Platform([140,460], 520, 40, gray),Platform([180,420], 440, 40, gray),Platform([220,380], 360, 40, gray),Platform([260,340], 280, 40, gray),Platform([300,300], 200, 40, gray),Platform([340,260], 120, 40, gray),Platform([380,220], 40, 40, gray)]
