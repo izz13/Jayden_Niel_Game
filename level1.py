@@ -24,7 +24,7 @@ def leve1loop():
     player.pos = [0,0]
     plainsplatforms=[Platform([0, 480], 800, 120, green)]
     mountainplatforms=[Platform([0,540], 800, 60, gray),Platform([100,500], 600, 40, gray),Platform([140,460], 520, 40, gray),Platform([180,420], 440, 40, gray),Platform([220,380], 360, 40, gray),Platform([260,340], 280, 40, gray),Platform([300,300], 200, 40, gray),Platform([340,260], 120, 40, gray),Platform([380,220], 40, 40, gray)]
-    scene = "plainScene"
+    scene = "cutscene1"
     buttonrect = pygame.Rect([0, 150], [50, 50])
     doorrect = pygame.Rect([380, 0], [40, 220])
 
@@ -55,7 +55,7 @@ def leve1loop():
                 player.velocity[1] = 10
 
     def cutscene1(events):
-        pass
+        screen.blit(firstpicImg,[0,0])
 
 
     isRunning = True
@@ -76,6 +76,8 @@ def leve1loop():
             plainScene(events, time)
         if scene == "mountainScene":
             mountainScene(events, time)
+        if scene == "cutscene1":
+            cutscene1(events)
 
 
         pygame.display.flip()
