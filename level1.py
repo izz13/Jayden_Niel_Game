@@ -58,6 +58,7 @@ def leve1loop():
         screen.blit(firstpicImg,[0,0])
 
 
+
     isRunning = True
     while isRunning:
         events = pygame.event.get()
