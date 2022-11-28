@@ -69,6 +69,7 @@ def leve1loop():
     def cutscene2(events):
         screen.blit(secondpicImg,[0,0])
 
+
     isRunning = True
     while isRunning:
         events = pygame.event.get()
