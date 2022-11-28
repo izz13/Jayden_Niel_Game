@@ -1,7 +1,7 @@
 import MainMenu, level1, level2, objects, tools, enemy
 
 
-level = "level2"
+level = "mainmenu"
 
 if level == "mainmenu":
     level = MainMenu.mainMenuloop()

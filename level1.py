@@ -23,10 +23,15 @@ def leve1loop():
     firstpicImg = pygame.image.load("lvl1_cutscene/first_cutscene_pic.png")
     secondpicImg = pygame.image.load("lvl1_cutscene/second_cutscene_pic.png")
     nextImg = pygame.image.load("lvl1_cutscene/next_button.png")
+    nextImg_rect = nextImg.get_bounding_rect()
+    next_rect = nextImg.get_bounding_rect()
+    nextImg_rect.center = [589, 296]
+
+
     player.pos = [0,0]
     plainsplatforms=[Platform([0, 480], 800, 120, green)]
     mountainplatforms=[Platform([0,540], 800, 60, gray),Platform([100,500], 600, 40, gray),Platform([140,460], 520, 40, gray),Platform([180,420], 440, 40, gray),Platform([220,380], 360, 40, gray),Platform([260,340], 280, 40, gray),Platform([300,300], 200, 40, gray),Platform([340,260], 120, 40, gray),Platform([380,220], 40, 40, gray)]
-    scene = "cutscene1"
+    scene = "plainScene"
     buttonrect = pygame.Rect([0, 150], [50, 50])
     doorrect = pygame.Rect([380, 0], [40, 220])
 
@@ -58,7 +63,11 @@ def leve1loop():
 
     def cutscene1(events):
         screen.blit(firstpicImg,[0,0])
-
+        screen.blit(nextImg,[489,246])
+        mouse_pos = pygame.mouse.get_pos()
+        #print(mouse_pos)
+    def cutscene2(events):
+        screen.blit(secondpicImg,[0,0])
 
     isRunning = True
     while isRunning:
@@ -71,15 +80,21 @@ def leve1loop():
         time = clock.get_time()/fps
         if player.pos[0] < 0:
             player.pos[0] = 0
-        if player.pos[0] > 745:
+        if player.pos[0] > 745 and scene == "plainScene":
             scene = "mountainScene"
             player.pos = [0, 478]
+        if player.pos[0] > 745 and scene == "mountainScene":
+            scene = cutscene1(events)
         if scene == "plainScene":
             plainScene(events, time)
         if scene == "mountainScene":
             mountainScene(events, time)
         if scene == "cutscene1":
             cutscene1(events)
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if nextImg_rect.collidepoint(event.pos):
+                    cutscene2(events)
 
 
         pygame.display.flip()
