@@ -23,10 +23,10 @@ def level2loop():
     DungeonImg4 = pygame.image.load("DungeonImages/DungeonScene4.png")
     scene = "dungeonScene2"
     dungeon1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], [381, 420], 15, "spider", 2, [576, 420])]
-    dungeon2_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75,75], [216, 215], 15, "spider", 2, [216, 215])]
+    dungeon2_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75,75], [127, 190], 15, "spider", 1.5, [225, 190])]
 
     dungeon1_pos = [0,0]
-    dungeon2_pos = [306,368]
+    dungeon2_pos = [0, 200]
     dungeon3_pos = [150, 10]
     dungeon4_pos = [0,0]
     if scene == "dungeonScene1":
