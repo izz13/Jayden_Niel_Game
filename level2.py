@@ -21,9 +21,9 @@ def level2loop():
     DungeonImg2 = pygame.image.load("DungeonImages/DungeonScene2.png")
     DungeonImg3 = pygame.image.load("DungeonImages/DungeonScene3.png")
     DungeonImg4 = pygame.image.load("DungeonImages/DungeonScene4.png")
-    scene = "dungeonScene2"
-    dungeon1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], [381, 420], 15, "spider", 2, [576, 420])]
-    dungeon2_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75,75], [127, 190], 15, "spider", 1.5, [225, 190])]
+    scene = "dungeonScene1"
+    dungeon1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [381, 420], 15, "spider", 2, [576, 420])]
+    dungeon2_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75,75],180, [127, 190], 15, "spider", 1.5, [225, 190])]
 
     dungeon1_pos = [0,0]
     dungeon2_pos = [0, 200]
@@ -52,8 +52,11 @@ def level2loop():
         player.playerfunctions(screen,events,time,dungeon1_platforms)
         for platform in dungeon1_platforms:
             platform.render(screen)
-        for e in dungeon1_enemies:
-            e.update(screen)
+        if len(dungeon1_enemies) > 0:
+            for e in dungeon1_enemies:
+                e.update(screen,player.projectiles)
+                if e.destroyed == "destroy":
+                    dungeon1_enemies.remove(e)
 
 
     def dungeonScene2(events, time):
@@ -68,8 +71,11 @@ def level2loop():
         player.playerfunctions(screen, events, time, dungeon2_platforms)
         for platform in dungeon2_platforms:
             platform.render(screen)
-        for e in dungeon2_enemies:
-            e.update(screen)
+        if len(dungeon2_enemies) > 0:
+            for e in dungeon2_enemies:
+                e.update(screen,player.projectiles)
+                if e.destroyed == "destroy":
+                    dungeon2_enemies.remove(e)
 
     def dungeonScene3(events, time):
         dungeon3_platforms = [Platform([152, 158], 200, 10, black), Platform([585, 468], 210, 125, black), Platform([0, 520], 585, 75, black),
@@ -98,7 +104,7 @@ def level2loop():
 
     isRunning = True
     while isRunning:
-        print(pygame.mouse.get_pos())
+        #print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:

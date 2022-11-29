@@ -134,9 +134,9 @@ class Player:
                     self.spell = self.spells[1]
                 if event.key == pygame.K_x and self.cooldown >= 30:
                     if self.spell == "fire":
-                        self.projectiles.append(Spell("fire", "Spells/fire.png", [64, 64], 50, self.facing, pos = starting_pos))
+                        self.projectiles.append(Spell("fire", "Spells/fire.png", [64, 64], 50,self.wand.damage_mult, self.facing, pos = starting_pos))
                     if self.spell == "ice":
-                        self.projectiles.append(Spell("ice", "Spells/ice.png", [64, 64], 10, self.facing, pos = starting_pos))
+                        self.projectiles.append(Spell("ice", "Spells/ice.png", [64, 64], 10,self.wand.damage_mult, self.facing, pos = starting_pos))
                     self.cooldown = 0
         if self.cooldown < 30:
             self.cooldown += 1
@@ -188,16 +188,18 @@ class Wand:
 
 
 class Spell:
-    def __init__(self, type, image, size, damage,facing, pos=[0, 0]):
+    def __init__(self, type, image, size, damage,damage_mult,facing, pos=[0, 0]):
         self.type = type
         self.image_raw = pygame.image.load(image)
         self.size = size
         self.image = pygame.transform.scale(self.image_raw, self.size)
         self.damage = damage
+        self.damage_mult = damage_mult
         self.pos = Vector2(pos)
         self.velocity = Vector2(0)
         self.facing = facing
         self.rect = self.image.get_bounding_rect()
+        self.total_damage = self.damage * self.damage_mult
 
     def render(self, screen, speed):
         self.rect.center = [self.pos[0] + self.size[0]/2, self.pos[1] + self.size[1]/2]
