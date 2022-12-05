@@ -4,7 +4,9 @@ from pygame.math import Vector2
 gravity = Vector2(0, 1)
 
 #make an enemy class here
-enemylist = ["vampire", "spider", "zombie"]
+enemylist = ["vampire", "spider", "zombie", "lvl1boss"]
+
+l1boss = pygame.image.load("Mobs/lvl1boss.png")
 
 #parent Enemy class
 class Enemy:
@@ -84,6 +86,7 @@ class Spider(Enemy):
         if self.facing == "left":
             self.velocity[0] = -self.speed
         self.pos += self.velocity
+
 
 
 
