@@ -90,7 +90,8 @@ class Spider(Enemy):
 
 
 class Bosslvl1(Enemy):
-
+    def __init__(self,image,pos,size,health,damage,speed):
+        pass
 
 
 
