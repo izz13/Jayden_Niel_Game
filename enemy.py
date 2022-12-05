@@ -19,7 +19,7 @@ class Enemy:
         self.type = type
         self.true_speed = speed
         self.speed = speed
-        self.frozen_speed = speed/15
+        self.frozen_speed = speed/4
         self.rect = self.image.get_bounding_rect()
         self.destroyed = "live"
         self.frozen = False
@@ -39,7 +39,7 @@ class Enemy:
                 self.health -= projectile.total_damage
                 if projectile.type == "ice":
                     self.frozen = True
-                    self.frozen_timer = 60
+                    self.frozen_timer = 180
                 projectiles.remove(projectile)
     def destroy(self):
         if self.health <=0:
