@@ -89,6 +89,7 @@ class Spider(Enemy):
         self.pos += self.velocity
 
 
+class Bosslvl1(Enemy):
 
 
 
