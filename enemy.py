@@ -6,6 +6,7 @@ gravity = Vector2(0, 1)
 #make an enemy class here
 enemylist = ["vampire", "spider", "zombie", "lvl1boss"]
 
+
 l1boss = pygame.image.load("Mobs/lvl1boss.png")
 
 #parent Enemy class
