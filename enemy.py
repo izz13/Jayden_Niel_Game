@@ -7,7 +7,6 @@ gravity = Vector2(0, 1)
 enemylist = ["vampire", "spider", "zombie", "lvl1boss"]
 
 
-l1boss = pygame.image.load("Mobs/lvl1boss.png")
 
 #parent Enemy class
 class Enemy:
@@ -28,8 +27,12 @@ class Enemy:
         self.frozen = False
         self.frozen_timer = 0
 
-    def move(self):
+    def move(self,player):
         pass
+
+    def attack(self,player):
+        pass
+
 
     def render(self,screen):
         self.rect.center = [self.pos[0] + self.size[0]/2, self.pos[1] + self.size[1]/2]
@@ -56,8 +59,9 @@ class Enemy:
         print(self.frozen_timer)
 
 
-    def update(self, screen, projectiles):
-        self.move()
+    def update(self, screen, projectiles,player):
+        self.move(player)
+        self.attack(player)
         self.render(screen)
         self.damage_taken(projectiles)
         self.destroyed = self.destroy()
@@ -77,7 +81,7 @@ class Spider(Enemy):
         self.end_pos = end_pos
         self.facing = "right"
 
-    def move(self):
+    def move(self,player):
         if self.pos[0] <= self.start_pos[0]:
             self.facing = "right"
         elif self.pos[0] >= self.end_pos[0] - self.size[1]:
@@ -90,8 +94,22 @@ class Spider(Enemy):
 
 
 class Bosslvl1(Enemy):
-    def __init__(self,image,pos,size,health,damage,speed):
-        pass
+    def __init__(self,image,pos,size,health,damage,type,speed):
+        super().__init__(image,size, health, pos, damage,type, speed)
+        self.facing = "left"
+
+    def move(self,player):
+        player_pos = player.pos
+        if self.pos.x > player_pos.x:
+            self.facing ="left"
+        if self.pos.x < player_pos.x:
+            self.facing = "right"
+        if self.facing == "right":
+            self.velocity[0] = self.speed
+        if self.facing == "left":
+            self.velocity[0] = -self.speed
+
+        self.pos += self.velocity
 
 
 

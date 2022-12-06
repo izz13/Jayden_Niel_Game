@@ -54,7 +54,7 @@ def level2loop():
             platform.render(screen)
         if len(dungeon1_enemies) > 0:
             for e in dungeon1_enemies:
-                e.update(screen,player.projectiles)
+                e.update(screen,player.projectiles,player)
                 if e.destroyed == "destroy":
                     dungeon1_enemies.remove(e)
 
@@ -73,7 +73,7 @@ def level2loop():
             platform.render(screen)
         if len(dungeon2_enemies) > 0:
             for e in dungeon2_enemies:
-                e.update(screen,player.projectiles)
+                e.update(screen,player.projectiles,player)
                 if e.destroyed == "destroy":
                     dungeon2_enemies.remove(e)
 
