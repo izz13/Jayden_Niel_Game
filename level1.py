@@ -36,7 +36,7 @@ def leve1loop():
     plainsplatforms=[Platform([0, 480], 800, 120, green)]
     mountainplatforms=[Platform([0,540], 800, 60, gray),Platform([100,500], 600, 40, gray),Platform([140,460], 520, 40, gray),Platform([180,420], 440, 40, gray),Platform([220,380], 360, 40, gray),Platform([260,340], 280, 40, gray),Platform([300,300], 200, 40, gray),Platform([340,260], 120, 40, gray),Platform([380,220], 40, 40, gray)]
     caveplatforms = [Platform([0,443], 800, 157, gray)]
-    scene = "cavescene"
+    scene = "plainScene"
     buttonrect = pygame.Rect([0, 150], [50, 50])
     doorrect = pygame.Rect([380, 0], [40, 220])
     l1boss = enemy.Bosslvl1("Mobs/lvl1boss.png",[543,315],[100,134],100,10,"lvl1boss",0.5)
