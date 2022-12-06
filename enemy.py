@@ -8,6 +8,8 @@ enemylist = ["vampire", "spider", "zombie", "lvl1boss"]
 
 
 
+l2boss = pygame.image.load("Mobs/L2_Minotaur_Boss.png")
+
 #parent Enemy class
 class Enemy:
     def __init__(self, image,size,health, pos, damage, type, speed):
