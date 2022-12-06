@@ -39,7 +39,7 @@ def leve1loop():
     scene = "cavescene"
     buttonrect = pygame.Rect([0, 150], [50, 50])
     doorrect = pygame.Rect([380, 0], [40, 220])
-    l1boss = enemy.Bosslvl1("Mobs/lvl1boss.png",[543,343],[100,134],100,10,"lvl1boss",1.5)
+    l1boss = enemy.Bosslvl1("Mobs/lvl1boss.png",[543,315],[100,134],100,10,"lvl1boss",0.5)
 
 
 
