@@ -114,5 +114,24 @@ class Bosslvl1(Enemy):
         self.pos += self.velocity
 
 
+class Minotaur_Boss(Enemy):
+    def __init__(self, image, pos, size, health, damage, type, speed):
+        super().__init__(image, size, health, pos, damage, type, speed)
+        self.facing = "left"
+
+    def move(self, player):
+        player_pos = player.pos
+        if self.pos.x > player_pos.x:
+            self.facing = "left"
+        if self.pos.x < player_pos.x:
+            self.facing = "right"
+        if self.facing == "right":
+            self.velocity[0] = self.speed
+        if self.facing == "left":
+            self.velocity[0] = -self.speed
+
+        self.pos += self.velocity
+
+
 
 
