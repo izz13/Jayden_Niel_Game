@@ -7,7 +7,6 @@ import tools
 pygame.init()
 
 def level2loop():
-
     screen_width = 800
     screen_height = 600
     screen = pygame.display.set_mode([screen_width, screen_height])
@@ -38,7 +37,6 @@ def level2loop():
         player.pos = dungeon3_pos
     if scene == "dungeonScene4":
         player.pos = dungeon4_pos
-
 
     def dungeonScene1(events, time):
         dungeon1_platforms = [Platform([0, 245], 91, 355, black), Platform([91, 481], 173, 119, black), Platform([164, 0],136, 140, black),
