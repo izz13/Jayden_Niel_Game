@@ -94,9 +94,13 @@ class Spider(Enemy):
 
 
 class Bosslvl1(Enemy):
-    def __init__(self,image,pos,size,health,damage,type,speed):
+    def __init__(self,image,pos,size,health,damage,type,speed,boss_right,boss_left,bossaxe_right,bossaxe_left):
         super().__init__(image,size, health, pos, damage,type, speed)
         self.facing = "left"
+        boss_right = pygame.image.load(boss_right)
+        boss_left = pygame.image.load(boss_left)
+        bossaxe_right = pygame.image.load(bossaxe_right)
+        bossaxe_left = pygame.image.load(bossaxe_left)
 
     def move(self,player):
         player_pos = player.pos
