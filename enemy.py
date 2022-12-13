@@ -8,8 +8,6 @@ enemylist = ["vampire", "spider", "zombie", "lvl1boss"]
 
 
 
-l2boss = pygame.image.load("Mobs/L2_Minotaur_Boss.png")
-
 #parent Enemy class
 class Enemy:
     def __init__(self, image,size,health, pos, damage, type, speed):
@@ -115,9 +113,27 @@ class Bosslvl1(Enemy):
 
 
 class Minotaur_Boss(Enemy):
-    def __init__(self, image, pos, size, health, damage, type, speed):
+    def __init__(self, image, pos, size, health, damage, type, speed, platforms):
         super().__init__(image, size, health, pos, damage, type, speed)
         self.facing = "left"
+        self.grounded = False
+        self.platforms = platforms
+        self.width = self.size[0]
+        self.height = self.size[1]
+        self.thickness = 2
+        self.top_rect = pygame.Rect(self.pos, [self.width, self.thickness])
+        self.bottom_rect = pygame.Rect([self.pos[0], self.pos[1] + self.height], [self.width, self.thickness])
+        self.left_rect = pygame.Rect(self.pos, [self.thickness, self.height])
+        self.right_rect = pygame.Rect([self.pos[0] + self.width, self.pos[1]], [self.thickness, self.height])
+        self.lines = [self.top_rect, self.bottom_rect, self.left_rect, self.right_rect]
+
+    def collision_plat(self):
+        for platform in self.platforms:
+            if self.bottom_rect.colliderect(platform.top_rect):
+                self.grounded = True
+                break
+            else:
+                self.grounded = False
 
     def move(self, player):
         player_pos = player.pos
@@ -130,7 +146,42 @@ class Minotaur_Boss(Enemy):
         if self.facing == "left":
             self.velocity[0] = -self.speed
 
+        if self.grounded == False:
+            self.velocity[1] = gravity[1]*3
+            self.velocity[0] = 0
+        if self.grounded == True:
+            self.velocity[1] = 0
+        #self.velocity[0] = 0
+        self.collision_plat()
         self.pos += self.velocity
+
+    def render(self,screen):
+        self.rect.center = [self.pos[0] + 32, self.pos[1] + 32]
+        self.top_rect = pygame.Rect(self.pos, [self.width, self.thickness])
+        self.bottom_rect = pygame.Rect([self.pos[0], self.pos[1] + self.height], [self.width, self.thickness])
+        self.left_rect = pygame.Rect(self.pos, [self.thickness, self.height])
+        self.right_rect = pygame.Rect([self.pos[0] + self.width, self.pos[1]], [self.thickness, self.height])
+        self.lines = [self.top_rect, self.bottom_rect, self.left_rect, self.right_rect]
+        # pygame.draw.rect(screen,(0,0,255),self.rect)
+        draw = True
+        if draw == True:
+            for line in self.lines:
+                pygame.draw.rect(screen, (255, 0, 0), line)
+        screen.blit(self.image, self.pos)
+        print(self.grounded)
+
+    def update(self, screen, projectiles,player,platforms):
+        self.platforms = platforms
+        self.move(player)
+        self.attack(player)
+        self.render(screen)
+        self.damage_taken(projectiles)
+        self.destroyed = self.destroy()
+        if self.frozen == True:
+            self.is_frozen()
+        if self.frozen_timer <= 0:
+            self.speed = self.true_speed
+            self.frozen = False
 
 
 

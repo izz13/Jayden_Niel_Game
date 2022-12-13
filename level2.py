@@ -20,10 +20,13 @@ def level2loop():
     DungeonImg2 = pygame.image.load("DungeonImages/DungeonScene2.png")
     DungeonImg3 = pygame.image.load("DungeonImages/DungeonScene3.png")
     DungeonImg4 = pygame.image.load("DungeonImages/DungeonScene4.png")
+    dungeon4_platforms = [Platform([0, 0], 117, 600, black), Platform([117, 0], 683, 81, black),
+                          Platform([710, 80], 90, 520, black),
+                          Platform([121, 468], 589, 130, black), Platform([523, 302], 170, 10, black)]
     scene = "dungeonScene3"
     dungeon1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [381, 420], 15, "spider", 2, [576, 420])]
     dungeon2_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75,75],180, [127, 190], 15, "spider", 1.5, [225, 190])]
-    minotaur_boss = enemy.Minotaur_Boss("Mobs/L2_Minotaur_Boss.png",[609, 187],[200, 200],100,15,"minotaur_boss",3.3)
+    minotaur_boss = enemy.Minotaur_Boss("Mobs/L2_Minotaur_Boss.png",[609, 180],[50, 50],100,15,"minotaur_boss",3.3, dungeon4_platforms)
 
     dungeon1_pos = [0,0]
     dungeon2_pos = [0, 200]
@@ -90,21 +93,19 @@ def level2loop():
 
 
     def dungeonScene4(events, time):
-        dungeon4_platforms = [Platform([0, 0], 117, 600, black), Platform([117, 0], 683, 81, black), Platform([710, 80], 90, 520, black),
-                              Platform([121, 468], 589, 130, black), Platform([523, 302], 170, 10, black)]
         screen.fill(gray)
         screen.blit(DungeonImg4, (0, 0))
         player.render(screen)
         player.playerfunctions(screen, events, time, dungeon4_platforms)
         for platform in dungeon4_platforms:
             platform.render(screen)
-        minotaur_boss.update(screen,player.projectiles,player)
+        minotaur_boss.update(screen,player.projectiles,player,dungeon4_platforms)
 
 
 
     isRunning = True
     while isRunning:
-        print(pygame.mouse.get_pos())
+        #print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
