@@ -123,6 +123,17 @@ class Bosslvl1(Enemy):
 
         self.pos += self.velocity
 
+    def render(self,screen):
+        self.rect.center = [self.pos[0] + self.size[0]/2, self.pos[1] + self.size[1]/2]
+        if self.facing == "left":
+            screen.blit(self.boss_left,self.pos)
+            screen.blit(self.bossaxe_left,[self.pos[0] + 32, self.pos[1] + 32])
+        if self.facing == "right":
+            screen.blit(self.boss_right,self.pos)
+            screen.blit(self.bossaxe_right,[self.pos[0] + 32, self.pos[1] + 32])
+        #pygame.draw.rect(screen,(255,0,0),self.rect)
+
+
 
 class Minotaur_Boss(Enemy):
     def __init__(self, image, pos, size, health, damage, type, speed,defense, platforms):
@@ -180,7 +191,7 @@ class Minotaur_Boss(Enemy):
             for line in self.lines:
                 pygame.draw.rect(screen, (255, 0, 0), line)
         screen.blit(self.image, self.pos)
-        print(self.grounded)
+        #print(self.grounded)
 
     def update(self, screen, projectiles,player,platforms):
         self.platforms = platforms
