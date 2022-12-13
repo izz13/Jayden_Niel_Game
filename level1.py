@@ -39,7 +39,7 @@ def leve1loop():
     scene = "cavescene"
     buttonrect = pygame.Rect([0, 150], [50, 50])
     doorrect = pygame.Rect([380, 0], [40, 220])
-    l1boss = enemy.Bosslvl1("Mobs/lvl1boss_left.png", [543, 333], [100, 134], 100, 10, "lvl1boss", 0.5,"lvl1boss_right","lvl1boss_left","1bossaxe_right","1bossaxe_left")
+    l1boss = enemy.Bosslvl1("Mobs/lvl1boss_left.png", [543, 333], [100, 134], 750, 10, "lvl1boss", 0.5,.8,"Mobs/lvl1boss_right.png","Mobs/lvl1boss_left.png","Items/1bossaxe_right.png","Items/1bossaxe_left.png")
 
 
 
@@ -82,6 +82,9 @@ def leve1loop():
         screen.blit(caveImg, [0, 0])
         player.playerfunctions(screen, events, time, caveplatforms)
         l1boss.update(screen,player.projectiles,player)
+        pygame.draw.rect(screen,(255,0,0),l1boss.damage_bar)
+        pygame.draw.rect(screen, (0, 255, 0), l1boss.boss_health)
+        l1boss.boss_health.width = l1boss.health
 
     isRunning = True
     while isRunning:
