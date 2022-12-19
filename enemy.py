@@ -127,10 +127,10 @@ class Bosslvl1(Enemy):
         self.rect.center = [self.pos[0] + self.size[0]/2, self.pos[1] + self.size[1]/2]
         if self.facing == "left":
             screen.blit(self.boss_left,self.pos)
-            screen.blit(self.bossaxe_left,[self.pos[0] + 32, self.pos[1] + 32])
+            screen.blit(self.bossaxe_left,[self.pos[0], self.pos[1]])
         if self.facing == "right":
             screen.blit(self.boss_right,self.pos)
-            screen.blit(self.bossaxe_right,[self.pos[0] + 32, self.pos[1] + 32])
+            screen.blit(self.bossaxe_right,[self.pos[0]-7, self.pos[1]])
         #pygame.draw.rect(screen,(255,0,0),self.rect)
 
 
