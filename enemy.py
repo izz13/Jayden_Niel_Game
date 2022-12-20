@@ -120,7 +120,7 @@ class Bosslvl1(Enemy):
         dist_player = self.get_distance_player(player)
         print(dist_player)
         player_pos = player.pos
-        if dist_player >= 50:
+        if dist_player >= 45:
             self.attacking = False
             if self.pos.x > player_pos.x:
                 self.facing ="left"
