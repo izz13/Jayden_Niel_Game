@@ -101,6 +101,9 @@ def level2loop():
         for platform in dungeon4_platforms:
             platform.render(screen)
         minotaur_boss.update(screen,player.projectiles,player,dungeon4_platforms)
+        if len(dungeon4_platforms) == 5:
+            if minotaur_boss.pos[1] > dungeon4_platforms[4].pos[1]:
+                dungeon4_platforms.remove(dungeon4_platforms[4])
 
 
 
