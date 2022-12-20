@@ -179,13 +179,15 @@ class Minotaur_Boss(Enemy):
                 break
             else:
                 self.grounded = False
+        for platform in self.platforms:
+            if self.left_rect.colliderect(platform.right_rect):
+                self.facing = "right"
+                break
+            if self.right_rect.colliderect(platform.left_rect):
+                self.facing = "left"
+                break
 
     def move(self, player):
-        player_pos = player.pos
-        if self.pos.x > player_pos.x:
-            self.facing = "left"
-        if self.pos.x < player_pos.x:
-            self.facing = "right"
         if self.facing == "right":
             self.velocity[0] = self.speed
         if self.facing == "left":
@@ -213,7 +215,7 @@ class Minotaur_Boss(Enemy):
             for line in self.lines:
                 pygame.draw.rect(screen, (255, 0, 0), line)
         screen.blit(self.image, self.pos)
-        #print(self.grounded)
+        print(self.grounded)
 
     def update(self, screen, projectiles,player,platforms):
         self.platforms = platforms
