@@ -11,6 +11,7 @@ class Player:
         self.width, self.height = 64, 64
         self.image = pygame.transform.scale(self.image_raw, [64, 64])
         self.pos = Vector2(pos)
+        self.center = [self.pos[0] + self.width/2, self.pos[1] + self.height/2]
         self.rect = self.image.get_bounding_rect()
         self.thickness = 2
         self.top_rect = pygame.Rect(self.pos, [self.width, self.thickness])
@@ -67,6 +68,7 @@ class Player:
         #Rendering collsion and player image
         screen.blit(self.image, self.pos)
         self.rect.center = [self.pos[0] + 32, self.pos[1] + 32]
+        self.center = [self.pos[0] + self.width / 2, self.pos[1] + self.height / 2]
         self.top_rect = pygame.Rect(self.pos, [self.width, self.thickness])
         self.bottom_rect = pygame.Rect([self.pos[0], self.pos[1] + self.height], [self.width, self.thickness])
         self.left_rect = pygame.Rect(self.pos, [self.thickness, self.height])

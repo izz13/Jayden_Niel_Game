@@ -1,5 +1,6 @@
 import pygame
 from pygame.math import Vector2
+from math import sqrt
 
 gravity = Vector2(0, 1)
 
@@ -16,6 +17,7 @@ class Enemy:
         self.health = health
         self.image = pygame.transform.scale(self.image_raw,self.size)
         self.pos = Vector2(pos)
+        self.center = [self.pos[0] + self.size[0] / 2, self.pos[1] + self.size[1] / 2]
         self.velocity = Vector2(0)
         self. damage = damage
         self.type = type
@@ -34,9 +36,14 @@ class Enemy:
     def attack(self,player):
         pass
 
+    def get_distance_player(self,player):
+        distance = sqrt((self.rect.center[0]-player.rect.center[0])**2 + (self.rect.center[1]-player.rect.center[1])**2)
+        return distance
+
 
     def render(self,screen):
         self.rect.center = [self.pos[0] + self.size[0]/2, self.pos[1] + self.size[1]/2]
+        self.center = [self.pos[0] + self.size[0] / 2, self.pos[1] + self.size[1] / 2]
         screen.blit(self.image,self.pos)
         #pygame.draw.rect(screen,(255,0,0),self.rect)
 
@@ -107,17 +114,25 @@ class Bosslvl1(Enemy):
         self.bossaxe_left = pygame.image.load(bossaxe_left)
         self.boss_health = pygame.Rect(50,500,self.health,50)
         self.damage_bar = pygame.Rect(50,500,self.health,50)
+        self.attacking = False
 
     def move(self,player):
+        dist_player = self.get_distance_player(player)
+        print(dist_player)
         player_pos = player.pos
-        if self.pos.x > player_pos.x:
-            self.facing ="left"
-        if self.pos.x < player_pos.x:
-            self.facing = "right"
-        if self.facing == "right":
-            self.velocity[0] = self.speed
-        if self.facing == "left":
-            self.velocity[0] = -self.speed
+        if dist_player >= 50:
+            self.attacking = False
+            if self.pos.x > player_pos.x:
+                self.facing ="left"
+            if self.pos.x < player_pos.x:
+                self.facing = "right"
+            if self.facing == "right":
+                self.velocity[0] = self.speed
+            if self.facing == "left":
+                self.velocity[0] = -self.speed
+        else:
+            self.attacking = True
+            self.velocity = Vector2(0)
 
 
 
@@ -132,6 +147,13 @@ class Bosslvl1(Enemy):
             screen.blit(self.boss_right,self.pos)
             screen.blit(self.bossaxe_right,[self.pos[0]-7, self.pos[1]])
         #pygame.draw.rect(screen,(255,0,0),self.rect)
+
+    def attack(self,player):
+        UP = Vector2(0,1)
+        if self.facing == "left":
+            for i in range(int(pygame.time.Clock().get_fps()/2)):
+                pass
+
 
 
 
