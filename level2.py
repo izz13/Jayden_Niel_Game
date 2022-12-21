@@ -93,7 +93,6 @@ def level2loop():
 
 
     def dungeonScene4(events, time):
-        #test
         screen.fill(gray)
         screen.blit(DungeonImg4, (0, 0))
         player.jump_height = -10
@@ -105,6 +104,9 @@ def level2loop():
         pygame.draw.rect(screen,(255,0,0),minotaur_boss.damage_bar)
         pygame.draw.rect(screen, (0, 255, 0), minotaur_boss.boss_health)
         minotaur_boss.boss_health.width = minotaur_boss.health
+        if len(dungeon4_platforms) == 5:
+            if minotaur_boss.pos[1] > dungeon4_platforms[4].pos[1]:
+                dungeon4_platforms.remove(dungeon4_platforms[4])
 
 
 
