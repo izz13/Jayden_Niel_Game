@@ -1,6 +1,7 @@
 import pygame
 from pygame.math import Vector2
 from math import sqrt
+import time
 
 gravity = Vector2(0, 1)
 
@@ -53,7 +54,7 @@ class Enemy:
                 if self.defense != 0:
                     self.health -= projectile.total_damage*(1-self.defense)
                 if self.defense == 0:
-                    self.health-= projectile.total_damage
+                    self.health -= projectile.total_damage
                 if projectile.type == "ice":
                     self.frozen = True
                     self.frozen_timer = 180
@@ -72,7 +73,8 @@ class Enemy:
 
     def update(self, screen, projectiles,player):
         self.move(player)
-        self.attack(player)
+        if self.attacking == True:
+            self.attack(screen, player)
         self.render(screen)
         self.damage_taken(projectiles)
         self.destroyed = self.destroy()
@@ -105,20 +107,19 @@ class Spider(Enemy):
 
 
 class Bosslvl1(Enemy):
-    def __init__(self,image,pos,size,health,damage,type,speed,defense,boss_right,boss_left,bossaxe_right,bossaxe_left):
-        super().__init__(image,size, health, pos, damage,type, speed,defense)
+    def __init__(self, image, pos, size, health, damage, type, speed, defense, boss_right, boss_left, bossaxe_right, bossaxe_left):
+        super().__init__(image, size, health, pos, damage, type, speed, defense)
         self.facing = "left"
         self.boss_right = pygame.image.load(boss_right)
         self.boss_left = pygame.image.load(boss_left)
         self.bossaxe_right = pygame.image.load(bossaxe_right)
         self.bossaxe_left = pygame.image.load(bossaxe_left)
-        self.boss_health = pygame.Rect(50,500,self.health,50)
-        self.damage_bar = pygame.Rect(50,500,self.health,50)
+        self.boss_health = pygame.Rect(50, 500, self.health, 50)
+        self.damage_bar = pygame.Rect(50, 500, self.health, 50)
         self.attacking = False
 
-    def move(self,player):
+    def move(self, player):
         dist_player = self.get_distance_player(player)
-        print(dist_player)
         player_pos = player.pos
         if dist_player >= 45:
             self.attacking = False
@@ -148,12 +149,13 @@ class Bosslvl1(Enemy):
             screen.blit(self.bossaxe_right,[self.pos[0]-7, self.pos[1]])
         #pygame.draw.rect(screen,(255,0,0),self.rect)
 
-    def attack(self,player):
+    def attack(self, screen, player):
+        print('attack')
         UP = Vector2(0,1)
         if self.facing == "left":
-            for i in range(int(pygame.time.Clock().get_fps()/2)):
+            # for i in range(int(pygame.time.Clock().get_fps()/2)):
+            for i in range(int(30 / 2)):
                 pass
-
 
 
 
