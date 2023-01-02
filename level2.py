@@ -16,6 +16,7 @@ def level2loop():
     green = (0, 255, 0)
     clock = pygame.time.Clock()
     fps = 60
+    font = pygame.font.SysFont(None, 60)
     DungeonImg1 = pygame.image.load("DungeonImages/DungeonScene1.png")
     DungeonImg2 = pygame.image.load("DungeonImages/DungeonScene2.png")
     DungeonImg3 = pygame.image.load("DungeonImages/DungeonScene3.png")
@@ -101,9 +102,13 @@ def level2loop():
         for platform in dungeon4_platforms:
             platform.render(screen)
         minotaur_boss.update(screen,player.projectiles,player,dungeon4_platforms)
+        health_outline1 = pygame.Rect((112, 496), (610, 60))
+        pygame.draw.rect(screen, gray, health_outline1)
         pygame.draw.rect(screen,(255,0,0),minotaur_boss.damage_bar)
         pygame.draw.rect(screen, (0, 255, 0), minotaur_boss.boss_health)
         minotaur_boss.boss_health.width = minotaur_boss.health
+        health_msg = font.render("HEALTH", 0, (255, 0, 0))
+        screen.blit(health_msg, [300, 510])
         if len(dungeon4_platforms) == 5:
             if minotaur_boss.pos[1] > dungeon4_platforms[4].pos[1]:
                 dungeon4_platforms.remove(dungeon4_platforms[4])
@@ -112,7 +117,7 @@ def level2loop():
 
     isRunning = True
     while isRunning:
-        #print(pygame.mouse.get_pos())
+        print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
