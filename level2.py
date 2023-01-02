@@ -16,6 +16,7 @@ def level2loop():
     green = (0, 255, 0)
     clock = pygame.time.Clock()
     fps = 60
+    font = pygame.font.SysFont(None, 60)
     DungeonImg1 = pygame.image.load("DungeonImages/DungeonScene1.png")
     DungeonImg2 = pygame.image.load("DungeonImages/DungeonScene2.png")
     DungeonImg3 = pygame.image.load("DungeonImages/DungeonScene3.png")
@@ -26,7 +27,7 @@ def level2loop():
     scene = "dungeonScene3"
     dungeon1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [381, 420], 15, "spider", 2, 0,[576, 420])]
     dungeon2_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75,75],180, [127, 190], 15, "spider", 1.5, 0,[225, 190])]
-    minotaur_boss = enemy.Minotaur_Boss("Mobs/L2_Minotaur_Boss.png",[609, 180],[50, 50],100,15,"minotaur_boss",3.3, .8,dungeon4_platforms)
+    minotaur_boss = enemy.Minotaur_Boss("Mobs/L2_Minotaur_Boss.png",[609, 180],[100, 100],600,15,"minotaur_boss",.8, 2.9,dungeon4_platforms)
 
     dungeon1_pos = [0,0]
     dungeon2_pos = [0, 200]
@@ -95,17 +96,28 @@ def level2loop():
     def dungeonScene4(events, time):
         screen.fill(gray)
         screen.blit(DungeonImg4, (0, 0))
+        player.jump_height = -10
         player.render(screen)
         player.playerfunctions(screen, events, time, dungeon4_platforms)
         for platform in dungeon4_platforms:
             platform.render(screen)
         minotaur_boss.update(screen,player.projectiles,player,dungeon4_platforms)
+        health_outline1 = pygame.Rect((112, 496), (610, 60))
+        pygame.draw.rect(screen, gray, health_outline1)
+        pygame.draw.rect(screen,(255,0,0),minotaur_boss.damage_bar)
+        pygame.draw.rect(screen, (0, 255, 0), minotaur_boss.boss_health)
+        minotaur_boss.boss_health.width = minotaur_boss.health
+        health_msg = font.render("HEALTH", 0, (255, 0, 0))
+        screen.blit(health_msg, [300, 510])
+        if len(dungeon4_platforms) == 5:
+            if minotaur_boss.pos[1] > dungeon4_platforms[4].pos[1]:
+                dungeon4_platforms.remove(dungeon4_platforms[4])
 
 
 
     isRunning = True
     while isRunning:
-        #print(pygame.mouse.get_pos())
+        print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
