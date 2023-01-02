@@ -3,6 +3,7 @@ from pygame.math import Vector2
 
 # Variables here
 gravity = Vector2(0, 1)
+green = (0, 255, 0)
 
 # classes go here
 class Player:
@@ -32,7 +33,8 @@ class Player:
         self.cooldown = 30
         self.projectiles = []
         self.facing = "Right"
-
+        self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 20, 10)
+        self.damage_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 20, 10)
     def collision_plat(self, platforms):
         buffer = 2
         for platform in platforms:
@@ -47,7 +49,7 @@ class Player:
                         self.pos[1] = platform.pos[1] - self.rect.height
                         self.velocity[1] = 0
             if platform.left_rect.colliderect(self.right_rect):
-                #self.pos[0] = platform.pos[0]-self.width-buffer
+                #self.pos[0] = platform.pos[0] - self.width - buffer
                 if self.velocity[0] > 0:
                     self.velocity[0] = 0
             if platform.right_rect.colliderect(self.left_rect):
@@ -123,7 +125,7 @@ class Player:
                 if event.key == pygame.K_UP or event.key == pygame.K_w:
                     self.jump = False
         self.pos += self.velocity
-
+        self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 2, 10)
 
     def shoot(self,events,screen):
         if self.facing == "Right":
