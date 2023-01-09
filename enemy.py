@@ -154,16 +154,17 @@ class Bosslvl1(Enemy):
         #pygame.draw.rect(screen,(255,0,0),self.rect)
 
     def attack(self, screen, player):
-        print('attack')
         UP = Vector2(0,1)
         if self.facing == "left":
             if self.frame < 4:
                 if self.anitime >= 5:
                     self.boss_current_left = self.boss_left[self.frame]
-                    self.frame +=1
+                    self.frame += 1
                     self.anitime = 0
                 else:
                     self.anitime += 1
+                if self.frame == 3:
+                    player.health -= 10
             else:
                 self.frame = 0
         if self.facing == "right":
