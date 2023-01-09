@@ -73,8 +73,6 @@ class Enemy:
 
     def update(self, screen, projectiles,player):
         self.move(player)
-        if self.attacking == True:
-            self.attack(screen, player)
         self.render(screen)
         self.damage_taken(projectiles)
         self.destroyed = self.destroy()
@@ -107,24 +105,32 @@ class Spider(Enemy):
 
 
 class Bosslvl1(Enemy):
-    def __init__(self, image, pos, size, health, damage, type, speed, defense, boss_right, boss_left, bossaxe_right, bossaxe_left):
+    def __init__(self, image, pos, size, health, damage, type, speed, defense, boss_right, boss_left):
         super().__init__(image, size, health, pos, damage, type, speed, defense)
         self.facing = "left"
-        self.boss_right = pygame.image.load(boss_right)
-        self.boss_left = pygame.image.load(boss_left)
-        self.bossaxe_right = pygame.image.load(bossaxe_right)
-        self.bossaxe_left = pygame.image.load(bossaxe_left)
+        self.boss_right = []
+        self.boss_left = []
+        for i in range(4):
+            self.boss_left.append(pygame.image.load(boss_left + "/1boss-" + str(i) + ".png"))
+        for i in range(4):
+            self.boss_right.append(pygame.image.load(boss_right + "/1boss-" + str(i) + ".png"))
+        self.boss_current_left = self.boss_left[0]
+        self.boss_current_right = self.boss_right[0]
         self.boss_health = pygame.Rect(50, 500, self.health, 50)
         self.damage_bar = pygame.Rect(50, 500, self.health, 50)
         self.attacking = False
+        self.frame = 0
+        self.anitime = 5
 
     def move(self, player):
         dist_player = self.get_distance_player(player)
         player_pos = player.pos
         if dist_player >= 45:
+            self.frame = 0
             self.attacking = False
             if self.pos.x > player_pos.x:
                 self.facing ="left"
+                self.boss_current_left = self.boss_left[self.frame]
             if self.pos.x < player_pos.x:
                 self.facing = "right"
             if self.facing == "right":
@@ -142,20 +148,40 @@ class Bosslvl1(Enemy):
     def render(self,screen):
         self.rect.center = [self.pos[0] + self.size[0]/2, self.pos[1] + self.size[1]/2]
         if self.facing == "left":
-            screen.blit(self.boss_left,self.pos)
-            screen.blit(self.bossaxe_left,[self.pos[0], self.pos[1]])
+            screen.blit(self.boss_current_left,self.pos)
         if self.facing == "right":
-            screen.blit(self.boss_right,self.pos)
-            screen.blit(self.bossaxe_right,[self.pos[0]-7, self.pos[1]])
+            screen.blit(self.boss_current_right,self.pos)
         #pygame.draw.rect(screen,(255,0,0),self.rect)
 
     def attack(self, screen, player):
         print('attack')
         UP = Vector2(0,1)
         if self.facing == "left":
-            # for i in range(int(pygame.time.Clock().get_fps()/2)):
-            for i in range(int(30 / 2)):
-                pass
+            if self.frame < 4:
+                if self.anitime >= 5:
+                    self.boss_current_left = self.boss_left[self.frame]
+                    self.frame +=1
+                    self.anitime = 0
+                else:
+                    self.anitime += 1
+            else:
+                self.frame = 0
+
+
+
+    def update(self, screen, projectiles,player):
+        self.move(player)
+        print(self.attacking)
+        if self.attacking == True:
+            self.attack(screen,player)
+        self.render(screen)
+        self.damage_taken(projectiles)
+        self.destroyed = self.destroy()
+        if self.frozen == True:
+            self.is_frozen()
+        if self.frozen_timer <= 0:
+            self.speed = self.true_speed
+            self.frozen = False
 
 
 
