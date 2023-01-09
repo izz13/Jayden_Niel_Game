@@ -82,7 +82,7 @@ def leve1loop():
         screen.blit(caveImg, [0, 0])
         player.playerfunctions(screen, events, time, caveplatforms)
         l1boss.update(screen,player.projectiles,player)
-        pygame.draw.rect(screen,(255,0,0),l1boss.damage_bar)
+        pygame.draw.rect(screen, (255, 0, 0), l1boss.damage_bar)
         pygame.draw.rect(screen, (0, 255, 0), l1boss.boss_health)
         l1boss.boss_health.width = l1boss.health
         pygame.draw.rect(screen, (255, 0, 0), player.damage_bar)

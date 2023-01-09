@@ -1,7 +1,6 @@
 import pygame
 from pygame.math import Vector2
 from math import sqrt
-import time
 
 gravity = Vector2(0, 1)
 
@@ -133,6 +132,7 @@ class Bosslvl1(Enemy):
                 self.boss_current_left = self.boss_left[self.frame]
             if self.pos.x < player_pos.x:
                 self.facing = "right"
+                self.boss_current_right = self.boss_right[self.frame]
             if self.facing == "right":
                 self.velocity[0] = self.speed
             if self.facing == "left":
@@ -160,6 +160,16 @@ class Bosslvl1(Enemy):
             if self.frame < 4:
                 if self.anitime >= 5:
                     self.boss_current_left = self.boss_left[self.frame]
+                    self.frame +=1
+                    self.anitime = 0
+                else:
+                    self.anitime += 1
+            else:
+                self.frame = 0
+        if self.facing == "right":
+            if self.frame < 4:
+                if self.anitime >= 5:
+                    self.boss_current_right = self.boss_right[self.frame]
                     self.frame +=1
                     self.anitime = 0
                 else:
