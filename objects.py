@@ -99,6 +99,9 @@ class Player:
         self.move(events, time)
         self.shoot(events, screen)
         self.collision_plat(platforms)
+        pygame.draw.rect(screen, (255, 0, 0), self.damage_bar)
+        pygame.draw.rect(screen, (0, 255, 0), self.health_bar)
+        self.health_bar.width = self.health
 
 
 
