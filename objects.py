@@ -2,6 +2,7 @@ import pygame
 from pygame.math import Vector2
 
 # Variables here
+
 gravity = Vector2(0, 1)
 green = (0, 255, 0)
 
@@ -29,6 +30,8 @@ class Player:
         self.spell = self.spells[0]
         self.grounded = False
         self.jump = True
+        self.jump_boost = False
+        self.jump_boost_cooldown = 420
         self.jump_height = -6.5
         self.cooldown = 30
         self.projectiles = []
@@ -124,6 +127,13 @@ class Player:
                     self.velocity[0] = 0
                 if event.key == pygame.K_UP or event.key == pygame.K_w:
                     self.jump = False
+        if self.jump_boost == True:
+            self.jump_height = -10
+            self.jump_boost_cooldown -= 1
+        if self.jump_boost_cooldown <= 0:
+            self.jump_height = -6.5
+            self.jump_boost = False
+            self.jump_boost_cooldown = 420
         self.pos += self.velocity
         self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 2, 10)
 
@@ -138,11 +148,16 @@ class Player:
                     self.spell = self.spells[0]
                 if event.key == pygame.K_2:
                     self.spell = self.spells[1]
+                if event.key == pygame.K_4:
+                    self.spell = self.spells[3]
                 if event.key == pygame.K_x and self.cooldown >= 30:
                     if self.spell == "fire":
                         self.projectiles.append(Spell("fire", "Spells/fire.png", [64, 64], 50,self.wand.damage_mult, self.facing, pos = starting_pos))
                     if self.spell == "ice":
                         self.projectiles.append(Spell("ice", "Spells/ice.png", [64, 64], 10,self.wand.damage_mult, self.facing, pos = starting_pos))
+                    if self.spell == "poison":
+                        self.projectiles.append(Spell("poison", "Spells/Poison_Spell.png", [64, 64], 100,self.wand.damage_mult, self.facing, pos = starting_pos))
+
                     self.cooldown = 0
         if self.cooldown < 30:
             self.cooldown += 1
@@ -227,7 +242,7 @@ starter_wand = Wand("starter_wand","Items/Starter_Wand.png", 1.25, 5)
 #fire_spell = Spell("fire","fire.png",[64,64],50)
 
 
-player = Player([0, 0], 3, 100, starter_wand, ["fire", "ice"])
+player = Player([0, 0], 3, 100, starter_wand, ["fire", "ice", "jump_boost", "poison"])
 
 
 """
