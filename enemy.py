@@ -120,6 +120,7 @@ class Bosslvl1(Enemy):
         self.attacking = False
         self.frame = 0
         self.anitime = 5
+        self.hit_player = False
 
     def move(self, player):
         dist_player = self.get_distance_player(player)
@@ -163,8 +164,11 @@ class Bosslvl1(Enemy):
                     self.anitime = 0
                 else:
                     self.anitime += 1
-                if self.frame == 3:
-                    player.health -= 10
+                if self.frame == 3 and self.hit_player == False:
+                    player.health -= 25
+                    self.hit_player = True
+                if self.frame == 4 and self.hit_player == True:
+                    self.hit_player = False
             else:
                 self.frame = 0
         if self.facing == "right":
