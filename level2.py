@@ -20,6 +20,7 @@ def level2loop():
     DungeonImg1 = pygame.image.load("DungeonImages/DungeonScene1.png")
     DungeonImg2 = pygame.image.load("DungeonImages/DungeonScene2.png")
     DungeonImg3 = pygame.image.load("DungeonImages/DungeonScene3.png")
+    dungeontunnelimg = pygame.image.load("DungeonImages/Boss_Tunnel.png")
     DungeonImg4 = pygame.image.load("DungeonImages/DungeonScene4.png")
     dungeon4_platforms = [Platform([0, 0], 117, 600, black), Platform([117, 0], 683, 81, black),
                           Platform([710, 80], 90, 520, black),
@@ -33,6 +34,7 @@ def level2loop():
     dungeon2_pos = [0, 200]
     dungeon3_pos = [150, 10]
     dungeon4_pos = [0,0]
+    dungeon_tunnel_pos = [0, 0]
     if scene == "dungeonScene1":
         player.pos = dungeon1_pos
     if scene == "dungeonScene2":
@@ -41,6 +43,8 @@ def level2loop():
         player.pos = dungeon3_pos
     if scene == "dungeonScene4":
         player.pos = dungeon4_pos
+    if scene == "dungeonScene_tunnel":
+        player.pos = dungeon_tunnel_pos
 
     def dungeonScene1(events, time):
         dungeon1_platforms = [Platform([0, 245], 91, 355, black), Platform([91, 481], 173, 119, black), Platform([164, 0],136, 140, black),
@@ -92,11 +96,24 @@ def level2loop():
         for platform in dungeon3_platforms:
             platform.render(screen)
 
+    def dungeonScene_tunnel(events, time):
+        dungeon_tunnel_platforms = [Platform([0, 500], 800, 10, black)]
+        screen.fill(gray)
+        screen.blit(dungeontunnelimg, (0, 0))
+        player.playerfunctions(screen, events, time, dungeon_tunnel_platforms)
+        for platform in dungeon_tunnel_platforms:
+            platform.render(screen)
 
     def dungeonScene4(events, time):
         screen.fill(gray)
         screen.blit(DungeonImg4, (0, 0))
-        player.jump_height = -10
+        #player.jump_height = -10
+        for event in events:
+            if event.type == pygame.KEYDOWN:
+                if event.key == pygame.K_3:
+                    player.spell = player.spells[2]
+                if player.spell == "jump_boost" and event.key == pygame.K_x:
+                    player.jump_boost = True
         player.render(screen)
         player.playerfunctions(screen, events, time, dungeon4_platforms)
         for platform in dungeon4_platforms:
@@ -117,6 +134,7 @@ def level2loop():
 
     isRunning = True
     while isRunning:
+        #print(player.pos)
         print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
@@ -138,15 +156,22 @@ def level2loop():
         elif scene == "dungeonScene2":
             dungeonScene2(events, time)
             if player.pos[1] >= 600:
-                scene = "dungeonScene4"
+                scene = "dungeonScene_tunnel"
                 player.pos = [396, 113]
         elif scene == "dungeonScene3":
             dungeonScene3(events, time)
             if player.pos[0] >= 800:
+                scene = "dungeonScene_tunnel"
+                player.pos = [20, 255]
+        elif scene == "dungeonScene_tunnel":
+            dungeonScene_tunnel(events, time)
+            if player.pos[0] >= 800:
                 scene = "dungeonScene4"
-                player.pos = [131, 278]
+                player.pos = [400, 255]
         elif scene == "dungeonScene4":
             dungeonScene4(events, time)
+       # if scene == "dungeonScene3":
+           # print('test')
 
 
         pygame.display.flip()
