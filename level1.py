@@ -85,9 +85,7 @@ def leve1loop():
         pygame.draw.rect(screen, (255, 0, 0), l1boss.damage_bar)
         pygame.draw.rect(screen, (0, 255, 0), l1boss.boss_health)
         l1boss.boss_health.width = l1boss.health
-        pygame.draw.rect(screen, (255, 0, 0), player.damage_bar)
-        pygame.draw.rect(screen, (0, 255, 0), player.health_bar)
-        player.health_bar.width = player.health
+
 
     isRunning = True
     while isRunning:

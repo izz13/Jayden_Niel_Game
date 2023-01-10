@@ -6,14 +6,15 @@ from pygame.math import Vector2
 gravity = Vector2(0, 1)
 green = (0, 255, 0)
 
+
 # classes go here
 class Player:
-    def __init__(self, pos, speed, health, wand,spells):
+    def __init__(self, pos, speed, health, wand, spells):
         self.image_raw = pygame.image.load("Mobs/Apprentice_Wizard.png")
         self.width, self.height = 64, 64
         self.image = pygame.transform.scale(self.image_raw, [64, 64])
         self.pos = Vector2(pos)
-        self.center = [self.pos[0] + self.width/2, self.pos[1] + self.height/2]
+        self.center = [self.pos[0] + self.width / 2, self.pos[1] + self.height / 2]
         self.rect = self.image.get_bounding_rect()
         self.thickness = 2
         self.top_rect = pygame.Rect(self.pos, [self.width, self.thickness])
@@ -36,8 +37,9 @@ class Player:
         self.cooldown = 30
         self.projectiles = []
         self.facing = "Right"
-        self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 20, 10)
-        self.damage_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 20, 10)
+        self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 10, 10)
+        self.damage_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 10, 10)
+
     def collision_plat(self, platforms):
         buffer = 2
         for platform in platforms:
@@ -52,11 +54,11 @@ class Player:
                         self.pos[1] = platform.pos[1] - self.rect.height
                         self.velocity[1] = 0
             if platform.left_rect.colliderect(self.right_rect):
-                #self.pos[0] = platform.pos[0] - self.width - buffer
+                # self.pos[0] = platform.pos[0] - self.width - buffer
                 if self.velocity[0] > 0:
                     self.velocity[0] = 0
             if platform.right_rect.colliderect(self.left_rect):
-                #self.pos[0] = platform.pos[0] + platform.width + buffer
+                # self.pos[0] = platform.pos[0] + platform.width + buffer
                 if self.velocity[0] < 0:
                     self.velocity[0] = 0
             if platform.bottom_rect.colliderect(self.top_rect):
@@ -70,7 +72,7 @@ class Player:
                 self.grounded = False
 
     def render(self, screen):
-        #Rendering collsion and player image
+        # Rendering collsion and player image
         screen.blit(self.image, self.pos)
         self.rect.center = [self.pos[0] + 32, self.pos[1] + 32]
         self.center = [self.pos[0] + self.width / 2, self.pos[1] + self.height / 2]
@@ -84,32 +86,32 @@ class Player:
         if draw == True:
             for line in self.lines:
                 pygame.draw.rect(screen, (255, 0, 0), line)
-        #rendering wand and spells
+        # rendering wand and spells
         if self.facing == "Right":
             self.wand.pos[0] = self.pos[0] + self.width - 25
-            self.wand.pos[1] = self.pos[1] + self.height/2 - 30
-            self.wand.render(screen,self.facing)
+            self.wand.pos[1] = self.pos[1] + self.height / 2 - 30
+            self.wand.render(screen, self.facing)
         if self.facing == "Left":
             self.wand.pos[0] = self.pos[0] + self.width - 93
             self.wand.pos[1] = self.pos[1] + self.height / 2 - 20
             self.wand.render(screen, self.facing)
 
-    def playerfunctions(self, screen,events,time,platforms):
+    def playerfunctions(self, screen, events, time, platforms):
         self.render(screen)
         self.move(events, time)
         self.shoot(events, screen)
         self.collision_plat(platforms)
-
-
-
-
+        pygame.draw.rect(screen, (255, 0, 0), self.damage_bar)
+        pygame.draw.rect(screen, (0, 255, 0), self.health_bar)
+        self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 10, 10)
+        self.damage_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, 1000 / 10, 10)
 
     def move(self, events, time):
         if self.grounded == False:
             self.velocity += gravity * time
-        #if self.jump == True:
-            #self.velocity[1] = -3
-            #self.jump = False
+        # if self.jump == True:
+        # self.velocity[1] = -3
+        # self.jump = False
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_LEFT or event.key == pygame.K_a:
@@ -135,9 +137,9 @@ class Player:
             self.jump_boost = False
             self.jump_boost_cooldown = 420
         self.pos += self.velocity
-        self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 2, 10)
 
-    def shoot(self,events,screen):
+
+    def shoot(self, events, screen):
         if self.facing == "Right":
             starting_pos = [self.pos[0] + 60, self.pos[1] - 5]
         if self.facing == "Left":
@@ -152,11 +154,17 @@ class Player:
                     self.spell = self.spells[3]
                 if event.key == pygame.K_x and self.cooldown >= 30:
                     if self.spell == "fire":
-                        self.projectiles.append(Spell("fire", "Spells/fire.png", [64, 64], 50,self.wand.damage_mult, self.facing, pos = starting_pos))
+                        self.projectiles.append(
+                            Spell("fire", "Spells/fire.png", [64, 64], 50, self.wand.damage_mult, self.facing,
+                                  pos=starting_pos))
                     if self.spell == "ice":
-                        self.projectiles.append(Spell("ice", "Spells/ice.png", [64, 64], 10,self.wand.damage_mult, self.facing, pos = starting_pos))
+                        self.projectiles.append(
+                            Spell("ice", "Spells/ice.png", [64, 64], 10, self.wand.damage_mult, self.facing,
+                                  pos=starting_pos))
                     if self.spell == "poison":
-                        self.projectiles.append(Spell("poison", "Spells/Poison_Spell.png", [64, 64], 100,self.wand.damage_mult, self.facing, pos = starting_pos))
+                        self.projectiles.append(
+                            Spell("poison", "Spells/Poison_Spell.png", [64, 64], 100, self.wand.damage_mult,
+                                  self.facing, pos=starting_pos))
 
                     self.cooldown = 0
         if self.cooldown < 30:
@@ -176,11 +184,13 @@ class Platform:
         self.color = color
         self.thickness = 5
         self.spacing = 2
-        self.rect = pygame.Rect(self.pos, [self.width, self.height-self.spacing])
+        self.rect = pygame.Rect(self.pos, [self.width, self.height - self.spacing])
         self.top_rect = pygame.Rect([self.pos[0], self.pos[1]], [self.width - self.spacing, self.thickness])
-        self.bottom_rect = pygame.Rect([self.pos[0], self.pos[1] + self.height], [self.width-self.spacing, self.thickness])
-        self.left_rect = pygame.Rect(self.pos, [self.thickness, self.height-self.spacing])
-        self.right_rect = pygame.Rect([self.pos[0] + self.width, self.pos[1]], [self.thickness, self.height-self.spacing])
+        self.bottom_rect = pygame.Rect([self.pos[0], self.pos[1] + self.height],
+                                       [self.width - self.spacing, self.thickness])
+        self.left_rect = pygame.Rect(self.pos, [self.thickness, self.height - self.spacing])
+        self.right_rect = pygame.Rect([self.pos[0] + self.width, self.pos[1]],
+                                      [self.thickness, self.height - self.spacing])
         self.lines = [self.top_rect, self.bottom_rect, self.left_rect, self.right_rect]
 
     def render(self, screen):
@@ -190,16 +200,17 @@ class Platform:
             for line in self.lines:
                 pygame.draw.rect(screen, (255, 0, 0), line)
 
+
 class Wand:
     def __init__(self, type, image, damage_mult, speed):
         self.type = type
         self.image_raw = pygame.image.load(image)
-        self.image_scaled = pygame.transform.scale(self.image_raw,[30,50])
-        self.image_right = pygame.transform.rotozoom(self.image_scaled,-45,1)
-        self.image_left = pygame.transform.rotozoom(self.image_scaled,90,1)
+        self.image_scaled = pygame.transform.scale(self.image_raw, [30, 50])
+        self.image_right = pygame.transform.rotozoom(self.image_scaled, -45, 1)
+        self.image_left = pygame.transform.rotozoom(self.image_scaled, 90, 1)
         self.damage_mult = damage_mult
         self.speed = speed
-        self.pos = [0,0]
+        self.pos = [0, 0]
 
     def render(self, screen, facing):
         if facing == "Right":
@@ -209,7 +220,7 @@ class Wand:
 
 
 class Spell:
-    def __init__(self, type, image, size, damage,damage_mult,facing, pos=[0, 0]):
+    def __init__(self, type, image, size, damage, damage_mult, facing, pos=[0, 0]):
         self.type = type
         self.image_raw = pygame.image.load(image)
         self.size = size
@@ -223,10 +234,10 @@ class Spell:
         self.total_damage = self.damage * self.damage_mult
 
     def render(self, screen, speed):
-        self.rect.center = [self.pos[0] + self.size[0]/2, self.pos[1] + self.size[1]/2]
+        self.rect.center = [self.pos[0] + self.size[0] / 2, self.pos[1] + self.size[1] / 2]
         screen.blit(self.image, self.pos)
         self.shoot(speed)
-        #pygame.draw.rect(screen,(255,255,0),self.rect)
+        # pygame.draw.rect(screen,(255,255,0),self.rect)
 
     def shoot(self, speed):
         self.velocity[0] = speed
@@ -235,15 +246,15 @@ class Spell:
         if self.facing == "Left":
             self.pos -= self.velocity
 
+
 # objects go here
 
 
-starter_wand = Wand("starter_wand","Items/Starter_Wand.png", 1.25, 5)
-#fire_spell = Spell("fire","fire.png",[64,64],50)
+starter_wand = Wand("starter_wand", "Items/Starter_Wand.png", 1.25, 5)
+# fire_spell = Spell("fire","fire.png",[64,64],50)
 
 
-player = Player([0, 0], 3, 100, starter_wand, ["fire", "ice", "jump_boost", "poison"])
-
+player = Player([0, 0], 3, 1000, starter_wand, ["fire", "ice", "jump_boost", "poison"])
 
 """
 Damage works:
@@ -251,4 +262,3 @@ Fire spell with a damage of 50, then we multiply the speed with the wand's damag
 e.g. starter wand has a damage_mult of 1.25
 total damage would be 50*1.25 = 62.5
 """
-
