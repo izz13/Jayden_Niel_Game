@@ -24,6 +24,8 @@ def level2loop():
     DungeonImg4 = pygame.image.load("DungeonImages/DungeonScene4.png")
     pedestal = pygame.transform.scale(pygame.image.load("Items/Scroll_Pedestal.png"), [175, 175])
     scroll = pygame.transform.scale(pygame.image.load("Items/Scroll_Item.png"), [100, 100])
+    scroll_rect = scroll.get_bounding_rect()
+    picked_scroll = False
 
     dungeon4_platforms = [Platform([0, 0], 117, 600, black), Platform([117, 0], 683, 81, black),
                           Platform([710, 80], 90, 520, black),
@@ -104,7 +106,9 @@ def level2loop():
         screen.fill(gray)
         screen.blit(dungeontunnelimg, (0, 0))
         screen.blit(pedestal, [420, 330])
-        screen.blit(scroll, [455, 255])
+        if picked_scroll == False:
+            screen.blit(scroll, [455, 255])
+            scroll_rect.center = [505,305]
         player.playerfunctions(screen, events, time, dungeon_tunnel_platforms)
         for platform in dungeon_tunnel_platforms:
             platform.render(screen)
@@ -114,12 +118,14 @@ def level2loop():
         screen.fill(gray)
         screen.blit(DungeonImg4, (0, 0))
         #player.jump_height = -10
+        """
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_3:
                     player.spell = player.spells[2]
                 if player.spell == "jump_boost" and event.key == pygame.K_x:
                     player.jump_boost = True
+        """
         player.render(screen)
         player.playerfunctions(screen, events, time, dungeon4_platforms)
         for platform in dungeon4_platforms:
@@ -141,7 +147,7 @@ def level2loop():
     isRunning = True
     while isRunning:
         #print(player.pos)
-        print(pygame.mouse.get_pos())
+        #print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
@@ -174,6 +180,9 @@ def level2loop():
             if player.pos[0] >= 800:
                 scene = "dungeonScene4"
                 player.pos = [400, 255]
+            if player.rect.colliderect(scroll_rect):
+                picked_scroll = True
+                print("picked up")
         elif scene == "dungeonScene4":
             dungeonScene4(events, time)
        # if scene == "dungeonScene3":

@@ -254,7 +254,7 @@ starter_wand = Wand("starter_wand", "Items/Starter_Wand.png", 1.25, 5)
 # fire_spell = Spell("fire","fire.png",[64,64],50)
 
 
-player = Player([0, 0], 3, 1000, starter_wand, ["fire", "ice", "jump_boost", "poison"])
+player = Player([0, 0], 3, 1000, starter_wand, ["fire", "ice"])
 
 """
 Damage works:
