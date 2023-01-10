@@ -183,6 +183,7 @@ def level2loop():
             if player.rect.colliderect(scroll_rect):
                 picked_scroll = True
                 print("picked up")
+                player.spells.append("jump_boost")
         elif scene == "dungeonScene4":
             dungeonScene4(events, time)
        # if scene == "dungeonScene3":

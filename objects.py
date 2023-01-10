@@ -150,8 +150,8 @@ class Player:
                     self.spell = self.spells[0]
                 if event.key == pygame.K_2:
                     self.spell = self.spells[1]
-                if event.key == pygame.K_4:
-                    self.spell = self.spells[3]
+                if event.key == pygame.K_3 and len(self.spells) >= 3:
+                    self.spell = self.spells[2]
                 if event.key == pygame.K_x and self.cooldown >= 30:
                     if self.spell == "fire":
                         self.projectiles.append(
@@ -165,6 +165,8 @@ class Player:
                         self.projectiles.append(
                             Spell("poison", "Spells/Poison_Spell.png", [64, 64], 100, self.wand.damage_mult,
                                   self.facing, pos=starting_pos))
+                    if self.spell == "jump_boost":
+                        self.jump_boost = True
 
                     self.cooldown = 0
         if self.cooldown < 30:
