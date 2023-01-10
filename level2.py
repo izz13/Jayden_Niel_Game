@@ -22,6 +22,9 @@ def level2loop():
     DungeonImg3 = pygame.image.load("DungeonImages/DungeonScene3.png")
     dungeontunnelimg = pygame.image.load("DungeonImages/Boss_Tunnel.png")
     DungeonImg4 = pygame.image.load("DungeonImages/DungeonScene4.png")
+    pedestal = pygame.transform.scale(pygame.image.load("Items/Scroll_Pedestal.png"), [175, 175])
+    scroll = pygame.transform.scale(pygame.image.load("Items/Scroll_Item.png"), [100, 100])
+
     dungeon4_platforms = [Platform([0, 0], 117, 600, black), Platform([117, 0], 683, 81, black),
                           Platform([710, 80], 90, 520, black),
                           Platform([121, 468], 589, 130, black), Platform([523, 302], 170, 10, black)]
@@ -97,12 +100,15 @@ def level2loop():
             platform.render(screen)
 
     def dungeonScene_tunnel(events, time):
-        dungeon_tunnel_platforms = [Platform([0, 500], 800, 10, black)]
+        dungeon_tunnel_platforms = [Platform([0, 500], 800, 20, black), Platform([275, 425], 87.5, 10, black), Platform([377, 372], 87.5, 10, black)]
         screen.fill(gray)
         screen.blit(dungeontunnelimg, (0, 0))
+        screen.blit(pedestal, [420, 330])
+        screen.blit(scroll, [455, 255])
         player.playerfunctions(screen, events, time, dungeon_tunnel_platforms)
         for platform in dungeon_tunnel_platforms:
             platform.render(screen)
+
 
     def dungeonScene4(events, time):
         screen.fill(gray)
