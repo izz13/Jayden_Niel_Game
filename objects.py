@@ -37,8 +37,8 @@ class Player:
         self.cooldown = 30
         self.projectiles = []
         self.facing = "Right"
-        self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 200, 10)
-        self.damage_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 200, 10)
+        self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 10, 10)
+        self.damage_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 10, 10)
 
     def collision_plat(self, platforms):
         buffer = 2
@@ -103,7 +103,8 @@ class Player:
         self.collision_plat(platforms)
         pygame.draw.rect(screen, (255, 0, 0), self.damage_bar)
         pygame.draw.rect(screen, (0, 255, 0), self.health_bar)
-        self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 200, 10)
+        self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 10, 10)
+        self.damage_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, 1000 / 10, 10)
 
     def move(self, events, time):
         if self.grounded == False:
