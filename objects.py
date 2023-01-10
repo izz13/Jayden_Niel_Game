@@ -36,8 +36,8 @@ class Player:
         self.cooldown = 30
         self.projectiles = []
         self.facing = "Right"
-        self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 20, 10)
-        self.damage_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 20, 10)
+        self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 200, 10)
+        self.damage_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 200, 10)
     def collision_plat(self, platforms):
         buffer = 2
         for platform in platforms:
@@ -101,7 +101,7 @@ class Player:
         self.collision_plat(platforms)
         pygame.draw.rect(screen, (255, 0, 0), self.damage_bar)
         pygame.draw.rect(screen, (0, 255, 0), self.health_bar)
-        self.health_bar.width = self.health
+        self.health_bar.width = self.health / 20
 
 
 
@@ -245,7 +245,7 @@ starter_wand = Wand("starter_wand","Items/Starter_Wand.png", 1.25, 5)
 #fire_spell = Spell("fire","fire.png",[64,64],50)
 
 
-player = Player([0, 0], 3, 100, starter_wand, ["fire", "ice", "jump_boost", "poison"])
+player = Player([0, 0], 3, 1000, starter_wand, ["fire", "ice", "jump_boost", "poison"])
 
 
 """
