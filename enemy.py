@@ -182,9 +182,7 @@ class Bosslvl1(Enemy):
             else:
                 self.frame = 0
 
-
-
-    def update(self, screen, projectiles,player):
+    def update(self, screen, projectiles, player):
         self.move(player)
         print(self.attacking)
         if self.attacking == True:
@@ -197,7 +195,6 @@ class Bosslvl1(Enemy):
         if self.frozen_timer <= 0:
             self.speed = self.true_speed
             self.frozen = False
-
 
 
 class Minotaur_Boss(Enemy):
@@ -262,7 +259,7 @@ class Minotaur_Boss(Enemy):
         screen.blit(self.image, self.pos)
         print(self.grounded)
 
-    def update(self, screen, projectiles,player,platforms):
+    def update(self, screen, projectiles, player, platforms):
         self.platforms = platforms
         self.move(player)
         self.attack(player)

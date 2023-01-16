@@ -30,10 +30,24 @@ def level2loop():
     dungeon4_platforms = [Platform([0, 0], 117, 600, black), Platform([117, 0], 683, 81, black),
                           Platform([710, 80], 90, 520, black),
                           Platform([121, 468], 589, 130, black), Platform([523, 302], 170, 10, black)]
-    scene = "dungeonScene3"
-    dungeon1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [381, 420], 15, "spider", 2, 0,[576, 420])]
-    dungeon2_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75,75],180, [127, 190], 15, "spider", 1.5, 0,[225, 190])]
-    minotaur_boss = enemy.Minotaur_Boss("Mobs/L2_Minotaur_Boss.png",[609, 180],[100, 100],600,15,"minotaur_boss",.8, 2.9,dungeon4_platforms)
+    scene = "dungeonScene1"
+    dungeon1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [381, 420], 15, "spider", 2, 0,[576, 420]),
+                        enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [95, 425], 15, "spider", 2, 0,[270, 425]),
+                        enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [390, 270], 15, "spider", 2, 0,[530, 270])]
+
+    dungeon2_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75,75],180, [127, 188], 15, "spider", 1.5, 0,[225, 188]),
+                        enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [279, 204], 15, "spider", 2.1, 0, [412, 204]),
+                        enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [459, 298], 15, "spider", 2.1, 0, [672, 298]),
+                        enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [562, 163], 15, "spider", 2.1, 0, [662, 163])]
+
+    dungeon3_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [383, 175], 15, "spider", 2.5, 0, [597, 175]),
+                        enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [256, 247], 15, "spider", 2.5, 0, [478, 247]),
+                        enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [624, 412], 15, "spider", 2, 0, [790, 412])]
+
+    dungeonT_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [376, 317], 15, "spider", 1.5, 0, [461, 317]),
+                        enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [275, 374], 15, "spider", 1.5, 0, [365, 374])]
+
+    minotaur_boss = enemy.Minotaur_Boss("Mobs/L2_Minotaur_Boss.png",[609, 180],[100, 100],600,15,"minotaur_boss",.8, 2.9, dungeon4_platforms)
 
     dungeon1_pos = [0,0]
     dungeon2_pos = [0, 200]
@@ -100,6 +114,11 @@ def level2loop():
         player.playerfunctions(screen,events,time,dungeon3_platforms)
         for platform in dungeon3_platforms:
             platform.render(screen)
+        if len(dungeon3_enemies) > 0:
+            for e in dungeon3_enemies:
+                e.update(screen,player.projectiles,player)
+                if e.destroyed == "destroy":
+                    dungeon3_enemies.remove(e)
 
     def dungeonScene_tunnel(events, time):
         dungeon_tunnel_platforms = [Platform([0, 500], 800, 20, black), Platform([275, 425], 87.5, 10, black), Platform([377, 372], 87.5, 10, black)]
@@ -112,11 +131,15 @@ def level2loop():
         player.playerfunctions(screen, events, time, dungeon_tunnel_platforms)
         for platform in dungeon_tunnel_platforms:
             platform.render(screen)
+        if len(dungeonT_enemies) > 0:
+            for e in dungeonT_enemies:
+                e.update(screen, player.projectiles, player)
 
 
     def dungeonScene4(events, time):
         screen.fill(gray)
         screen.blit(DungeonImg4, (0, 0))
+        #dungeon4_platforms
         #player.jump_height = -10
         """
         for event in events:
@@ -147,7 +170,7 @@ def level2loop():
     isRunning = True
     while isRunning:
         #print(player.pos)
-        #print(pygame.mouse.get_pos())
+        print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
@@ -169,7 +192,7 @@ def level2loop():
             dungeonScene2(events, time)
             if player.pos[1] >= 600:
                 scene = "dungeonScene_tunnel"
-                player.pos = [396, 113]
+                player.pos = [0, 0]
         elif scene == "dungeonScene3":
             dungeonScene3(events, time)
             if player.pos[0] >= 800:
@@ -182,7 +205,7 @@ def level2loop():
                 player.pos = [400, 255]
             if player.rect.colliderect(scroll_rect):
                 picked_scroll = True
-                print("picked up")
+                #print("picked up")
                 player.spells.append("jump_boost")
         elif scene == "dungeonScene4":
             dungeonScene4(events, time)
