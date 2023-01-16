@@ -134,6 +134,8 @@ def level2loop():
         if len(dungeonT_enemies) > 0:
             for e in dungeonT_enemies:
                 e.update(screen, player.projectiles, player)
+                if e.destroyed == "destroy":
+                    dungeon3_enemies.remove(e)
 
 
     def dungeonScene4(events, time):
