@@ -172,7 +172,7 @@ def level2loop():
     isRunning = True
     while isRunning:
         #print(player.pos)
-        print(pygame.mouse.get_pos())
+        #print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:

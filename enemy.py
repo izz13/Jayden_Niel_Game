@@ -90,6 +90,8 @@ class Spider(Enemy):
         self.start_pos = pos
         self.end_pos = end_pos
         self.facing = "right"
+        self.attacked = False
+        self.cooldown = 0
 
     def move(self,player):
         if self.pos[0] <= self.start_pos[0]:
@@ -101,6 +103,18 @@ class Spider(Enemy):
         if self.facing == "left":
             self.velocity[0] = -self.speed
         self.pos += self.velocity
+
+    def attack(self, player):
+        if self.attacked == False:
+            if self.rect.colliderect(player.rect):
+                player.health -= self.damage
+                print('player was attacked')
+                self.attacked = True
+                self.cooldown = 30
+        if self.cooldown > 0:
+            self.cooldown -= 1
+        elif self.cooldown <= 0:
+            self.attacked = False
 
 
 class Bosslvl1(Enemy):
