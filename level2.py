@@ -30,7 +30,7 @@ def level2loop():
     dungeon4_platforms = [Platform([0, 0], 117, 600, black), Platform([117, 0], 683, 81, black),
                           Platform([710, 80], 90, 520, black),
                           Platform([121, 468], 589, 130, black), Platform([523, 302], 170, 10, black)]
-    scene = "dungeonScene1"
+    scene = "dungeonScene_tunnel"
     dungeon1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [381, 420], 15, "spider", 2, 0,[576, 420]),
                         enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [95, 425], 15, "spider", 2, 0,[270, 425]),
                         enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [390, 270], 15, "spider", 2, 0,[530, 270])]
@@ -47,7 +47,7 @@ def level2loop():
     dungeonT_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [376, 317], 15, "spider", 1.5, 0, [461, 317]),
                         enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [275, 374], 15, "spider", 1.5, 0, [365, 374])]
 
-    minotaur_boss = enemy.Minotaur_Boss("Mobs/L2_Minotaur_Boss.png",[609, 180],[100, 100],600,15,"minotaur_boss",.8, 2.9, dungeon4_platforms)
+    minotaur_boss = enemy.Minotaur_Boss("Mobs/L2_Minotaur_Boss.png",[609, 180],[100, 100],600,100,"minotaur_boss",.8, 2.9, dungeon4_platforms)
 
     dungeon1_pos = [0,0]
     dungeon2_pos = [0, 200]
@@ -135,7 +135,7 @@ def level2loop():
             for e in dungeonT_enemies:
                 e.update(screen, player.projectiles, player)
                 if e.destroyed == "destroy":
-                    dungeon3_enemies.remove(e)
+                    dungeonT_enemies.remove(e)
 
 
     def dungeonScene4(events, time):

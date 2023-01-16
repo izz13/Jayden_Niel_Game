@@ -213,6 +213,8 @@ class Minotaur_Boss(Enemy):
         self.lines = [self.top_rect, self.bottom_rect, self.left_rect, self.right_rect]
         self.boss_health = pygame.Rect(116,500,self.health,50)
         self.damage_bar = pygame.Rect(116,500,self.health,50)
+        self.attacked = False
+        self.cooldown = 0
 
     def collision_plat(self):
         for platform in self.platforms:
@@ -243,6 +245,18 @@ class Minotaur_Boss(Enemy):
         #self.velocity[0] = 0
         self.collision_plat()
         self.pos += self.velocity
+
+    def attack(self, player):
+        if self.attacked == False:
+            if self.rect.colliderect(player.rect):
+                player.health -= self.damage
+                self.attacked = True
+                self.cooldown = 30
+        if self.cooldown > 0:
+            self.cooldown -= 1
+        elif self.cooldown <= 0:
+            self.attacked = False
+
 
     def render(self,screen):
         self.rect.center = [self.pos[0] + 32, self.pos[1] + 32]
