@@ -22,6 +22,7 @@ def level2loop():
     DungeonImg3 = pygame.image.load("DungeonImages/DungeonScene3.png")
     dungeontunnelimg = pygame.image.load("DungeonImages/Boss_Tunnel.png")
     DungeonImg4 = pygame.image.load("DungeonImages/DungeonScene4.png")
+    Dungeon_Scene = pygame.image.load("DungeonImages/Dark_Tunnel.png")
     pedestal = pygame.transform.scale(pygame.image.load("Items/Scroll_Pedestal.png"), [175, 175])
     scroll = pygame.transform.scale(pygame.image.load("Items/Scroll_Item.png"), [100, 100])
     scroll_rect = scroll.get_bounding_rect()
@@ -47,7 +48,7 @@ def level2loop():
     dungeonT_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [376, 317], 15, "spider", 1.5, 0, [461, 317]),
                         enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [275, 374], 15, "spider", 1.5, 0, [365, 374])]
 
-    minotaur_boss = enemy.Minotaur_Boss("Mobs/L2_Minotaur_Boss.png",[609, 180],[100, 100],600,100,"minotaur_boss",.8, 2.9, dungeon4_platforms)
+    minotaur_boss = enemy.Minotaur_Boss("Mobs/L2_Minotaur_Boss.png",[609, 180],[100, 100],60,100,"minotaur_boss",.8, 2.9, dungeon4_platforms)
 
     dungeon1_pos = [0,0]
     dungeon2_pos = [0, 200]
@@ -168,6 +169,12 @@ def level2loop():
                 dungeon4_platforms.remove(dungeon4_platforms[4])
 
 
+    def dungeon_cutscene(events):
+        screen.blit(Dungeon_Scene,[0,0])
+
+    def win_scene(events):
+        screen.fill([0,0,0])
+        pygame.display.update()
 
     isRunning = True
     while isRunning:
@@ -211,6 +218,14 @@ def level2loop():
                 player.spells.append("jump_boost")
         elif scene == "dungeonScene4":
             dungeonScene4(events, time)
+            if minotaur_boss.health <= 0:
+                scene = "win_scene"
+        elif scene == "win_scene":
+            for i in range(240):
+                win_scene(events)
+            scene = "dungeon_cutscene"
+        elif scene == "dungeon_cutscene":
+            dungeon_cutscene(events)
        # if scene == "dungeonScene3":
            # print('test')
 
