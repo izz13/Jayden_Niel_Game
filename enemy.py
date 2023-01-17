@@ -72,6 +72,7 @@ class Enemy:
 
     def update(self, screen, projectiles,player):
         self.move(player)
+        self.attack(player)
         self.render(screen)
         self.damage_taken(projectiles)
         self.destroyed = self.destroy()
