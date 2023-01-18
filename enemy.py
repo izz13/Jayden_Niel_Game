@@ -7,8 +7,6 @@ gravity = Vector2(0, 1)
 #make an enemy class here
 enemylist = ["vampire", "spider", "zombie", "lvl1boss"]
 
-
-
 #parent Enemy class
 class Enemy:
     def __init__(self, image,size,health, pos, damage, type, speed, defense = 0):
