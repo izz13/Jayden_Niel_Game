@@ -195,6 +195,8 @@ class Bosslvl1(Enemy):
                 if self.frame == 3 and self.hit_player == False:
                     player.health -= 100
                     self.hit_player = True
+                if self.frame == 4 and self.hit_player == True:
+                    self.hit_player = False
             else:
                 self.frame = 0
 
