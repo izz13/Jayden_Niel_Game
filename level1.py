@@ -129,8 +129,11 @@ def leve1loop():
                     print("hit revive button")
                     player.pos.x,player.pos.y = 50,50
                     player.health = 1000
+                    l1boss.health = 750
                     l1boss.pos.x, l1boss.pos.y = 543,350
                     scene = "cavescene"
+                if exitImg_rect.collidepoint(event.pos) and scene == "deathscene":
+                    pygame.quit()
         if player.pos[0] > 745:
             player.pos[0] = 745
         if scene == "plainScene":
