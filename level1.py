@@ -97,10 +97,6 @@ def leve1loop():
         screen.blit(deadImg, (0, 0))
         screen.blit(reviveImg, (222, 302))
         screen.blit(exitImg, (222, 398))
-        for event in events:
-            if event.type == pygame.MOUSEBUTTONDOWN:
-                if reviveImg_rect.collidepoint(event.pos):
-                    scene = "cavescene"
 
 
 
@@ -129,6 +125,9 @@ def leve1loop():
                 if playImg_rect.collidepoint(event.pos) and scene == "cutscene2":
                     scene = "cavescene"
                     player.pos = [0, 478]
+                if reviveImg_rect.collidepoint(event.pos) and scene == "deathscene":
+                    print("hit revive button")
+                    scene = "cavescene"
         if player.pos[0] > 745:
             player.pos[0] = 745
         if scene == "plainScene":
@@ -142,7 +141,7 @@ def leve1loop():
         if scene == "cavescene":
             cave(events, time)
         if scene == "deathscene":
-            death_scene(events,time)
+            scene = death_scene(events,time)
 
         pygame.display.flip()
         clock.tick(fps)
