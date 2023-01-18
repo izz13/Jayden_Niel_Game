@@ -192,6 +192,9 @@ class Bosslvl1(Enemy):
                     self.anitime = 0
                 else:
                     self.anitime += 1
+                if self.frame == 3 and self.hit_player == False:
+                    player.health -= 100
+                    self.hit_player = True
             else:
                 self.frame = 0
 
