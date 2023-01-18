@@ -34,7 +34,10 @@ def leve1loop():
     deadImg = pygame.image.load("deathscreen/gameover.png")
     exitImg = pygame.image.load("deathscreen/exitafterdeath.png")
     reviveImg = pygame.image.load("deathscreen/respawn.png")
-
+    reviveImg_rect = reviveImg.get_bounding_rect()
+    reviveImg_rect.center = [411,333.5]
+    exitImg_rect = exitImg.get_bounding_rect()
+    exitImg_rect.center = [411,429.5]
 
     player.pos = [0,0]
     plainsplatforms=[Platform([0, 480], 800, 120, green)]
@@ -90,10 +93,15 @@ def leve1loop():
         pygame.draw.rect(screen, (0, 255, 0), l1boss.boss_health)
         l1boss.boss_health.width = l1boss.health
 
-    def death_scene(events,time):
+    def death_scene(events, time):
         screen.blit(deadImg, (0, 0))
         screen.blit(reviveImg, (222, 302))
         screen.blit(exitImg, (222, 398))
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if reviveImg_rect.collidepoint(event.pos):
+                    scene = "cavescene"
+
 
 
     isRunning = True
