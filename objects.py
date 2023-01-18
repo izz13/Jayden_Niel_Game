@@ -108,10 +108,7 @@ class Player:
         pygame.draw.rect(screen, (0, 255, 0), self.health_bar)
         self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 10, 10)
         self.damage_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, 1000 / 10, 10)
-        if self.health <= 0:
-            screen.blit(deadImg, (0, 0))
-            screen.blit(reviveImg, (222, 302))
-            screen.blit(exitImg, (222, 398))
+
 
     def move(self, events, time):
         if self.grounded == False:

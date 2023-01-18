@@ -31,6 +31,10 @@ def leve1loop():
     playImg_rect = playImg.get_bounding_rect()
     playImg_rect.center = [580, 135]
 
+    deadImg = pygame.image.load("deathscreen/gameover.png")
+    exitImg = pygame.image.load("deathscreen/exitafterdeath.png")
+    reviveImg = pygame.image.load("deathscreen/respawn.png")
+
 
     player.pos = [0,0]
     plainsplatforms=[Platform([0, 480], 800, 120, green)]
@@ -86,6 +90,11 @@ def leve1loop():
         pygame.draw.rect(screen, (0, 255, 0), l1boss.boss_health)
         l1boss.boss_health.width = l1boss.health
 
+    def death_scene(events,time):
+        screen.blit(deadImg, (0, 0))
+        screen.blit(reviveImg, (222, 302))
+        screen.blit(exitImg, (222, 398))
+
 
     isRunning = True
     while isRunning:
@@ -96,6 +105,8 @@ def leve1loop():
                 isRunning = False
 
         time = clock.get_time()/fps
+        if player.health <= 0:
+            scene = "deathscene"
         if player.pos[0] < 0:
             player.pos[0] = 0
         if player.pos[0] > 745 and scene == "plainScene":
@@ -122,6 +133,8 @@ def leve1loop():
             cutscene2(events)
         if scene == "cavescene":
             cave(events, time)
+        if scene == "deathscene":
+            death_scene(events,time)
 
         pygame.display.flip()
         clock.tick(fps)
