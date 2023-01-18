@@ -127,6 +127,9 @@ def leve1loop():
                     player.pos = [0, 478]
                 if reviveImg_rect.collidepoint(event.pos) and scene == "deathscene":
                     print("hit revive button")
+                    player.pos.x,player.pos.y = 50,50
+                    player.health = 1000
+                    l1boss.pos.x, l1boss.pos.y = 543,350
                     scene = "cavescene"
         if player.pos[0] > 745:
             player.pos[0] = 745
