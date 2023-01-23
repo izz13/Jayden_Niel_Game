@@ -46,7 +46,7 @@ def leve1loop():
     scene = "cavescene"
     buttonrect = pygame.Rect([0, 150], [50, 50])
     doorrect = pygame.Rect([380, 0], [40, 220])
-    l1boss = enemy.Bosslvl1("Mobs/lvl1boss_left.png", [543, 350], [100, 134], 750, 10, "lvl1boss", 0.5,.8,"Mobs/1boss_right","Mobs/1boss_left")
+    l1boss = enemy.Bosslvl1("Mobs/lvl1boss_left.png", [543, 350], [100, 134], 50, 10, "lvl1boss", 0.5,.8,"Mobs/1boss_right","Mobs/1boss_left")
 
 
 
@@ -92,6 +92,8 @@ def leve1loop():
         pygame.draw.rect(screen, (255, 0, 0), l1boss.damage_bar)
         pygame.draw.rect(screen, (0, 255, 0), l1boss.boss_health)
         l1boss.boss_health.width = l1boss.health
+        if l1boss.health <= 0:
+            return "level2"
 
     def death_scene(events, time):
         screen.blit(deadImg, (0, 0))
@@ -127,10 +129,10 @@ def leve1loop():
                     player.pos = [0, 478]
                 if reviveImg_rect.collidepoint(event.pos) and scene == "deathscene":
                     print("hit revive button")
-                    player.pos.x,player.pos.y = 50,50
+                    player.pos.x,player.pos.y = 50, 50
                     player.health = 1000
                     l1boss.health = 750
-                    l1boss.pos.x, l1boss.pos.y = 543,350
+                    l1boss.pos.x, l1boss.pos.y = 543, 350
                     scene = "cavescene"
                 if exitImg_rect.collidepoint(event.pos) and scene == "deathscene":
                     pygame.quit()
@@ -145,7 +147,9 @@ def leve1loop():
         if scene == "cutscene2":
             cutscene2(events)
         if scene == "cavescene":
-            cave(events, time)
+            ret = cave(events, time)
+            if ret == "level2":
+                return "level2"
         if scene == "deathscene":
             scene = death_scene(events,time)
 
