@@ -112,7 +112,11 @@ class Player:
         self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 10, 10)
         self.damage_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, 1000 / 10, 10)
         if self.spell == "fire":
-            screen.blit(fireImg,[15,15])
+            screen.blit(fireImg, [15, 15])
+        if self.spell == "ice":
+            screen.blit(iceImg, [15, 15])
+        if self.spell == "jump_boost":
+            screen.blit(jumpyImg, [15, 15])
 
 
     def move(self, events, time):
