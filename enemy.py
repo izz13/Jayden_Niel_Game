@@ -202,7 +202,6 @@ class Bosslvl1(Enemy):
 
     def update(self, screen, projectiles, player):
         self.move(player)
-        print(self.attacking)
         if self.attacking == True:
             self.attack(screen,player)
         self.render(screen)
