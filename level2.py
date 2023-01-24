@@ -26,6 +26,7 @@ def level2loop():
     pedestal = pygame.transform.scale(pygame.image.load("Items/Scroll_Pedestal.png"), [175, 175])
     scroll = pygame.transform.scale(pygame.image.load("Items/Scroll_Item.png"), [100, 100])
     scroll_rect = scroll.get_bounding_rect()
+    next_rect = pygame.Rect([700,500,50,50])
     picked_scroll = False
 
     dungeon4_platforms = [Platform([0, 0], 117, 600, black), Platform([117, 0], 683, 81, black),
@@ -152,10 +153,10 @@ def level2loop():
                 if player.spell == "jump_boost" and event.key == pygame.K_x:
                     player.jump_boost = True
         """
-        player.render(screen)
-        player.playerfunctions(screen, events, time, dungeon4_platforms)
+        #player.render(screen)
         for platform in dungeon4_platforms:
             platform.render(screen)
+        player.playerfunctions(screen, events, time, dungeon4_platforms)
         minotaur_boss.update(screen,player.projectiles,player,dungeon4_platforms)
         health_outline1 = pygame.Rect((112, 496), (610, 60))
         pygame.draw.rect(screen, gray, health_outline1)
@@ -171,6 +172,7 @@ def level2loop():
     def win_scene(events):
         font = pygame.font.SysFont(None, 80)
         screen.fill([0, 0, 255])
+        pygame.draw.rect(screen,(255,0,0),next_rect)
         winmsg1 = font.render('''Victory! Congratulations,''', 0, (255, 50, 50))
         winmsg2 = font.render('''    you have defeated''', 0, (255, 50, 50))
         winmsg3 = font.render('''the evil sorcerer's minion,''', 0, (255, 50, 50))
@@ -196,7 +198,7 @@ def level2loop():
     isRunning = True
     while isRunning:
         #print(player.pos)
-        print(pygame.mouse.get_pos())
+        #print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
@@ -239,9 +241,11 @@ def level2loop():
             if minotaur_boss.health <= 0:
                 scene = "win_scene"
         elif scene == "win_scene":
-            for i in range(6000):
-                win_scene(events)
-            scene = "dungeon_cutscene"
+            win_scene(events)
+            for event in events:
+                if event.type == pygame.MOUSEBUTTONDOWN:
+                    if next_rect.collidepoint(event.pos):
+                        scene = "dungeon_cutscene"
         elif scene == "dungeon_cutscene":
             #for i in range(24000):
             dungeon_cutscene(events)
