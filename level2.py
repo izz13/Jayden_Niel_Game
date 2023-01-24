@@ -22,7 +22,7 @@ def level2loop():
     DungeonImg3 = pygame.image.load("DungeonImages/DungeonScene3.png")
     dungeontunnelimg = pygame.image.load("DungeonImages/Boss_Tunnel.png")
     DungeonImg4 = pygame.image.load("DungeonImages/DungeonScene4.png")
-    Dungeon_Scene = pygame.image.load("DungeonImages/Dark_Tunnel.png")
+    Dungeon_cutScene = pygame.image.load("DungeonImages/Dark_Tunnel.png")
     pedestal = pygame.transform.scale(pygame.image.load("Items/Scroll_Pedestal.png"), [175, 175])
     scroll = pygame.transform.scale(pygame.image.load("Items/Scroll_Item.png"), [100, 100])
     scroll_rect = scroll.get_bounding_rect()
@@ -53,8 +53,8 @@ def level2loop():
     dungeon1_pos = [0,0]
     dungeon2_pos = [0, 200]
     dungeon3_pos = [150, 10]
-    dungeon4_pos = [0,0]
     dungeon_tunnel_pos = [0, 0]
+    dungeon4_pos = [400, 300]
     if scene == "dungeonScene1":
         player.pos = dungeon1_pos
     if scene == "dungeonScene2":
@@ -168,23 +168,41 @@ def level2loop():
             if minotaur_boss.pos[1] > dungeon4_platforms[4].pos[1]:
                 dungeon4_platforms.remove(dungeon4_platforms[4])
 
+    def win_scene(events):
+        font = pygame.font.SysFont(None, 80)
+        screen.fill([0, 0, 255])
+        winmsg1 = font.render('''Victory! Congratulations,''', 0, (255, 50, 50))
+        winmsg2 = font.render('''    you have defeated''', 0, (255, 50, 50))
+        winmsg3 = font.render('''the evil sorcerer's minion,''', 0, (255, 50, 50))
+        winmsg4 = font.render('''       the Minotaur!''', 0, (255, 50, 50))
+        screen.blit(winmsg1, [75, 169])
+        screen.blit(winmsg2, [75, 229])
+        screen.blit(winmsg3, [75, 279])
+        screen.blit(winmsg4, [75, 329])
+        pygame.display.update()
 
     def dungeon_cutscene(events):
-        screen.blit(Dungeon_Scene,[0,0])
-
-    def win_scene(events):
-        screen.fill([0,0,0])
-        pygame.display.update()
+        screen.blit(Dungeon_cutScene,[0,0])
+        font = pygame.font.SysFont(None, 40)
+        cutmsg1 = font.render('''         You have defeated the evil sorcerer's pet minotaur.''', 0, (0, 0, 255))
+        cutmsg2 = font.render('''        The enemy battalions have once again captured you.''', 0, (0, 0, 255))
+        cutmsg3 = font.render('''               You are forced through a dark tunnel,''', 0, (0, 0, 255))
+        cutmsg4 = font.render('''                into the sorcerer's last stronghold.''', 0, (0, 0, 255))
+        screen.blit(cutmsg1, [-10, 300])
+        screen.blit(cutmsg2, [-10, 350])
+        screen.blit(cutmsg3, [10, 400])
+        screen.blit(cutmsg4, [10, 450])
 
     isRunning = True
     while isRunning:
         #print(player.pos)
-        #print(pygame.mouse.get_pos())
+        print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
                 pygame.quit()
                 isRunning = False
+                print("If you see this on your console, you have exited Wizard Dungeon Game. Our team here at ACF thanks you for playing! Have a good day.")
         time = clock.get_time() / fps
         if player.pos[0] < 0:
             player.pos[0] = 0
@@ -221,10 +239,11 @@ def level2loop():
             if minotaur_boss.health <= 0:
                 scene = "win_scene"
         elif scene == "win_scene":
-            for i in range(240):
+            for i in range(6000):
                 win_scene(events)
             scene = "dungeon_cutscene"
         elif scene == "dungeon_cutscene":
+            #for i in range(24000):
             dungeon_cutscene(events)
        # if scene == "dungeonScene3":
            # print('test')
@@ -233,7 +252,6 @@ def level2loop():
         pygame.display.flip()
         clock.tick(fps)
     pygame.quit()
-
 
 if __name__ == "__main__":
     level2loop()
