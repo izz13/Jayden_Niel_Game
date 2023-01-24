@@ -6,10 +6,10 @@ from pygame.math import Vector2
 deadImg = pygame.image.load("deathscreen/gameover.png")
 exitImg = pygame.image.load("deathscreen/exitafterdeath.png")
 reviveImg = pygame.image.load("deathscreen/respawn.png")
-fireImg = pygame.image.load("Spells/fire.png")
-iceImg = pygame.image.load("Spells/ice.png")
 jumpyraw_Img = pygame.image.load("Spells/Jump_Boost.png")
 jumpyImg = pygame.transform.scale(jumpyraw_Img, (75, 75))
+fireImg = pygame.image.load("Spells/fire.png")
+iceImg = pygame.image.load("Spells/ice.png")
 gravity = Vector2(0, 1)
 green = (0, 255, 0)
 
