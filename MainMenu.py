@@ -36,9 +36,9 @@ def mainMenuloop():
                 if playbttn_rect.collidepoint(event.pos):
                     return "level1"
                 if settingbttn_rect.collidepoint(event.pos):
-                    screen.blit(settingImg,(0,0))
+                    return "settings"
                 if creditbttn_rect.collidepoint(event.pos):
-                    screen.blit(creditImg,(0,0))
+                    return "credits"
                 if exitbttn_rect.collidepoint(event.pos):
                     pygame.quit()
                     isRunning = False

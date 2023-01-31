@@ -14,6 +14,7 @@ def settings_loop():
     font = pygame.font.SysFont(None, 60)
     settImg = pygame.image.load("main_menu_pngs/settings_page.png")
     backImg = pygame.image.load("main_menu_pngs/back.png")
+    backImg_rect = backImg.get_bounding_rect()
 
     isRunning = True
     while isRunning:
@@ -22,7 +23,11 @@ def settings_loop():
             if event.type == pygame.QUIT:
                 pygame.quit()
                 isRunning = False
-        screen.blit(settImg, [0 , 0])
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if backImg_rect.collidepoint(event.pos):
+                    return "mainmenu"
+        screen.blit(settImg, [0, 0])
+        screen.blit(backImg, (625, 500))
         pygame.display.flip()
         clock.tick(fps)
     pygame.quit()

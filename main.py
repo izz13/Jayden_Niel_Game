@@ -5,6 +5,8 @@ level = "mainmenu"
 
 if level == "mainmenu":
     level = MainMenu.mainMenuloop()
+if level == "settings":
+    level = settings.settings_loop()
 if level == "level1":
     level = level1.leve1loop()
 if level == "level2":
