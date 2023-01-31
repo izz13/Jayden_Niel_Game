@@ -15,6 +15,7 @@ def settings_loop():
     settImg = pygame.image.load("main_menu_pngs/settings_page.png")
     backImg = pygame.image.load("main_menu_pngs/back.png")
     backImg_rect = backImg.get_bounding_rect()
+    backImg_rect.topleft = [625, 500]
 
     isRunning = True
     while isRunning:
@@ -25,6 +26,7 @@ def settings_loop():
                 isRunning = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if backImg_rect.collidepoint(event.pos):
+                    print("hit button")
                     return "mainmenu"
         screen.blit(settImg, [0, 0])
         screen.blit(backImg, (625, 500))
