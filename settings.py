@@ -27,7 +27,7 @@ def settings_loop():
                 if backImg_rect.collidepoint(event.pos):
                     return "mainmenu"
         screen.blit(settImg, [0, 0])
-        screen.blit(backImg, (625, 500))
+        screen.blit(backImg, (0, 0))
         pygame.display.flip()
         clock.tick(fps)
     pygame.quit()
