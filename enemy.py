@@ -49,7 +49,7 @@ class Enemy:
         for projectile in projectiles:
             if self.rect.colliderect(projectile.rect):
                 if self.defense != 0:
-                    self.health -= projectile.total_damage*(1-self.defense)
+                    self.health -= projectile.total_damage*(1-(self.defense/100))
                 if self.defense == 0:
                     self.health -= projectile.total_damage
                 if projectile.type == "ice":
@@ -65,7 +65,7 @@ class Enemy:
     def is_frozen(self):
         self.speed = self.frozen_speed
         self.frozen_timer -= 1
-        print(self.frozen_timer)
+        #print(self.frozen_timer)
 
 
     def update(self, screen, projectiles,player):
@@ -107,7 +107,7 @@ class Spider(Enemy):
         if self.attacked == False:
             if self.rect.colliderect(player.rect):
                 player.health -= self.damage
-                print('player was attacked')
+                #print('player was attacked')
                 self.attacked = True
                 self.cooldown = 30
         if self.cooldown > 0:
@@ -288,7 +288,7 @@ class Minotaur_Boss(Enemy):
             for line in self.lines:
                 pygame.draw.rect(screen, (255, 0, 0), line)
         screen.blit(self.image, self.pos)
-        print(self.grounded)
+        #print(self.grounded)
 
     def update(self, screen, projectiles, player, platforms):
         self.platforms = platforms
@@ -302,6 +302,40 @@ class Minotaur_Boss(Enemy):
         if self.frozen_timer <= 0:
             self.speed = self.true_speed
             self.frozen = False
+
+
+#level3
+class Zombie(Enemy):
+    def __init__(self,image,size,health, pos, damage, type, speed,defense,end_pos):
+        super().__init__(image,size, health, pos, damage, type, speed,defense)
+        self.start_pos = pos
+        self.end_pos = end_pos
+        self.facing = "right"
+        self.attacked = False
+        self.cooldown = 0
+
+    def move(self,player):
+        if self.pos[0] <= self.start_pos[0]:
+            self.facing = "right"
+        elif self.pos[0] >= self.end_pos[0] - self.size[1]:
+            self.facing = "left"
+        if self.facing == "right":
+            self.velocity[0] = self.speed
+        if self.facing == "left":
+            self.velocity[0] = -self.speed
+        self.pos += self.velocity
+
+    def attack(self, player):
+        if self.attacked == False:
+            if self.rect.colliderect(player.rect):
+                player.health -= self.damage
+                #print('player was attacked')
+                self.attacked = True
+                self.cooldown = 30
+        if self.cooldown > 0:
+            self.cooldown -= 1
+        elif self.cooldown <= 0:
+            self.attacked = False
 
 
 

@@ -17,14 +17,31 @@ def level3loop():
     clock = pygame.time.Clock()
     fps = 60
     font = pygame.font.SysFont(None, 60)
+    zombie_img = "Mobs/zombie.png"
 
     scene = "escape_room"
+    escape_room_pos = [200, 300]
+    if scene == "escape_room":
+        player.pos = escape_room_pos
+
+    escaperoom_enemies = [enemy.Zombie(zombie_img, [75, 75],250, [381, 420], 30, "zombie", 5, 10,[576, 420])]
 
     def escape_room(events,time):
+        escape_room_platforms = [Platform([0, 500], 800, 105, black)]
         screen.fill(gray)
+        player.playerfunctions(screen, events, time, escape_room_platforms)
+        for platform in escape_room_platforms:
+            platform.render(screen)
+        if len(escaperoom_enemies) > 0:
+            for e in escaperoom_enemies:
+                e.update(screen,player.projectiles,player)
+                print(e.health)
+                if e.destroyed == "destroy":
+                    escaperoom_enemies.remove(e)
 
     isRunning = True
     while isRunning:
+        #print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
@@ -36,6 +53,8 @@ def level3loop():
             player.pos[0] = 0
         if scene == "escape_room":
             escape_room(events, time)
+            player.spells.append("poison")
+            player.spells.append("jump_boost")
 
         pygame.display.flip()
         clock.tick(fps)

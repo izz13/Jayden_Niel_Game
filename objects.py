@@ -10,6 +10,8 @@ jumpyraw_Img = pygame.image.load("Spells/Jump_Boost.png")
 jumpyImg = pygame.transform.scale(jumpyraw_Img, (75, 75))
 fireImg = pygame.image.load("Spells/fire.png")
 iceImg = pygame.image.load("Spells/ice.png")
+poisonrawImg = pygame.image.load("Spells/Poison_Spell.png")
+poisonImg = pygame.transform.scale(poisonrawImg, (75, 75))
 gravity = Vector2(0, 1)
 green = (0, 255, 0)
 
@@ -118,6 +120,8 @@ class Player:
             screen.blit(iceImg, [15, 15])
         if self.spell == "jump_boost":
             screen.blit(jumpyImg, [15, 15])
+        if self.spell == "poison":
+            screen.blit(poisonImg, [15, 15])
 
 
     def move(self, events, time):
@@ -166,6 +170,8 @@ class Player:
                     self.spell = self.spells[1]
                 if event.key == pygame.K_3 and len(self.spells) >= 3:
                     self.spell = self.spells[2]
+                if event.key == pygame.K_4 and len(self.spells) >= 4:
+                    self.spell = self.spells[3]
                 if event.key == pygame.K_x and self.cooldown >= 30:
                     if self.spell == "fire":
                         self.projectiles.append(
