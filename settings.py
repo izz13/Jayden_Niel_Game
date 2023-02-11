@@ -26,7 +26,6 @@ def settings_loop():
                 isRunning = False
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if backImg_rect.collidepoint(event.pos):
-                    print("hit button")
                     return "mainmenu"
         screen.blit(settImg, [0, 0])
         screen.blit(backImg, (0, 0))
