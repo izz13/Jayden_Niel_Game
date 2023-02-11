@@ -54,7 +54,7 @@ def level2loop():
     dungeon1_pos = [0,0]
     dungeon2_pos = [0, 200]
     dungeon3_pos = [150, 10]
-    dungeon_tunnel_pos = [0, 0]
+    dungeon_tunnel_pos = [20, 400]
     dungeon4_pos = [400, 300]
     if scene == "dungeonScene1":
         player.pos = dungeon1_pos
@@ -221,7 +221,7 @@ def level2loop():
             dungeonScene2(events, time)
             if player.pos[1] >= 600:
                 scene = "dungeonScene_tunnel"
-                player.pos = [0, 0]
+                player.pos = [20, 255]
         elif scene == "dungeonScene3":
             dungeonScene3(events, time)
             if player.pos[0] >= 800:

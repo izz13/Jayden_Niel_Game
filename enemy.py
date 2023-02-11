@@ -49,7 +49,7 @@ class Enemy:
         for projectile in projectiles:
             if self.rect.colliderect(projectile.rect):
                 if self.defense != 0:
-                    self.health -= projectile.total_damage*(1-self.defense)
+                    self.health -= projectile.total_damage*(1-(self.defense/100))
                 if self.defense == 0:
                     self.health -= projectile.total_damage
                 if projectile.type == "ice":
@@ -65,7 +65,7 @@ class Enemy:
     def is_frozen(self):
         self.speed = self.frozen_speed
         self.frozen_timer -= 1
-        print(self.frozen_timer)
+        #print(self.frozen_timer)
 
 
     def update(self, screen, projectiles,player):
@@ -107,7 +107,7 @@ class Spider(Enemy):
         if self.attacked == False:
             if self.rect.colliderect(player.rect):
                 player.health -= self.damage
-                print('player was attacked')
+                #print('player was attacked')
                 self.attacked = True
                 self.cooldown = 30
         if self.cooldown > 0:
@@ -288,7 +288,7 @@ class Minotaur_Boss(Enemy):
             for line in self.lines:
                 pygame.draw.rect(screen, (255, 0, 0), line)
         screen.blit(self.image, self.pos)
-        print(self.grounded)
+        #print(self.grounded)
 
     def update(self, screen, projectiles, player, platforms):
         self.platforms = platforms
@@ -329,7 +329,7 @@ class Zombie(Enemy):
         if self.attacked == False:
             if self.rect.colliderect(player.rect):
                 player.health -= self.damage
-                print('player was attacked')
+                #print('player was attacked')
                 self.attacked = True
                 self.cooldown = 30
         if self.cooldown > 0:
