@@ -15,7 +15,7 @@ def settings_loop():
     settImg = pygame.image.load("main_menu_pngs/settings_page.png")
     backImg = pygame.image.load("main_menu_pngs/back.png")
     backImg_rect = backImg.get_bounding_rect()
-    backImg_rect.topleft = [625, 500]
+    backImg_rect.topleft = [0, 0]
 
     isRunning = True
     while isRunning:
