@@ -20,11 +20,13 @@ def level3loop():
     zombie_img = "Mobs/zombie.png"
 
     scene = "escape_room"
-    escape_room_pos = [200, 300]
+    escape_room_pos = [0, 320]
     if scene == "escape_room":
         player.pos = escape_room_pos
 
-    escaperoom_enemies = [enemy.Zombie(zombie_img, [75, 75],250, [381, 420], 30, "zombie", 5, 10,[576, 420])]
+    escaperoom_enemies = [enemy.Zombie(zombie_img, [75, 75],1000, [140, 430], 30, "zombie", 5, 10,[300, 430]),
+                          enemy.Zombie(zombie_img, [75, 75],1000, [365, 430], 30, "zombie", 5, 10,[525, 430]),
+                          enemy.Zombie(zombie_img, [75, 75],1000, [590, 430], 30, "zombie", 5, 10,[750, 430])]
 
     def escape_room(events,time):
         escape_room_platforms = [Platform([0, 500], 800, 105, black)]
@@ -41,7 +43,7 @@ def level3loop():
 
     isRunning = True
     while isRunning:
-        #print(pygame.mouse.get_pos())
+        print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:

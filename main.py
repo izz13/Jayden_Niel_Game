@@ -1,4 +1,4 @@
-import MainMenu, level1, level2, objects, tools, enemy, settings
+import MainMenu, level1, level2, level3, objects, tools, enemy, settings
 
 
 level = "mainmenu"
@@ -13,4 +13,6 @@ while isrunning:
         level = level1.leve1loop()
     if level == "level2":
         level = level2.level2loop()
+    if level == "level3":
+        level = level3.level3loop()
 
