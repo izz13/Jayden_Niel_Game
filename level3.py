@@ -38,11 +38,10 @@ def level3loop():
         player.pos = escape_room_pos
 
     #enemies go here
-    escaperoom_enemies = [enemy.Zombie(zombie_img, [75, 75],1000, [140, 430], 30, "zombie", 5, 10,[300, 430]),
-                          enemy.Zombie(zombie_img, [75, 75],1000, [365, 430], 30, "zombie", 5, 10,[525, 430]),
-                          enemy.Zombie(zombie_img, [75, 75],1000, [590, 430], 30, "zombie", 5, 10,[750, 430])]
-    basicvaultkey = objects.Key([50, 50], "Level3Images/Vault1Key.png", "basic_key")
-    show_basicvaultkey = False
+    escaperoom_enemies = [enemy.Zombie(zombie_img, [75, 75],1, [140, 430], 30, "zombie", 5, 10,[300, 430]),
+                          enemy.Zombie(zombie_img, [75, 75],1, [365, 430], 30, "zombie", 5, 10,[525, 430]),
+                          enemy.Zombie(zombie_img, [75, 75],1, [590, 430], 30, "zombie", 5, 10,[750, 430])]
+    basicvaultkey = objects.Key([590, 430], "Level3Images/Vault1Key.png", "basic_key")
 
 
     #main scene function goes here
@@ -55,16 +54,21 @@ def level3loop():
         if len(escaperoom_enemies) > 0:
             for e in escaperoom_enemies:
                 e.update(screen,player.projectiles,player)
-                print(e.health)
+                #print(e.health)
                 if e.destroyed == "destroy":
                     escaperoom_enemies.remove(e)
+        if len(escaperoom_enemies) == 0 and len(player.keys) == 0:
+            basicvaultkey.render(screen)
+            if player.rect.colliderect(basicvaultkey.rect):
+                print("picked up basic vault key")
+                player.keys.append(basicvaultkey)
 
 
 
     #game-loop goes here
     isRunning = True
     while isRunning:
-        print(pygame.mouse.get_pos())
+        #print(pygame.mouse.get_pos())
         events = pygame.event.get()
         for event in events:
             if event.type == pygame.QUIT:
@@ -75,12 +79,7 @@ def level3loop():
         if player.pos[0] < 0:
             player.pos[0] = 0
         if scene == "escape_room":
-            if len(escaperoom_enemies) == 1:
-                if escaperoom_enemies[0].destroyed == "destroy":
-                    show_basicvaultkey = True
             escape_room(events, time)
-            #if show_basicvaultkey:
-            basicvaultkey.render(screen)
             player.spells.append("poison")
             player.spells.append("jump_boost")
 
