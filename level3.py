@@ -1,4 +1,5 @@
 import pygame
+import objects
 from objects import player
 from objects import Platform
 import enemy
@@ -7,6 +8,7 @@ import tools
 pygame.init()
 
 def level3loop():
+    #basic variables go here
     screen_width = 800
     screen_height = 600
     screen = pygame.display.set_mode([screen_width, screen_height])
@@ -17,17 +19,33 @@ def level3loop():
     clock = pygame.time.Clock()
     fps = 60
     font = pygame.font.SysFont(None, 60)
-    zombie_img = "Mobs/zombie.png"
 
+    #images go here
+    zombie_img = "Mobs/zombie.png"
+    BDB = pygame.image.load("Level3Images/Blocked_Door-Barrier.png")
+    Button = pygame.image.load("Level3Images/LVL3Button.png")
+    S1Lever = pygame.image.load("Level3Images/Standing_Lever.png")
+    S2Lever= pygame.image.load("Level3Images/Pushed_Lever.png")
+    Vault1 = pygame.image.load("Level3Images/Basic_Vault.png")
+    Vault2 = pygame.image.load("Level3Images/Advanced_Vault.png")
+    Vault_key1= pygame.image.load("Level3Images/Vault1Key.png")
+    Vault_key2= pygame.image.load("Level3Images/Vault2Key.png")
+
+    #scene and pos go here
     scene = "escape_room"
     escape_room_pos = [0, 320]
     if scene == "escape_room":
         player.pos = escape_room_pos
 
+    #enemies go here
     escaperoom_enemies = [enemy.Zombie(zombie_img, [75, 75],1000, [140, 430], 30, "zombie", 5, 10,[300, 430]),
                           enemy.Zombie(zombie_img, [75, 75],1000, [365, 430], 30, "zombie", 5, 10,[525, 430]),
                           enemy.Zombie(zombie_img, [75, 75],1000, [590, 430], 30, "zombie", 5, 10,[750, 430])]
+    basicvaultkey = objects.Key([50, 50], "Level3Images/Vault1Key.png", "basic_key")
+    show_basicvaultkey = False
 
+
+    #main scene function goes here
     def escape_room(events,time):
         escape_room_platforms = [Platform([0, 500], 800, 105, black)]
         screen.fill(gray)
@@ -41,6 +59,9 @@ def level3loop():
                 if e.destroyed == "destroy":
                     escaperoom_enemies.remove(e)
 
+
+
+    #game-loop goes here
     isRunning = True
     while isRunning:
         print(pygame.mouse.get_pos())
@@ -54,7 +75,12 @@ def level3loop():
         if player.pos[0] < 0:
             player.pos[0] = 0
         if scene == "escape_room":
+            if len(escaperoom_enemies) == 1:
+                if escaperoom_enemies[0].destroyed == "destroy":
+                    show_basicvaultkey = True
             escape_room(events, time)
+            #if show_basicvaultkey:
+            basicvaultkey.render(screen)
             player.spells.append("poison")
             player.spells.append("jump_boost")
 

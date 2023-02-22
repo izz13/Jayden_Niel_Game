@@ -48,6 +48,7 @@ class Player:
         self.facing = "Right"
         self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 10, 10)
         self.damage_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 10, 10)
+        self.keys = []
 
     def collision_plat(self, platforms):
         buffer = 2
@@ -267,6 +268,22 @@ class Spell:
             self.pos += self.velocity
         if self.facing == "Left":
             self.pos -= self.velocity
+
+class Key:
+    def __init__(self, pos, image, type):
+        self.pos = pos
+        self.image = pygame.image.load(image)
+        self.image = pygame.transform.scale(self.image, [25, 25])
+        self.type = type
+        self.rect = self.image.get_bounding_rect()
+
+    def render(self, screen):
+        screen.blit(self.image, self.pos)
+        self.rect.topleft = self.pos
+
+
+
+
 
 
 # objects go here
