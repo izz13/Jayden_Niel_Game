@@ -7,7 +7,7 @@ import enemy
 
 pygame.init()
 
-
+boomImg = pygame.image.load("lvl 4/volcano.png")
 def level4loop():
     screen_width = 800
     screen_height = 600
@@ -19,12 +19,16 @@ def level4loop():
     clock = pygame.time.Clock()
     fps = 60
     #font = pygame.font.SysFont(None, 60)
+    scene1_platforms = [Platform([0, 450], 600, 150, "gray"), Platform([700, 450], 100, 150, "gray")]
 
     player.pos = [0,0]
     scene = "scene1"
 
-    def scene1(events,time):
-        screen.fill(white)
+    def scene1(screen, events, time):
+        screen.blit(boomImg, (0, 0))
+        for platform in scene1_platforms:
+            platform.render(screen)
+        player.playerfunctions(screen, events, time, scene1_platforms)
 
     isRunning = True
     while isRunning:
@@ -40,7 +44,7 @@ def level4loop():
         if player.pos[0] > 745:
             player.pos[0] = 745
         if scene == "scene1":
-            scene1(events,time)
+            scene1(screen, events, time)
 
         pygame.display.flip()
         clock.tick(fps)
