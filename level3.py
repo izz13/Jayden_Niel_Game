@@ -75,6 +75,8 @@ def level3loop():
             vampire_boss.pos[0] = 0
         health_outline2 = pygame.Rect((112, 496), (610, 60))
         pygame.draw.rect(screen, gray, health_outline2)
+        vampire_boss.damage_bar.width *= .5
+        vampire_boss.boss_health.width *= .5
         pygame.draw.rect(screen, (255, 0, 0), vampire_boss.damage_bar)
         pygame.draw.rect(screen, (0, 255, 0), vampire_boss.boss_health)
         vampire_boss.boss_health.width = vampire_boss.health

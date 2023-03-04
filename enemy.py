@@ -247,6 +247,7 @@ class Minotaur_Boss(Enemy):
             if self.right_rect.colliderect(platform.left_rect):
                 self.facing = "left"
                 break
+        
 
     def move(self, player):
         if self.facing == "right":
