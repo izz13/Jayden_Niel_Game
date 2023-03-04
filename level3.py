@@ -44,10 +44,8 @@ def level3loop():
     basicvaultkey = objects.Key([600, 450], "Level3Images/Vault1Key.png", "basic_key")
     escape_room_platforms = [Platform([0, 500], 800, 105, black)]
     minotaur_boss = enemy.Minotaur_Boss("Mobs/Vampire.png", [609, 180], [100, 100], 1200, 200, "vampire_boss", 1.5, 5.8, escape_room_platforms)
-
     #main scene function goes here
     def escape_room(events,time):
-        bossspawn = False
         screen.fill(gray)
         player.playerfunctions(screen, events, time, escape_room_platforms)
         for platform in escape_room_platforms:
@@ -65,12 +63,17 @@ def level3loop():
                 if player.rect.colliderect(basicvaultkey.rect):
                     print("You have picked up a key! Use it to unlock the vault!")
                     player.keys.append(basicvaultkey)
-        if len(player.keys) == 1 and player.pos[0] >= 720:
-            bossspawn = True
-        if bossspawn:
-            minotaur_boss.update(screen, player.projectiles, player, escape_room_platforms)
-            if minotaur_boss.pos[0] <= 0:
-                minotaur_boss.pos[0] = 0
+
+
+    def escape_room_boss(events,time):
+        screen.fill(gray)
+        player.playerfunctions(screen, events, time, escape_room_platforms)
+        for platform in escape_room_platforms:
+            platform.render(screen)
+        screen.blit(Vault1, [700, 400])
+        minotaur_boss.update(screen, player.projectiles, player, escape_room_platforms)
+        if minotaur_boss.pos[0] <= 0:
+            minotaur_boss.pos[0] = 0
 
     #game-loop goes here
     isRunning = True
@@ -87,6 +90,12 @@ def level3loop():
             player.pos[0] = 0
         if scene == "escape_room":
             escape_room(events, time)
+            player.spells.append("poison")
+            player.spells.append("jump_boost")
+            if len(player.keys) == 1 and player.pos[0] >= 720:
+                scene = "room_boss"
+        if scene == "room_boss":
+            escape_room_boss(events, time)
             player.spells.append("poison")
             player.spells.append("jump_boost")
 
