@@ -38,15 +38,16 @@ def level3loop():
         player.pos = escape_room_pos
 
     #enemies go here
-    escaperoom_enemies = [enemy.Zombie(zombie_img, [75, 75],1, [140, 430], 30, "zombie", 5, 10,[300, 430]),
-                          enemy.Zombie(zombie_img, [75, 75],1, [365, 430], 30, "zombie", 5, 10,[525, 430]),
-                          enemy.Zombie(zombie_img, [75, 75],1, [590, 430], 30, "zombie", 5, 10,[750, 430])]
-    basicvaultkey = objects.Key([590, 430], "Level3Images/Vault1Key.png", "basic_key")
-
+    escaperoom_enemies = [enemy.Zombie(zombie_img, [75, 75],330, [140, 430], 60, "zombie", 5, 10,[300, 430]),
+                          enemy.Zombie(zombie_img, [75, 75],330, [365, 430], 60, "zombie", 5, 10,[525, 430]),
+                          enemy.Zombie(zombie_img, [75, 75],330, [590, 430], 60, "zombie", 5, 10,[750, 430])]
+    basicvaultkey = objects.Key([600, 450], "Level3Images/Vault1Key.png", "basic_key")
+    escape_room_platforms = [Platform([0, 500], 800, 105, black)]
+    minotaur_boss = enemy.Minotaur_Boss("Mobs/Vampire.png", [609, 180], [100, 100], 1200, 200, "vampire_boss", 1.5, 5.8, escape_room_platforms)
 
     #main scene function goes here
     def escape_room(events,time):
-        escape_room_platforms = [Platform([0, 500], 800, 105, black)]
+        bossspawn = False
         screen.fill(gray)
         player.playerfunctions(screen, events, time, escape_room_platforms)
         for platform in escape_room_platforms:
@@ -57,13 +58,19 @@ def level3loop():
                 #print(e.health)
                 if e.destroyed == "destroy":
                     escaperoom_enemies.remove(e)
-        if len(escaperoom_enemies) == 0 and len(player.keys) == 0:
-            basicvaultkey.render(screen)
-            if player.rect.colliderect(basicvaultkey.rect):
-                print("picked up basic vault key")
-                player.keys.append(basicvaultkey)
-
-
+        if len(escaperoom_enemies) == 0:
+            screen.blit(Vault1, [700, 400])
+            if len(player.keys) == 0:
+                basicvaultkey.render(screen)
+                if player.rect.colliderect(basicvaultkey.rect):
+                    print("You have picked up a key! Use it to unlock the vault!")
+                    player.keys.append(basicvaultkey)
+        if len(player.keys) == 1 and player.pos[0] >= 720:
+            bossspawn = True
+        if bossspawn:
+            minotaur_boss.update(screen, player.projectiles, player, escape_room_platforms)
+            if minotaur_boss.pos[0] <= 0:
+                minotaur_boss.pos[0] = 0
 
     #game-loop goes here
     isRunning = True

@@ -49,7 +49,7 @@ def level2loop():
     dungeonT_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [376, 317], 15, "spider", 1.5, 0, [461, 317]),
                         enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [275, 374], 15, "spider", 1.5, 0, [365, 374])]
 
-    minotaur_boss = enemy.Minotaur_Boss("Mobs/L2_Minotaur_Boss.png",[609, 180],[100, 100],60,600,"minotaur_boss",.8, 2.9, dungeon4_platforms)
+    minotaur_boss = enemy.Minotaur_Boss("Mobs/L2_Minotaur_Boss.png",[609, 180],[100, 100],600,100,"minotaur_boss",.8, 2.9, dungeon4_platforms)
 
     dungeon1_pos = [0,0]
     dungeon2_pos = [0, 200]
