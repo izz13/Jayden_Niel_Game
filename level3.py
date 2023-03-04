@@ -43,8 +43,7 @@ def level3loop():
                           enemy.Zombie(zombie_img, [75, 75],330, [590, 430], 60, "zombie", 5, 10,[750, 430])]
     basicvaultkey = objects.Key([600, 450], "Level3Images/Vault1Key.png", "basic_key")
     escape_room_platforms = [Platform([0, 500], 800, 105, black)]
-    minotaur_boss = enemy.Minotaur_Boss("Mobs/Vampire.png", [609, 180], [100, 100], 1200, 200, "vampire_boss", 1.5, 5.8, escape_room_platforms)
-    #main scene function goes here
+    vampire_boss = enemy.Vampire_Boss("Mobs/Vampire.png", [609, 180], [100, 100], 1200, 200, "vampire_boss", 0, 5.8, escape_room_platforms)
     def escape_room(events,time):
         screen.fill(gray)
         player.playerfunctions(screen, events, time, escape_room_platforms)
@@ -71,9 +70,16 @@ def level3loop():
         for platform in escape_room_platforms:
             platform.render(screen)
         screen.blit(Vault1, [700, 400])
-        minotaur_boss.update(screen, player.projectiles, player, escape_room_platforms)
-        if minotaur_boss.pos[0] <= 0:
-            minotaur_boss.pos[0] = 0
+        vampire_boss.update(screen, player.projectiles, player, escape_room_platforms)
+        if vampire_boss.pos[0] <= 0:
+            vampire_boss.pos[0] = 0
+        health_outline2 = pygame.Rect((112, 496), (610, 60))
+        pygame.draw.rect(screen, gray, health_outline2)
+        pygame.draw.rect(screen, (255, 0, 0), vampire_boss.damage_bar)
+        pygame.draw.rect(screen, (0, 255, 0), vampire_boss.boss_health)
+        vampire_boss.boss_health.width = vampire_boss.health
+        health_msg = font.render("HEALTH", 0, (255, 0, 0))
+        screen.blit(health_msg, [300, 510])
 
     #game-loop goes here
     isRunning = True

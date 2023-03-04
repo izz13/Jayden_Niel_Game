@@ -338,6 +338,10 @@ class Vampire_Boss(Enemy):
             if self.right_rect.colliderect(platform.left_rect):
                 self.facing = "left"
                 break
+        if self.left_rect.centerx < 0:
+            self.facing = "right"
+        if self.right_rect.centerx > 800:
+            self.facing = "left"
 
     def move(self, player):
         if self.facing == "right":

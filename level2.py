@@ -145,14 +145,6 @@ def level2loop():
         screen.blit(DungeonImg4, (0, 0))
         #dungeon4_platforms
         #player.jump_height = -10
-        """
-        for event in events:
-            if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_3:
-                    player.spell = player.spells[2]
-                if player.spell == "jump_boost" and event.key == pygame.K_x:
-                    player.jump_boost = True
-        """
         #player.render(screen)
         for platform in dungeon4_platforms:
             platform.render(screen)
