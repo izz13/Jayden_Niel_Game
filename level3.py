@@ -38,15 +38,13 @@ def level3loop():
         player.pos = escape_room_pos
 
     #enemies go here
-    escaperoom_enemies = [enemy.Zombie(zombie_img, [75, 75],1, [140, 430], 30, "zombie", 5, 10,[300, 430]),
-                          enemy.Zombie(zombie_img, [75, 75],1, [365, 430], 30, "zombie", 5, 10,[525, 430]),
-                          enemy.Zombie(zombie_img, [75, 75],1, [590, 430], 30, "zombie", 5, 10,[750, 430])]
-    basicvaultkey = objects.Key([590, 430], "Level3Images/Vault1Key.png", "basic_key")
-
-
-    #main scene function goes here
+    escaperoom_enemies = [enemy.Zombie(zombie_img, [75, 75],330, [140, 430], 60, "zombie", 5, 10,[300, 430]),
+                          enemy.Zombie(zombie_img, [75, 75],330, [365, 430], 60, "zombie", 5, 10,[525, 430]),
+                          enemy.Zombie(zombie_img, [75, 75],330, [590, 430], 60, "zombie", 5, 10,[750, 430])]
+    basicvaultkey = objects.Key([600, 450], "Level3Images/Vault1Key.png", "basic_key")
+    escape_room_platforms = [Platform([0, 500], 800, 105, black)]
+    vampire_boss = enemy.Vampire_Boss("Mobs/Vampire.png", [609, 180], [100, 100], 1200, 200, "vampire_boss", 0, 5.8, escape_room_platforms)
     def escape_room(events,time):
-        escape_room_platforms = [Platform([0, 500], 800, 105, black)]
         screen.fill(gray)
         player.playerfunctions(screen, events, time, escape_room_platforms)
         for platform in escape_room_platforms:
@@ -57,13 +55,33 @@ def level3loop():
                 #print(e.health)
                 if e.destroyed == "destroy":
                     escaperoom_enemies.remove(e)
-        if len(escaperoom_enemies) == 0 and len(player.keys) == 0:
-            basicvaultkey.render(screen)
-            if player.rect.colliderect(basicvaultkey.rect):
-                print("picked up basic vault key")
-                player.keys.append(basicvaultkey)
+        if len(escaperoom_enemies) == 0:
+            screen.blit(Vault1, [700, 400])
+            if len(player.keys) == 0:
+                basicvaultkey.render(screen)
+                if player.rect.colliderect(basicvaultkey.rect):
+                    print("You have picked up a key! Use it to unlock the vault!")
+                    player.keys.append(basicvaultkey)
 
 
+    def escape_room_boss(events,time):
+        screen.fill(gray)
+        player.playerfunctions(screen, events, time, escape_room_platforms)
+        for platform in escape_room_platforms:
+            platform.render(screen)
+        screen.blit(Vault1, [700, 400])
+        vampire_boss.update(screen, player.projectiles, player, escape_room_platforms)
+        if vampire_boss.pos[0] <= 0:
+            vampire_boss.pos[0] = 0
+        health_outline2 = pygame.Rect((112, 496), (610, 60))
+        pygame.draw.rect(screen, gray, health_outline2)
+        vampire_boss.damage_bar.width *= .5
+        vampire_boss.boss_health.width *= .5
+        pygame.draw.rect(screen, (255, 0, 0), vampire_boss.damage_bar)
+        pygame.draw.rect(screen, (0, 255, 0), vampire_boss.boss_health)
+        vampire_boss.boss_health.width = vampire_boss.health
+        health_msg = font.render("HEALTH", 0, (255, 0, 0))
+        screen.blit(health_msg, [300, 510])
 
     #game-loop goes here
     isRunning = True
@@ -80,6 +98,12 @@ def level3loop():
             player.pos[0] = 0
         if scene == "escape_room":
             escape_room(events, time)
+            player.spells.append("poison")
+            player.spells.append("jump_boost")
+            if len(player.keys) == 1 and player.pos[0] >= 720:
+                scene = "room_boss"
+        if scene == "room_boss":
+            escape_room_boss(events, time)
             player.spells.append("poison")
             player.spells.append("jump_boost")
 
