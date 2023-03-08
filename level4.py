@@ -105,7 +105,7 @@ def level4loop():
                     scene3_enemies.remove(e)
         if player.pos[0] >= 600 and player.pos[0] <= 700:
             death_scene(events, time)
-    def scene(screen, events, time, player):
+    def scene4(screen, events, time, player):
         screen.blit(boomImg, (0, 0))
         for platform in scene4_platforms:
             platform.render(screen)
