@@ -14,10 +14,10 @@ reviveImg_rect = reviveImg.get_bounding_rect()
 reviveImg_rect.center = [411,333.5]
 exitImg_rect = exitImg.get_bounding_rect()
 exitImg_rect.center = [411,429.5]
-boomImg = pygame.image.load("lvl 4/volcano.png")
-bossImg = pygame.image.load("lvl 4/lv4boss.png")
-squishImg = pygame.image.load("lvl 4/lv4attack.png")
-lava_raw1Img = pygame.image.load("lvl 4/lava.png")
+boomImg = pygame.image.load("lvl4Images/volcano.png")
+bossImg = pygame.image.load("lvl4Images/lv4boss.png")
+squishImg = pygame.image.load("lvl4Images/lv4attack.png")
+lava_raw1Img = pygame.image.load("lvl4Images/lava.png")
 lava1Img = pygame.transform.scale(lava_raw1Img, [100, 145])
 lava2Img = pygame.transform.scale(lava_raw1Img, [800, 800])
 lava3Img = pygame.transform.scale(lava_raw1Img, [100, 50])
@@ -42,6 +42,7 @@ def level4loop():
     scene1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [350, 400], 15, "spider", 2, 0,[550, 400])]
     scene2_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [350, 400], 15, "spider", 2, 0, [550, 400]), enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [550, 400], 15, "spider", 2, 0,[750, 400])]
     scene3_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [100, 325], 15, "spider", 2, 0, [250, 325]), enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [500, 120], 15, "spider", 2, 0,[600, 120])]
+    spikky_boss = enemy.Spikky_Boss("lvl4Images/lv4boss.png",[700,500],1000,"lvl4Images/lv4attack.png",10,3)
     player.pos = [0,0]
     scene = "scene5"
 
@@ -129,6 +130,7 @@ def level4loop():
         for platform in scene5_platforms:
             platform.render(screen)
         player.playerfunctions(screen, events, time, scene5_platforms)
+        spikky_boss.update(screen)
     isRunning = True
     while isRunning:
         events = pygame.event.get()

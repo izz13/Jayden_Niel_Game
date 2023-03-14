@@ -437,10 +437,22 @@ class Zombie(Enemy):
 class Spikky_Boss():
     def __init__(self,spikky_img,spikky_pos,spikky_health,press_img,press_dmg,press_speed):
         self.spikky_img = pygame.image.load(spikky_img)
+        self.spikky_img = pygame.transform.scale(self.spikky_img,[64,64])
         self.spikky_pos = spikky_pos
         self.spikky_health = spikky_health
         self.press_img = pygame.image.load(press_img)
+        self.press_img = pygame.transform.scale(self.press_img, [70, 210])
         self.press_dmg = press_dmg
         self.press_speed = press_speed
+        self.press_pos = Vector2(0)
+        self.spikky_rect = self.spikky_img.get_bounding_rect()
+        self.press_rect = self.press_img.get_bounding_rect()
 
+    def render(self,screen):
+        self.spikky_rect.center = [self.spikky_pos[0]+32,self.spikky_pos[1] + 32]
+        self.press_rect.center = [self.press_pos[0] + 35, self.press_pos[1] + 105]
+        screen.blit(self.spikky_img,self.spikky_pos)
+        screen.blit(self.press_img,self.press_pos)
 
+    def update(self,screen):
+        self.render(screen)
