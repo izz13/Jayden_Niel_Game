@@ -15,10 +15,13 @@ reviveImg_rect.center = [411,333.5]
 exitImg_rect = exitImg.get_bounding_rect()
 exitImg_rect.center = [411,429.5]
 boomImg = pygame.image.load("lvl 4/volcano.png")
+bossImg = pygame.image.load("lvl 4/lv4boss.png")
+squishImg = pygame.image.load("lvl 4/lv4attack.png")
 lava_raw1Img = pygame.image.load("lvl 4/lava.png")
 lava1Img = pygame.transform.scale(lava_raw1Img, [100, 145])
 lava2Img = pygame.transform.scale(lava_raw1Img, [800, 800])
 lava3Img = pygame.transform.scale(lava_raw1Img, [100, 50])
+lava4Img = pygame.transform.scale(lava_raw1Img, [800, 100])
 xy = [0, -800]
 def level4loop():
     screen_width = 800
@@ -35,6 +38,7 @@ def level4loop():
     scene2_platforms = [Platform([0, 450], 800, 150, "gray")]
     scene3_platforms = [Platform([0, 450], 800, 150, "gray"), Platform([100, 380], 150, 50, "gray"), Platform([250, 310], 150, 50, "gray"), Platform([400, 240], 100, 50, "gray"), Platform([500, 170], 100, 50, "gray"), Platform([700, 170], 100, 50, "gray"), Platform([600, 170], 2, 430, "gray"), Platform([700, 170], 2, 430, "gray")]
     scene4_platforms = [Platform([0, 500], 150, 50, "gray"), Platform([160, 400], 150, 50, "gray"), Platform([320, 300], 150, 50, "gray"), Platform([480, 200], 150, 50, "gray"), Platform([640, 100], 160, 50, "gray")]
+    scene5_platforms = [Platform([0, 450], 800, 150, "gray")]
     scene1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [350, 400], 15, "spider", 2, 0,[550, 400])]
     scene2_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [350, 400], 15, "spider", 2, 0, [550, 400]), enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [550, 400], 15, "spider", 2, 0,[750, 400])]
     scene3_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [100, 325], 15, "spider", 2, 0, [250, 325]), enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [500, 120], 15, "spider", 2, 0,[600, 120])]
@@ -60,6 +64,8 @@ def level4loop():
             platform.render(screen)
         screen.blit(lava1Img, (600, 455))
         player.playerfunctions(screen, events, time, scene1_platforms)
+        player.spells.append("poison")
+        player.spells.append("jump_boost")
         if len(scene1_enemies) > 0:
             for e in scene1_enemies:
                 e.update(screen,player.projectiles,player)
@@ -82,6 +88,8 @@ def level4loop():
         for platform in scene2_platforms:
             platform.render(screen)
         player.playerfunctions(screen, events, time, scene2_platforms)
+        player.spells.append("poison")
+        player.spells.append("jump_boost")
         if len(scene2_enemies) > 0:
             for e in scene2_enemies:
                 e.update(screen, player.projectiles, player)
@@ -96,22 +104,31 @@ def level4loop():
         screen.blit(boomImg, (0, 0))
         for platform in scene3_platforms:
             platform.render(screen)
-        screen.blit(lava3Img,[600, 170])
+        screen.blit(lava3Img,[600, 180])
         player.playerfunctions(screen, events, time, scene3_platforms)
+        player.spells.append("poison")
+        player.spells.append("jump_boost")
         if len(scene3_enemies) > 0:
             for e in scene3_enemies:
                 e.update(screen,player.projectiles,player)
                 if e.destroyed == "destroy":
                     scene3_enemies.remove(e)
         if player.pos[0] >= 600 and player.pos[0] <= 700:
-            death_scene(events, time)
+            if player.pos[1] > 130:
+                death_scene(events, time)
     def scene4(screen, events, time, player):
         screen.blit(boomImg, (0, 0))
         for platform in scene4_platforms:
             platform.render(screen)
-
-
-
+        screen.blit(lava4Img, [0, 500])
+        player.playerfunctions(screen, events, time, scene4_platforms)
+        player.spells.append("poison")
+        player.spells.append("jump_boost")
+    def scene5(screen, events, time, player):
+        screen.blit(boomImg, (0, 0))
+        for platform in scene5_platforms:
+            platform.render(screen)
+        player.playerfunctions(screen, events, time, scene5_platforms)
     isRunning = True
     while isRunning:
         events = pygame.event.get()
@@ -129,6 +146,9 @@ def level4loop():
         if player.pos[0] > 745 and scene == "scene2":
             player.pos = [0, 0]
             scene = "scene3"
+        if player.pos[0] > 745 and scene == "scene3":
+            player.pos = [0, 0]
+            scene = "scene4"
         if scene == "scene1":
             scene1(screen, events, time, player)
         if scene == "scene2":
