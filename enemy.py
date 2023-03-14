@@ -437,5 +437,10 @@ class Zombie(Enemy):
 class Spikky_Boss():
     def __init__(self,spikky_img,spikky_pos,spikky_health,press_img,press_dmg,press_speed):
         self.spikky_img = pygame.image.load(spikky_img)
+        self.spikky_pos = spikky_pos
+        self.spikky_health = spikky_health
+        self.press_img = pygame.image.load(press_img)
+        self.press_dmg = press_dmg
+        self.press_speed = press_speed
 
 
