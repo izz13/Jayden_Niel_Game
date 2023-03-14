@@ -43,7 +43,7 @@ def level4loop():
     scene2_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [350, 400], 15, "spider", 2, 0, [550, 400]), enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [550, 400], 15, "spider", 2, 0,[750, 400])]
     scene3_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [100, 325], 15, "spider", 2, 0, [250, 325]), enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [500, 120], 15, "spider", 2, 0,[600, 120])]
     player.pos = [0,0]
-    scene = "scene1"
+    scene = "scene5"
 
     def death_scene(events, time):
         screen.blit(deadImg, (0, 0))
@@ -149,6 +149,9 @@ def level4loop():
         if player.pos[0] > 745 and scene == "scene3":
             player.pos = [0, 0]
             scene = "scene4"
+        if player.pos[0] > 745 and scene == "scene4":
+            player.pos = [0, 0]
+            scene = "scene5"
         if scene == "scene1":
             scene1(screen, events, time, player)
         if scene == "scene2":
@@ -157,6 +160,8 @@ def level4loop():
             scene3(screen, events, time, player)
         if scene == "scene4":
             scene4(screen, events, time, player)
+        if scene == "scene5":
+            scene5(screen, events, time, player)
         pygame.display.flip()
         clock.tick(fps)
 
