@@ -42,7 +42,7 @@ def level4loop():
     scene1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [350, 400], 15, "spider", 2, 0,[550, 400])]
     scene2_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [350, 400], 15, "spider", 2, 0, [550, 400]), enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [550, 400], 15, "spider", 2, 0,[750, 400])]
     scene3_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [100, 325], 15, "spider", 2, 0, [250, 325]), enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [500, 120], 15, "spider", 2, 0,[600, 120])]
-    spikky_boss = enemy.Spikky_Boss("lvl4Images/lv4boss.png",[700,500],1000,"lvl4Images/lv4attack.png",10,3)
+    spikky_boss = enemy.Spikky_Boss("lvl4Images/lv4boss.png",[736,389],1000,"lvl4Images/lv4attack.png",10,3)
     player.pos = [0,0]
     scene = "scene5"
 
@@ -154,6 +154,10 @@ def level4loop():
         if player.pos[0] > 745 and scene == "scene4":
             player.pos = [0, 0]
             scene = "scene5"
+        if player.pos[0] > 745 and scene == "scene5":
+            player.pos[0] = 745
+        if player.pos[0] < 0 and scene == "scene5":
+            player.pos[0] = 0
         if scene == "scene1":
             scene1(screen, events, time, player)
         if scene == "scene2":
