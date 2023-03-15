@@ -130,7 +130,7 @@ def level4loop():
         for platform in scene5_platforms:
             platform.render(screen)
         player.playerfunctions(screen, events, time, scene5_platforms)
-        spikky_boss.update(screen)
+        spikky_boss.update(screen,player)
     isRunning = True
     while isRunning:
         events = pygame.event.get()
