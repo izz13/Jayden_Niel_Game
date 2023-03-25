@@ -1,5 +1,6 @@
 import pygame
 from pygame.math import Vector2
+import math
 
 # Variables here
 
@@ -256,6 +257,7 @@ class Spell:
         self.facing = facing
         self.rect = self.image.get_bounding_rect()
         self.total_damage = self.damage * self.damage_mult
+        self.rel_x = 0
 
     def render(self, screen, speed):
         self.rect.center = [self.pos[0] + self.size[0] / 2, self.pos[1] + self.size[1] / 2]
@@ -266,9 +268,11 @@ class Spell:
     def shoot(self, speed):
         self.velocity[0] = speed
         if self.facing == "Right":
-            self.pos += self.velocity
+            self.pos[0] += self.velocity[0]
+            self.pos[1] += 5*math.sin((self.rel_x)*math.pi*(.75) + 10)
         if self.facing == "Left":
             self.pos -= self.velocity
+        self.rel_x += .1
 
 class Key:
     def __init__(self, pos, image, type):

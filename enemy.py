@@ -466,7 +466,7 @@ class Spikky_Boss():
 
     def fall_down(self):
         if self.following <= 0:
-            self.press_center[1] += 3
+            self.press_center[1] += self.press_speed
 
     def go_up(self, player):
         if self.following <= 0 and self.press_center[1] > 700:
@@ -480,6 +480,13 @@ class Spikky_Boss():
         self.fall_down()
         self.go_up(player)
 
-    def update(self,screen,player):
+    def damage_taken(self,projectiles):
+        for projectile in projectiles:
+            if self.spikky_rect.colliderect(projectile.rect):
+                self.spikky_health -= projectile.total_damage
+                projectiles.remove(projectile)
+
+    def update(self,screen,player,projectiles):
         self.render(screen)
         self.attack(player)
+        self.damage_taken(projectiles)
