@@ -32,7 +32,7 @@ def level2loop():
     dungeon4_platforms = [Platform([0, 0], 117, 600, black), Platform([117, 0], 683, 81, black),
                           Platform([710, 80], 90, 520, black),
                           Platform([121, 468], 589, 130, black), Platform([523, 302], 170, 10, black)]
-    scene = "dungeonScene_tunnel"
+    scene = "dungeonScene1"
     dungeon1_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [381, 420], 15, "spider", 2, 0,[576, 420]),
                         enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [95, 425], 15, "spider", 2, 0,[270, 425]),
                         enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [390, 270], 15, "spider", 2, 0,[530, 270])]

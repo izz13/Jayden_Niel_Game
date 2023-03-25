@@ -16,7 +16,8 @@ exitImg_rect = exitImg.get_bounding_rect()
 exitImg_rect.center = [411,429.5]
 boomImg = pygame.image.load("lvl4Images/volcano.png")
 bossImg = pygame.image.load("lvl4Images/lv4boss.png")
-squishImg = pygame.image.load("lvl4Images/lv4attack.png")
+squishrawImg = pygame.image.load("lvl4Images/lv4attack.png")
+squishImg = pygame.transform.scale(squishrawImg, [70,600])
 lava_raw1Img = pygame.image.load("lvl4Images/lava.png")
 lava1Img = pygame.transform.scale(lava_raw1Img, [100, 145])
 lava2Img = pygame.transform.scale(lava_raw1Img, [800, 800])
@@ -44,7 +45,7 @@ def level4loop():
     scene3_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [100, 325], 15, "spider", 2, 0, [250, 325]), enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [500, 120], 15, "spider", 2, 0,[600, 120])]
     spikky_boss = enemy.Spikky_Boss("lvl4Images/lv4boss.png",[736,389],1000,"lvl4Images/lv4attack.png",10,3)
     player.pos = [0,0]
-    scene = "scene5"
+    scene = "scene1"
 
     def death_scene(events, time):
         screen.blit(deadImg, (0, 0))

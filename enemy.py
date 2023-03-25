@@ -449,6 +449,7 @@ class Spikky_Boss():
         self.press_center = [self.press_pos[0] + self.press_w/2,self.press_pos[1] + self.press_h/2]
         self.spikky_rect = self.spikky_img.get_bounding_rect()
         self.press_rect = self.press_img.get_bounding_rect()
+        self.following = 1000
 
     def render(self,screen):
         self.spikky_rect.center = [self.spikky_pos[0]+32,self.spikky_pos[1] + 32]
@@ -457,18 +458,25 @@ class Spikky_Boss():
         screen.blit(self.press_img,[self.press_center[0] - self.press_w/2,self.press_center[1] - self.press_h/2])
 
     def find_player(self,player):
-        self.press_center[0] = player.center[0]
+        if self.following > 0:
+            self.press_center[0] = player.center[0]
+            self.following -= 10
 
     def fall_down(self):
-        pass
+        if self.following == 0:
+            self.press_center[1] += 3
 
-    def go_up(self):
-        pass
+    def go_up(self, player):
+        if self.following == 0 and self.press_center[1] > 700:
+            self.following = 1000
+            self.press_center[1] = self.press_pos[1] + self.press_h/2
+            self.press_center[0] = player.center[0]
+
 
     def attack(self,player):
         self.find_player(player)
         self.fall_down()
-        self.go_up()
+        self.go_up(player)
 
     def update(self,screen,player):
         self.render(screen)
