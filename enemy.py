@@ -320,8 +320,8 @@ class Vampire_Boss(Enemy):
         self.left_rect = pygame.Rect(self.pos, [self.thickness, self.height])
         self.right_rect = pygame.Rect([self.pos[0] + self.width, self.pos[1]], [self.thickness, self.height])
         self.lines = [self.top_rect, self.bottom_rect, self.left_rect, self.right_rect]
-        self.boss_health = pygame.Rect(116,500,self.health,50)
-        self.damage_bar = pygame.Rect(116,500,self.health,50)
+        self.boss_health = pygame.Rect(50,550,self.health,50)
+        self.damage_bar = pygame.Rect(50,550,self.health,50)
         self.attacked = False
         self.cooldown = 0
 
