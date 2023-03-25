@@ -439,7 +439,7 @@ class Spikky_Boss():
         self.spikky_img = pygame.image.load(spikky_img)
         self.spikky_img = pygame.transform.scale(self.spikky_img,[64,64])
         self.spikky_pos = spikky_pos
-        self.spikky_health = spikky_health
+        self.spikky_health = 1000
         self.press_w,self.press_h = 70,210
         self.press_img = pygame.image.load(press_img)
         self.press_img = pygame.transform.scale(self.press_img, [self.press_w, self.press_h])
@@ -449,6 +449,8 @@ class Spikky_Boss():
         self.press_center = [self.press_pos[0] + self.press_w/2,self.press_pos[1] + self.press_h/2]
         self.spikky_rect = self.spikky_img.get_bounding_rect()
         self.press_rect = self.press_img.get_bounding_rect()
+        self.health_bar = pygame.Rect(self.spikky_pos[0], self.spikky_pos[1] - 10, self.spikky_health, 10)
+        self.damage_bar = pygame.Rect(self.spikky_pos[0], self.spikky_pos[1] - 10, self.spikky_health, 10)
         self.following = 1000
 
     def render(self,screen):

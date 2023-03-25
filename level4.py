@@ -132,6 +132,9 @@ def level4loop():
             platform.render(screen)
         player.playerfunctions(screen, events, time, scene5_platforms)
         spikky_boss.update(screen,player)
+        pygame.draw.rect(screen, (255, 0, 0), spikky_boss.damage_bar)
+        pygame.draw.rect(screen, (0, 255, 0), spikky_boss.health_bar)
+        print("working")
     isRunning = True
     while isRunning:
         events = pygame.event.get()
