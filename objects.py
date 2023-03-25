@@ -131,14 +131,15 @@ class Player:
         # if self.jump == True:
         # self.velocity[1] = -3
         # self.jump = False
+        keys = pygame.key.get_pressed()
+        if keys[pygame.K_LEFT] or keys[pygame.K_a]:
+            self.velocity[0] = -self.speed
+            self.facing = "Left"
+        if keys[pygame.K_RIGHT] or keys[pygame.K_d]:
+            self.velocity[0] = self.speed
+            self.facing = "Right"
         for event in events:
             if event.type == pygame.KEYDOWN:
-                if event.key == pygame.K_LEFT or event.key == pygame.K_a:
-                    self.velocity[0] = -self.speed
-                    self.facing = "Left"
-                if event.key == pygame.K_RIGHT or event.key == pygame.K_d:
-                    self.velocity[0] = self.speed
-                    self.facing = "Right"
                 if event.key == pygame.K_UP and self.jump == True:
                     self.velocity[1] = self.jump_height
                 if event.key == pygame.K_w and self.jump == True:

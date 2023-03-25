@@ -463,11 +463,11 @@ class Spikky_Boss():
             self.following -= 10
 
     def fall_down(self):
-        if self.following == 0:
+        if self.following <= 0:
             self.press_center[1] += 3
 
     def go_up(self, player):
-        if self.following == 0 and self.press_center[1] > 700:
+        if self.following <= 0 and self.press_center[1] > 700:
             self.following = 1000
             self.press_center[1] = self.press_pos[1] + self.press_h/2
             self.press_center[0] = player.center[0]

@@ -45,7 +45,7 @@ def level4loop():
     scene3_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [100, 325], 15, "spider", 2, 0, [250, 325]), enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [500, 120], 15, "spider", 2, 0,[600, 120])]
     spikky_boss = enemy.Spikky_Boss("lvl4Images/lv4boss.png",[736,389],1000,"lvl4Images/lv4attack.png",10,3)
     player.pos = [0,0]
-    scene = "scene1"
+    scene = "scene5"
 
     def death_scene(events, time):
         screen.blit(deadImg, (0, 0))
