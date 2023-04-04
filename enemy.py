@@ -320,8 +320,8 @@ class Vampire_Boss(Enemy):
         self.left_rect = pygame.Rect(self.pos, [self.thickness, self.height])
         self.right_rect = pygame.Rect([self.pos[0] + self.width, self.pos[1]], [self.thickness, self.height])
         self.lines = [self.top_rect, self.bottom_rect, self.left_rect, self.right_rect]
-        self.boss_health = pygame.Rect(50,550,self.health,50)
-        self.damage_bar = pygame.Rect(50,550,self.health,50)
+        self.boss_health = pygame.Rect(116,500,self.health,50)
+        self.damage_bar = pygame.Rect(116,500,self.health,50)
         self.attacked = False
         self.cooldown = 0
 
@@ -443,15 +443,16 @@ class Spikky_Boss():
         self.press_w,self.press_h = 70,210
         self.press_img = pygame.image.load(press_img)
         self.press_img = pygame.transform.scale(self.press_img, [self.press_w, self.press_h])
-        self.press_dmg = press_dmg
+        self.press_dmg = 250
         self.press_speed = press_speed
         self.press_pos = [0,0]
         self.press_center = [self.press_pos[0] + self.press_w/2,self.press_pos[1] + self.press_h/2]
         self.spikky_rect = self.spikky_img.get_bounding_rect()
         self.press_rect = self.press_img.get_bounding_rect()
-        self.health_bar = pygame.Rect(self.spikky_pos[0], self.spikky_pos[1] - 10, self.spikky_health, 10)
-        self.damage_bar = pygame.Rect(self.spikky_pos[0], self.spikky_pos[1] - 10, self.spikky_health, 10)
+        self.health_bar = pygame.Rect(50, 500, self.spikky_health, 50)
+        self.damage_bar = pygame.Rect(50, 500, self.spikky_health, 50)
         self.following = 1000
+        self.crunched = False
 
     def render(self,screen):
         self.spikky_rect.center = [self.spikky_pos[0]+32,self.spikky_pos[1] + 32]
@@ -463,6 +464,8 @@ class Spikky_Boss():
         if self.following > 0:
             self.press_center[0] = player.center[0]
             self.following -= 10
+            if self.crunched == True:
+                self.crunched = False
 
     def fall_down(self):
         if self.following <= 0:
@@ -479,6 +482,11 @@ class Spikky_Boss():
         self.find_player(player)
         self.fall_down()
         self.go_up(player)
+        if self.press_rect.colliderect(player.rect):
+            if self.crunched == False:
+                player.health -= self.press_dmg
+                self.crunched = True
+
 
     def damage_taken(self,projectiles):
         for projectile in projectiles:
