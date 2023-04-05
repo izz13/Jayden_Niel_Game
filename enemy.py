@@ -450,24 +450,33 @@ class Spikky_Boss():
             "center" : [self.press_w/2,self.press_h/2],
             "rect" : self.press_img.get_bounding_rect(),
             "following" : 1000,
-            "crunched" : False}
-        self.pressL["center"] = [self.pressL["center"][0] + self.pressL["pos"][0],self.pressL["center"][0] + self.pressL["pos"][0]]
+            "crunched" : False,
+            "type" : "left",
+            "idle" : False,
+            "idle_speed" : 5}
+        self.pressL["center"] = [self.pressL["center"][0] + self.pressL["pos"][0],self.pressL["center"][1] + self.pressL["pos"][1]]
         self.pressM = {
             "pos": [365, 0],
             "center": [self.press_w / 2, self.press_h / 2],
             "rect": self.press_img.get_bounding_rect(),
             "following": 5000,
-            "crunched": False}
+            "crunched": False,
+            "type" : "middle",
+            "idle" : True,
+            "idle_speed" : 7}
         self.pressM["center"] = [self.pressM["center"][0] + self.pressM["pos"][0],
-                                 self.pressM["center"][0] + self.pressM["pos"][0]]
+                                 self.pressM["center"][1] + self.pressM["pos"][1]]
         self.pressR = {
             "pos": [730, 0],
             "center": [self.press_w / 2, self.press_h / 2],
             "rect": self.press_img.get_bounding_rect(),
             "following": 10000,
-            "crunched": False}
+            "crunched": False,
+            "type" : "right",
+            "idle" : True,
+            "idle_speed" : 10}
         self.pressR["center"] = [self.pressR["center"][0] + self.pressR["pos"][0],
-                                 self.pressR["center"][0] + self.pressR["pos"][0]]
+                                 self.pressR["center"][1] + self.pressR["pos"][1]]
         self.press_pos = [0,0]
         self.press_center = [self.press_pos[0] + self.press_w/2,self.press_pos[1] + self.press_h/2]
         self.spikky_rect = self.spikky_img.get_bounding_rect()
@@ -477,18 +486,32 @@ class Spikky_Boss():
         self.following = 1000
         self.crunched = False
 
-    def render(self,screen,press):
-        self.spikky_rect.center = [self.spikky_pos[0]+32,self.spikky_pos[1] + 32]
+    def render_press(self,screen,press):
         press["rect"].center = press["center"]
-        screen.blit(self.spikky_img,self.spikky_pos)
         screen.blit(self.press_img,[press["center"][0] - self.press_w/2,press["center"][1] - self.press_h/2])
+    def render_spikky(self,screen):
+        self.spikky_rect.center = [self.spikky_pos[0] + 32, self.spikky_pos[1] + 32]
+        screen.blit(self.spikky_img, self.spikky_pos)
 
     def find_player(self,player,press):
-        if press["following"] > 0:
-            press["center"][0] = player.center[0]
-            press["following"] -= 10
-            if press["crunched"] == True:
-                press["crunched"] = False
+        if press["idle"] == False:
+            if press["following"] > 0:
+                if press["center"][0] > player.center[0]:
+                    press["center"][0] -= 5
+                if press["center"][0] < player.center[0]:
+                    press["center"][0] += 5
+                press["following"] -= 10
+                if press["crunched"] == True:
+                    press["crunched"] = False
+
+    def idle(self,press):
+        if press["idle"] == True:
+            if press["center"][0] < 0:
+                press["idle_speed"] = -press["idle_speed"]
+            if press["center"][0] > 800:
+                press["idle_speed"] = -press["idle_speed"]
+            press["center"][0] += press["idle_speed"]
+
 
     def fall_down(self,press):
         if press["following"] <= 0:
@@ -496,12 +519,25 @@ class Spikky_Boss():
 
     def go_up(self, player,press):
         if press["following"] <= 0 and press["center"][1] > 700:
-            press["following"] = 1000
+            if press["type"] == "left":
+                press["following"] = 1000
+                self.pressL["idle"] = True
+                self.pressM["idle"] = False
+            if press["type"] == "middle":
+                press["following"] = 1000
+                self.pressM["idle"] = True
+                self.pressR["idle"] = False
+            if press["type"] == "right":
+                press["following"] = 1000
+                self.pressR["idle"] = True
+                self.pressL["idle"] = False
             press["center"][1] = press["pos"][1] + self.press_h/2
             press["center"][0] = player.center[0]
 
 
+
     def attack(self,player,press):
+        self.idle(press)
         self.find_player(player,press)
         self.fall_down(press)
         self.go_up(player,press)
@@ -518,6 +554,11 @@ class Spikky_Boss():
                 projectiles.remove(projectile)
 
     def update(self,screen,player,projectiles):
-        self.render(screen,self.pressL)
+        self.render_spikky(screen)
+        self.render_press(screen,self.pressL)
+        self.render_press(screen,self.pressM)
+        self.render_press(screen,self.pressR)
         self.attack(player,self.pressL)
+        self.attack(player,self.pressM)
+        self.attack(player, self.pressR)
         self.damage_taken(projectiles)
