@@ -452,6 +452,22 @@ class Spikky_Boss():
             "following" : 1000,
             "crunched" : False}
         self.pressL["center"] = [self.pressL["center"][0] + self.pressL["pos"][0],self.pressL["center"][0] + self.pressL["pos"][0]]
+        self.pressM = {
+            "pos": [365, 0],
+            "center": [self.press_w / 2, self.press_h / 2],
+            "rect": self.press_img.get_bounding_rect(),
+            "following": 5000,
+            "crunched": False}
+        self.pressM["center"] = [self.pressM["center"][0] + self.pressM["pos"][0],
+                                 self.pressM["center"][0] + self.pressM["pos"][0]]
+        self.pressR = {
+            "pos": [730, 0],
+            "center": [self.press_w / 2, self.press_h / 2],
+            "rect": self.press_img.get_bounding_rect(),
+            "following": 10000,
+            "crunched": False}
+        self.pressR["center"] = [self.pressR["center"][0] + self.pressR["pos"][0],
+                                 self.pressR["center"][0] + self.pressR["pos"][0]]
         self.press_pos = [0,0]
         self.press_center = [self.press_pos[0] + self.press_w/2,self.press_pos[1] + self.press_h/2]
         self.spikky_rect = self.spikky_img.get_bounding_rect()
