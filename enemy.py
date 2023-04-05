@@ -445,6 +445,13 @@ class Spikky_Boss():
         self.press_img = pygame.transform.scale(self.press_img, [self.press_w, self.press_h])
         self.press_dmg = 250
         self.press_speed = press_speed
+        self.pressL ={
+            "pos" : [0,0],
+            "center" : [self.press_w/2,self.press_h/2],
+            "rect" : self.press_img.get_bounding_rect(),
+            "following" : 1000,
+            "crunched" : False}
+        self.pressL["center"] = [self.pressL["center"][0] + self.pressL["pos"][0],self.pressL["center"][0] + self.pressL["pos"][0]]
         self.press_pos = [0,0]
         self.press_center = [self.press_pos[0] + self.press_w/2,self.press_pos[1] + self.press_h/2]
         self.spikky_rect = self.spikky_img.get_bounding_rect()
@@ -454,38 +461,38 @@ class Spikky_Boss():
         self.following = 1000
         self.crunched = False
 
-    def render(self,screen):
+    def render(self,screen,press):
         self.spikky_rect.center = [self.spikky_pos[0]+32,self.spikky_pos[1] + 32]
-        self.press_rect.center = self.press_center
+        press["rect"].center = press["center"]
         screen.blit(self.spikky_img,self.spikky_pos)
-        screen.blit(self.press_img,[self.press_center[0] - self.press_w/2,self.press_center[1] - self.press_h/2])
+        screen.blit(self.press_img,[press["center"][0] - self.press_w/2,press["center"][1] - self.press_h/2])
 
-    def find_player(self,player):
-        if self.following > 0:
-            self.press_center[0] = player.center[0]
-            self.following -= 10
-            if self.crunched == True:
-                self.crunched = False
+    def find_player(self,player,press):
+        if press["following"] > 0:
+            press["center"][0] = player.center[0]
+            press["following"] -= 10
+            if press["crunched"] == True:
+                press["crunched"] = False
 
-    def fall_down(self):
-        if self.following <= 0:
-            self.press_center[1] += self.press_speed
+    def fall_down(self,press):
+        if press["following"] <= 0:
+            press["center"][1] += self.press_speed
 
-    def go_up(self, player):
-        if self.following <= 0 and self.press_center[1] > 700:
-            self.following = 1000
-            self.press_center[1] = self.press_pos[1] + self.press_h/2
-            self.press_center[0] = player.center[0]
+    def go_up(self, player,press):
+        if press["following"] <= 0 and press["center"][1] > 700:
+            press["following"] = 1000
+            press["center"][1] = press["pos"][1] + self.press_h/2
+            press["center"][0] = player.center[0]
 
 
-    def attack(self,player):
-        self.find_player(player)
-        self.fall_down()
-        self.go_up(player)
-        if self.press_rect.colliderect(player.rect):
-            if self.crunched == False:
+    def attack(self,player,press):
+        self.find_player(player,press)
+        self.fall_down(press)
+        self.go_up(player,press)
+        if press["rect"].colliderect(player.rect):
+            if press["crunched"] == False:
                 player.health -= self.press_dmg
-                self.crunched = True
+                press["crunched"] = True
 
 
     def damage_taken(self,projectiles):
@@ -495,6 +502,6 @@ class Spikky_Boss():
                 projectiles.remove(projectile)
 
     def update(self,screen,player,projectiles):
-        self.render(screen)
-        self.attack(player)
+        self.render(screen,self.pressL)
+        self.attack(player,self.pressL)
         self.damage_taken(projectiles)
