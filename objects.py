@@ -7,6 +7,10 @@ import math
 deadImg = pygame.image.load("deathscreen/gameover.png")
 exitImg = pygame.image.load("deathscreen/exitafterdeath.png")
 reviveImg = pygame.image.load("deathscreen/respawn.png")
+reviveImg_rect = reviveImg.get_bounding_rect()
+reviveImg_rect.center = [411,333.5]
+exitImg_rect = exitImg.get_bounding_rect()
+exitImg_rect.center = [411,429.5]
 jumpyraw_Img = pygame.image.load("Spells/Jump_Boost.png")
 jumpyImg = pygame.transform.scale(jumpyraw_Img, (75, 75))
 fireImg = pygame.image.load("Spells/fire.png")
@@ -50,6 +54,18 @@ class Player:
         self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 10, 10)
         self.damage_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 10, 10)
         self.keys = []
+
+    def death_scene(self, events, time, screen):
+        screen.blit(deadImg, (0, 0))
+        screen.blit(reviveImg, (222, 302))
+        screen.blit(exitImg, (222, 398))
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if exitImg_rect.collidepoint(event.pos):
+                    pygame.quit()
+                if reviveImg_rect.collidepoint(event.pos):
+                    player.pos.x,player.pos.y = 50, 50
+                    player.health = 1000
 
     def collision_plat(self, platforms):
         buffer = 2
@@ -119,6 +135,8 @@ class Player:
         pygame.draw.rect(screen, (0, 255, 0), self.health_bar)
         self.health_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, self.health / 10, 10)
         self.damage_bar = pygame.Rect(self.pos[0], self.pos[1] - 10, 1000 / 10, 10)
+        if self.health <= 0:
+            self.death_scene(events,time,screen)
         if self.spell == "fire":
             screen.blit(fireImg, [15, 15])
         if self.spell == "ice":

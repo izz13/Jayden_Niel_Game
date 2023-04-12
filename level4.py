@@ -17,7 +17,11 @@ exitImg_rect.center = [411,429.5]
 boomImg = pygame.image.load("lvl4Images/volcano.png")
 bossImg = pygame.image.load("lvl4Images/lv4boss.png")
 squishrawImg = pygame.image.load("lvl4Images/lv4attack.png")
-squishImg = pygame.transform.scale(squishrawImg, [70,600])
+squishImg = pygame.transform.scale(squishrawImg, [140,600])
+cutImg = pygame.image.load("lvl4Images/cutscene.png")
+play2Img = pygame.image.load("lvl1_cutscene/playbutton.png")
+play2Img_rect = playImg.get_bounding_rect()
+play2Img_rect.center = [589, 296]
 lava_raw1Img = pygame.image.load("lvl4Images/lava.png")
 lava1Img = pygame.transform.scale(lava_raw1Img, [100, 145])
 lava2Img = pygame.transform.scale(lava_raw1Img, [800, 800])
@@ -45,7 +49,7 @@ def level4loop():
     scene3_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [100, 325], 15, "spider", 2, 0, [250, 325]), enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [500, 120], 15, "spider", 2, 0,[600, 120])]
     spikky_boss = enemy.Spikky_Boss("lvl4Images/lv4boss.png",[736,389],1000,"lvl4Images/lv4attack.png",10,3)
     player.pos = [0,350]
-    scene = "scene5"
+    scene = "scene1"
 
     def death_scene(events, time):
         screen.blit(deadImg, (0, 0))
@@ -83,7 +87,7 @@ def level4loop():
                     player.health = 1000
         if player.pos[0] >= 600 and player.pos[0] <= 636:
             if player.pos[1] >= 391:
-                death_scene(events,time)
+                player.health = 0
 
     def scene2(screen, events, time, player):
         screen.blit(boomImg, (0, 0))
@@ -101,7 +105,8 @@ def level4loop():
             xy[1] += 1
             screen.blit(lava2Img, xy)
         else:
-            death_scene(events, time)
+            player.health = 0
+            xy[1] = -1000
     def scene3(screen, events, time, player):
         screen.blit(boomImg, (0, 0))
         for platform in scene3_platforms:
@@ -117,15 +122,17 @@ def level4loop():
                     scene3_enemies.remove(e)
         if player.pos[0] >= 600 and player.pos[0] <= 700:
             if player.pos[1] > 130:
-                death_scene(events, time)
+                player.health = 0
     def scene4(screen, events, time, player):
         screen.blit(boomImg, (0, 0))
         for platform in scene4_platforms:
             platform.render(screen)
-        screen.blit(lava4Img, [0, 500])
+        screen.blit(lava4Img, [0, 510])
         player.playerfunctions(screen, events, time, scene4_platforms)
         player.spells.append("poison")
         player.spells.append("jump_boost")
+        if player.pos[1] >= 460:
+            player.health = 0
     def scene5(screen, events, time, player):
         screen.blit(boomImg, (0, 0))
         for platform in scene5_platforms:
@@ -135,6 +142,15 @@ def level4loop():
         spikky_boss.health_bar.width = spikky_boss.spikky_health
         pygame.draw.rect(screen, (255, 0, 0), spikky_boss.damage_bar)
         pygame.draw.rect(screen, (0, 255, 0), spikky_boss.health_bar)
+
+    def cutscene(events, screen):
+        screen.blit(cutImg,[0,0])
+        screen.blit(play2Img,[489,246])
+        for event in events:
+            if event.type == pygame.MOUSEBUTTONDOWN:
+                if play2Img_rect.collidepoint(event.pos):
+                    return "level5"
+
 
     isRunning = True
     while isRunning:

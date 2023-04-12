@@ -440,7 +440,7 @@ class Spikky_Boss():
         self.spikky_img = pygame.transform.scale(self.spikky_img,[64,64])
         self.spikky_pos = spikky_pos
         self.spikky_health = 1000
-        self.press_w,self.press_h = 70,210
+        self.press_w,self.press_h = 160,210
         self.press_img = pygame.image.load(press_img)
         self.press_img = pygame.transform.scale(self.press_img, [self.press_w, self.press_h])
         self.press_dmg = 250
@@ -459,7 +459,7 @@ class Spikky_Boss():
             "pos": [365, 0],
             "center": [self.press_w / 2, self.press_h / 2],
             "rect": self.press_img.get_bounding_rect(),
-            "following": 5000,
+            "following": 1000,
             "crunched": False,
             "type" : "middle",
             "idle" : True,
@@ -470,7 +470,7 @@ class Spikky_Boss():
             "pos": [730, 0],
             "center": [self.press_w / 2, self.press_h / 2],
             "rect": self.press_img.get_bounding_rect(),
-            "following": 10000,
+            "following": 1000,
             "crunched": False,
             "type" : "right",
             "idle" : True,
