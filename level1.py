@@ -71,9 +71,11 @@ def leve1loop():
         pygame.draw.rect(screen, black, doorrect)
         screen.blit(slvrImg, (80, 90))
         if doorrect.colliderect(player.rect):
-            if player.velocity[0] > 0:
-                player.velocity[0] = -10
-                player.velocity[1] = 10
+            print("hit")
+            #if player.velocity[0] > 0:
+            player.velocity[0] = -10
+            player.velocity[1] = 10
+            print(player.velocity)
 
     def cutscene1(events):
         screen.blit(firstpicImg,[0,0])
