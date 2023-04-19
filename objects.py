@@ -290,9 +290,10 @@ class Spell:
         self.velocity[0] = speed
         if self.facing == "Right":
             self.pos[0] += self.velocity[0]
-            self.pos[1] += 5*math.sin((self.rel_x)*math.pi*(.75) + 10)
+            self.pos[1] += 5*math.sin((self.rel_x)*math.pi*(1) + 10)
         if self.facing == "Left":
-            self.pos -= self.velocity
+            self.pos[0] -= self.velocity[0]
+            self.pos[1] += 5 * math.sin((self.rel_x) * math.pi * (1) + 10)
         self.rel_x += .1
 
 class Key:

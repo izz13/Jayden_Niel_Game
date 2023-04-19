@@ -1,7 +1,7 @@
 import pygame
 
 pygame.init()
-level = "level3"
+level = "level1"
 
 isrunning = True
 while isrunning:
