@@ -106,6 +106,8 @@ def level3loop():
             escape_room_boss(events, time)
             player.spells.append("poison")
             player.spells.append("jump_boost")
+            if vampire_boss.health <= 0:
+                return "level4"
 
         pygame.display.flip()
         clock.tick(fps)

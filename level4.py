@@ -21,7 +21,7 @@ squishImg = pygame.transform.scale(squishrawImg, [140,600])
 cutImg = pygame.image.load("lvl4Images/cutscene.png")
 play2Img = pygame.image.load("lvl1_cutscene/playbutton.png")
 play2Img_rect = play2Img.get_bounding_rect()
-play2Img_rect.center = [589, 296]
+play2Img_rect.center = [80,460]
 lava_raw1Img = pygame.image.load("lvl4Images/lava.png")
 lava1Img = pygame.transform.scale(lava_raw1Img, [100, 145])
 lava2Img = pygame.transform.scale(lava_raw1Img, [800, 800])
@@ -49,7 +49,8 @@ def level4loop():
     scene3_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [100, 325], 15, "spider", 2, 0, [250, 325]), enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [500, 120], 15, "spider", 2, 0,[600, 120])]
     spikky_boss = enemy.Spikky_Boss("lvl4Images/lv4boss.png",[736,389],1000,"lvl4Images/lv4attack.png",10,3)
     player.pos = [0,350]
-    scene = "scene1"
+    scene = "scene5"
+
 
     def death_scene(events, time):
         screen.blit(deadImg, (0, 0))
@@ -145,7 +146,7 @@ def level4loop():
 
     def cutscene(events, screen):
         screen.blit(cutImg,[0,0])
-        screen.blit(play2Img,[489,246])
+        screen.blit(play2Img,[30,270])
         for event in events:
             if event.type == pygame.MOUSEBUTTONDOWN:
                 if play2Img_rect.collidepoint(event.pos):
@@ -179,6 +180,8 @@ def level4loop():
             player.pos[0] = 745
         if player.pos[0] < 0 and scene == "scene5":
             player.pos[0] = 0
+        if spikky_boss.spikky_health <= 0:
+            scene = "cutscene"
         if scene == "scene1":
             scene1(screen, events, time, player)
         if scene == "scene2":
@@ -189,6 +192,8 @@ def level4loop():
             scene4(screen, events, time, player)
         if scene == "scene5":
             scene5(screen, events, time, player)
+        if scene == "cutscene":
+            cutscene(events, screen)
         pygame.display.flip()
         clock.tick(fps)
 
