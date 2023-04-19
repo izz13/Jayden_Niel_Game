@@ -43,7 +43,7 @@ def level3loop():
                           enemy.Zombie(zombie_img, [75, 75],330, [590, 430], 60, "zombie", 5, 10,[750, 430])]
     basicvaultkey = objects.Key([600, 450], "Level3Images/Vault1Key.png", "basic_key")
     escape_room_platforms = [Platform([0, 500], 800, 105, black)]
-    vampire_boss = enemy.Vampire_Boss("Mobs/Vampire.png", [609, 180], [100, 100], 1200, 200, "vampire_boss", 0, 5.8, escape_room_platforms)
+    vampire_boss = enemy.Vampire_Boss("Mobs/Vampire.png", [609, 180], [100, 100], 100, 200, "vampire_boss", 0, 5.8, escape_room_platforms)
     def escape_room(events,time):
         screen.fill(gray)
         player.playerfunctions(screen, events, time, escape_room_platforms)
@@ -82,6 +82,8 @@ def level3loop():
         vampire_boss.boss_health.width = vampire_boss.health
         health_msg = font.render("HEALTH", 0, (255, 0, 0))
         screen.blit(health_msg, [300, 510])
+        if vampire_boss.health <= 0:
+            return "level4"
 
     #game-loop goes here
     isRunning = True
@@ -103,10 +105,10 @@ def level3loop():
             if len(player.keys) == 1 and player.pos[0] >= 720:
                 scene = "room_boss"
         if scene == "room_boss":
-            escape_room_boss(events, time)
+            ret = escape_room_boss(events, time)
             player.spells.append("poison")
             player.spells.append("jump_boost")
-            if vampire_boss.health <= 0:
+            if ret == "level4":
                 return "level4"
 
         pygame.display.flip()

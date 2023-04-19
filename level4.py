@@ -4,31 +4,13 @@ import objects
 from objects import player
 from objects import Platform
 import enemy
+import tools
 
 pygame.init()
 
-deadImg = pygame.image.load("deathscreen/gameover.png")
-exitImg = pygame.image.load("deathscreen/exitafterdeath.png")
-reviveImg = pygame.image.load("deathscreen/respawn.png")
-reviveImg_rect = reviveImg.get_bounding_rect()
-reviveImg_rect.center = [411,333.5]
-exitImg_rect = exitImg.get_bounding_rect()
-exitImg_rect.center = [411,429.5]
-boomImg = pygame.image.load("lvl4Images/volcano.png")
-bossImg = pygame.image.load("lvl4Images/lv4boss.png")
-squishrawImg = pygame.image.load("lvl4Images/lv4attack.png")
-squishImg = pygame.transform.scale(squishrawImg, [140,600])
-cutImg = pygame.image.load("lvl4Images/cutscene.png")
-play2Img = pygame.image.load("lvl1_cutscene/playbutton.png")
-play2Img_rect = play2Img.get_bounding_rect()
-play2Img_rect.center = [80,460]
-lava_raw1Img = pygame.image.load("lvl4Images/lava.png")
-lava1Img = pygame.transform.scale(lava_raw1Img, [100, 145])
-lava2Img = pygame.transform.scale(lava_raw1Img, [800, 800])
-lava3Img = pygame.transform.scale(lava_raw1Img, [100, 50])
-lava4Img = pygame.transform.scale(lava_raw1Img, [800, 100])
-xy = [0, -800]
+
 def level4loop():
+    print("test level4")
     screen_width = 800
     screen_height = 600
     screen = pygame.display.set_mode([screen_width, screen_height])
@@ -39,6 +21,29 @@ def level4loop():
     clock = pygame.time.Clock()
     fps = 60
     #font = pygame.font.SysFont(None, 60)
+
+    deadImg = pygame.image.load("deathscreen/gameover.png")
+    exitImg = pygame.image.load("deathscreen/exitafterdeath.png")
+    reviveImg = pygame.image.load("deathscreen/respawn.png")
+    reviveImg_rect = reviveImg.get_bounding_rect()
+    reviveImg_rect.center = [411, 333.5]
+    exitImg_rect = exitImg.get_bounding_rect()
+    exitImg_rect.center = [411, 429.5]
+    boomImg = pygame.image.load("lvl4Images/volcano.png")
+    bossImg = pygame.image.load("lvl4Images/lv4boss.png")
+    squishrawImg = pygame.image.load("lvl4Images/lv4attack.png")
+    squishImg = pygame.transform.scale(squishrawImg, [140, 600])
+    cutImg = pygame.image.load("lvl4Images/cutscene.png")
+    play2Img = pygame.image.load("lvl1_cutscene/playbutton.png")
+    play2Img_rect = play2Img.get_bounding_rect()
+    play2Img_rect.center = [80, 460]
+    lava_raw1Img = pygame.image.load("lvl4Images/lava.png")
+    lava1Img = pygame.transform.scale(lava_raw1Img, [100, 145])
+    lava2Img = pygame.transform.scale(lava_raw1Img, [800, 800])
+    lava3Img = pygame.transform.scale(lava_raw1Img, [100, 50])
+    lava4Img = pygame.transform.scale(lava_raw1Img, [800, 100])
+    xy = [0, -800]
+
     scene1_platforms = [Platform([0, 450], 600, 150, "gray"), Platform([700, 450], 100, 150, "gray"), Platform([600, 590], 100, 100, "gray")]
     scene2_platforms = [Platform([0, 450], 800, 150, "gray")]
     scene3_platforms = [Platform([0, 450], 800, 150, "gray"), Platform([100, 380], 150, 50, "gray"), Platform([250, 310], 150, 50, "gray"), Platform([400, 240], 100, 50, "gray"), Platform([500, 170], 100, 50, "gray"), Platform([700, 170], 100, 50, "gray"), Platform([600, 170], 2, 430, "gray"), Platform([700, 170], 2, 430, "gray")]
@@ -49,7 +54,7 @@ def level4loop():
     scene3_enemies = [enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75], 180, [100, 325], 15, "spider", 2, 0, [250, 325]), enemy.Spider("Mobs/Common_Spider_Enemy.png", [75, 75],180, [500, 120], 15, "spider", 2, 0,[600, 120])]
     spikky_boss = enemy.Spikky_Boss("lvl4Images/lv4boss.png",[736,389],1000,"lvl4Images/lv4attack.png",10,3)
     player.pos = [0,350]
-    scene = "scene5"
+    scene = "scene1"
 
 
     def death_scene(events, time):
@@ -198,9 +203,7 @@ def level4loop():
         clock.tick(fps)
 
 
-pygame.quit()
+    pygame.quit()
 
 if __name__ == "__main__":
     level4loop()
-pygame.quit()
-quit()
