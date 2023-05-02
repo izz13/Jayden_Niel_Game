@@ -47,7 +47,7 @@ def leve1loop():
     scene = "plainScene"
     buttonrect = pygame.Rect([0, 150], [50, 50])
     doorrect = pygame.Rect([380, 0], [40, 220])
-    l1boss = enemy.Bosslvl1("Mobs/lvl1boss_left.png", [543, 350], [100, 134], 50, 1000, "lvl1boss", 0.5,.8,"Mobs/1boss_right","Mobs/1boss_left")
+    l1boss = enemy.Bosslvl1("Mobs/lvl1boss_left.png", [543, 350], [100, 134], 1000, 1000, "lvl1boss", 0.5,.8,"Mobs/1boss_right","Mobs/1boss_left")
 
 
 
@@ -67,7 +67,6 @@ def leve1loop():
         slvrImg_raw = pygame.image.load("LVL1Images/themountainofsilver.png")
         slvrImg = pygame.transform.scale(slvrImg_raw,[640,450])
         pygame.draw.rect(screen,green,buttonrect)
-        pygame.draw.rect(screen, green, doorrect)
         pygame.draw.rect(screen, black, doorrect)
         screen.blit(slvrImg, (80, 90))
 
