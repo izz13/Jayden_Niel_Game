@@ -26,8 +26,8 @@ def level5loop():
     re4Img = pygame.image.load("lvl5Img/4rematch.png")
     re5Img = pygame.image.load("lvl5Img/finalboss.png")
 
-    boss1platform = [Platform, ([0, 0], 800, 600, "gray")]
-    boss4platform = [Platform, ([0, 450], 300, 150, "gray"), Platform, ([400, 0], 300, 150, "gray")]
+    boss1platform = [Platform([0, 0], 800, 600, "gray")]
+    boss4platform = [Platform([0, 450], 300, 150, "gray"), Platform([400, 0], 300, 150, "gray")]
     l1boss = enemy.Bosslvl1("Mobs/lvl1boss_left.png", [543, 350], [100, 134], 1000, 1000, "lvl1boss", 0.5, .8, "Mobs/1boss_right", "Mobs/1boss_left")
     scene = "scene1"
 
